@@ -1,4 +1,5 @@
 ﻿using BL;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace WorklistAssistant
     
     public partial class MainWindow : Window
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public MainWindow()
         {
             InitializeComponent(); 
@@ -64,8 +66,23 @@ namespace WorklistAssistant
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            //Refresh();
+            Refresh();
 
+        }
+
+        private void Refresh()
+        { 
+            try
+            {
+List<string> users = UserManager.GetListLogin();
+            cmbUser.ItemsSource = users;
+            }
+            catch (Exception ex)
+            {
+
+                logger.Trace(ex+"\r\n");
+            }
+            
         }
 
      

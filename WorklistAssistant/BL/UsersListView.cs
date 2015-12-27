@@ -10,8 +10,11 @@ namespace BL
     {
         public List<string> UsersLogin { get; set; }
         public UsersListView()
-        {
-            UsersLogin = UserManager.GetListLogin();
+        { 
+            
+UsersLogin = UserManager.GetListLogin();
+            
+            
         }
     }
 }
