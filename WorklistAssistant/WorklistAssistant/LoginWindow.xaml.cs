@@ -23,10 +23,6 @@ namespace WorklistAssistant
         public MainWindow()
         {
             InitializeComponent();
-            
-            List<string> users = UserManager.GetListLogin();
-            cmbUser.ItemsSource =users ;
-
         }
         public void Refresh()
         {
@@ -47,8 +43,6 @@ namespace WorklistAssistant
             {
                 MessageBox.Show("Password Wrong");
             }
-            //NewUserWindow form = new NewUserWindow();
-            //form.ShowDialog();
         }
 
         private void Button_Exit_Click(object sender, RoutedEventArgs e)

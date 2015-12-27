@@ -1,7 +1,11 @@
-﻿<Window x:Class="WorklistAssistant.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:BL="clr-namespace:BL;assembly=BL" x:Class="WorklistAssistant.MainWindow" 
         SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
+    <Window.DataContext>
+        <BL:UsersListView/>
+    </Window.DataContext>
     <Grid  Background="#FF323132" Height="auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="35" />
@@ -17,9 +21,9 @@
 
         </Grid.RowDefinitions>
         <Label Content="User" HorizontalAlignment="Left" Margin="0,15,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontFamily="Tahoma" FontWeight="Bold" Foreground="#FF9E9B9B" Height="24" Width="37" />
-        <ComboBox x:Name="cmbUser" Height="25" VerticalAlignment="Center"  Margin="0" Background="#FF323132" BorderBrush="#FF0A0A0A" RenderTransformOrigin="0.5,0" Grid.Row="2" Grid.Column="1" Width="210" HorizontalAlignment="Left" Foreground="#FF9E9B9B" RequestBringIntoView="cmbUser_RequestBringIntoView"  />
+        <ComboBox x:Name="cmbUser" ItemsSource="{Binding UsersLogin}"  Height="25" VerticalAlignment="Center"  Margin="0" Background="#FF323132" BorderBrush="#FF0A0A0A" RenderTransformOrigin="0.5,0" Grid.Row="2" Grid.Column="1" Width="210" HorizontalAlignment="Left" Foreground="#FF9E9B9B" RequestBringIntoView="cmbUser_RequestBringIntoView"  />
         <Label Content="Master Password" HorizontalAlignment="Left" Margin="0,5,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" RenderTransformOrigin="-0.14,0.124" Foreground="#FF9E9B9B" Height="26" Width="100" />
-        <PasswordBox x:Name="psbPassword" HorizontalAlignment="Left"  Height="25"  Grid.Row="4" Grid.Column="1"  VerticalAlignment="Top" MinWidth="210" Background="#FF323132"  SelectionBrush="#FF292A2B" MaxLength="25" Foreground="#FF9E9B9B">
+        <PasswordBox x:Name="psbPassword" FontSize="16" HorizontalAlignment="Left"  Height="25"  Grid.Row="4" Grid.Column="1"  VerticalAlignment="Top" MinWidth="210" Background="#FF323132"  SelectionBrush="#FF292A2B" MaxLength="20" Foreground="#FF9E9B9B">
             <PasswordBox.Template>
                 <ControlTemplate>
                     <Border  CornerRadius="4"  BorderThickness="1" BorderBrush="#FF0A0A0A">
@@ -40,7 +44,7 @@
         <Image Source="Img/logo.jpg" Grid.ColumnSpan="3" MaxWidth ="300" MaxHeight="300" Grid.Row="0"/>
         <Button  Grid.Column="1" HorizontalAlignment="Right" Height="15" Margin="241,4,0,0" VerticalAlignment="Top" Width="15" RenderTransformOrigin="1.163,0.193" Click="Button_Exit_Click" FontWeight="Bold" IsCancel="True">
             <StackPanel Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">X</TextBlock>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="X"/></TextBlock>
             </StackPanel>
         </Button>
     </Grid>
