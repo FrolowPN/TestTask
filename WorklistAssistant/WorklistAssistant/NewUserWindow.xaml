@@ -81,6 +81,6 @@
             <Button Style="{StaticResource MyButtonStyle}" Content="Save" Click="button_save_click" VerticalAlignment="Top"/>
             <Button Style="{StaticResource MyButtonStyle}" Content="Cancel" IsCancel="True" Click="Button_Click"/>
         </StackPanel>
-        <GridSplitter Height="1"  Margin="0,20,0,0" Grid.Row="6"  Width="294" Grid.ColumnSpan="2" Background="#FF0C0B0B" Foreground="#FF232121"/>
+        <GridSplitter Height="1"  Margin="0,20,0,0" Grid.Row="6"  Width="294" Grid.ColumnSpan="2" Background="#FF0C0B0B" Foreground="#FF0C0B0B"/>
     </Grid>
 </Window>
