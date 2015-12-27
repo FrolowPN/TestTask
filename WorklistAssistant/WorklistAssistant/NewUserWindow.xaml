@@ -78,8 +78,8 @@
         </PasswordBox>
         <!--<Rectangle Grid.Row="6" Grid.ColumnSpan="2" Fill="Black" Margin="0,10,0,0"></Rectangle>-->
         <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0,10,0,20" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Button Style="{StaticResource MyButtonStyle}" Content="Save" Click="button_save_click"/>
-            <Button Style="{StaticResource MyButtonStyle}" Content="Cancel" IsCancel="True"/>
+            <Button Style="{StaticResource MyButtonStyle}" Content="Save" Click="button_save_click" VerticalAlignment="Top"/>
+            <Button Style="{StaticResource MyButtonStyle}" Content="Cancel" IsCancel="True" Click="Button_Click"/>
         </StackPanel>
         <GridSplitter Height="1"  Margin="0,20,0,0" Grid.Row="6"  Width="294" Grid.ColumnSpan="2" Background="#FF0C0B0B" Foreground="#FF232121"/>
     </Grid>
