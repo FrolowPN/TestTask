@@ -4,21 +4,45 @@
         xmlns:BL="clr-namespace:BL;assembly=BL" x:Class="WorklistAssistant.MainWindow" 
         SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
     <Window.Resources>
-        <Style x:Key="MyButtonStyle">
-            <Setter Property="Control.Height" Value="20"></Setter>
-            <Setter Property="Control.Width" Value="60"></Setter>
-            <Setter Property="Control.FontFamily" Value="Verdana"></Setter>
-            <Setter Property="Control.FontSize" Value="12"></Setter>
-            <Setter Property="Control.Foreground" Value="#FF9E9B9B"></Setter>
-            <Setter Property="Control.Background" Value="#FF323132"></Setter>
-            <Setter Property="Control.Margin" Value="10,10,0,0"></Setter>
-            <Setter Property="Control.BorderBrush" Value="#FF0A0A0A"></Setter>
+        
+
+        <Style TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border
+                                  Name="Border"
+                                    CornerRadius="0"
+                                    BorderBrush="Transparent" Background="#FF3E3B3B"
+                            >
+
+                            <TextBlock Margin="10,0,0,0">
+                                        <ContentPresenter />
+                            </TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Gray"/>
+                                <Setter TargetName="Border" Property="Background" Value="#FF363635"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
+
+
         <Style  TargetType="Button">
             <Setter Property="SnapsToDevicePixels" Value="true"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyButtonStyle}"/>
-          
+            <Setter Property="Foreground" Value="#FF9E9B9B"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -69,7 +93,16 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid  Background="#FF323132" Height="auto">
+    <Window.DataContext>
+        <BL:UsersListView/>
+    </Window.DataContext>
+    <Grid Height="auto">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF535252" Offset="0"/>
+                <GradientStop Color="#FF292727" Offset="0.445"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="35" />
             <ColumnDefinition Width="220*"/>
@@ -83,33 +116,46 @@
             <RowDefinition Height="auto" />
 
         </Grid.RowDefinitions>
-        <Label Content="User" HorizontalAlignment="Left" Margin="0,15,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontFamily="Tahoma" FontWeight="Bold" Foreground="#FF9E9B9B" Height="24" Width="37" />
-        <ComboBox x:Name="cmbUser"   Height="25" VerticalAlignment="Center"  Margin="0" Background="#FF323132" BorderBrush="#FF0A0A0A" RenderTransformOrigin="0.5,0" Grid.Row="2" Grid.Column="1" Width="210" HorizontalAlignment="Left" Foreground="#FF9E9B9B" RequestBringIntoView="cmbUser_RequestBringIntoView">
-            <!--<ComboBoxItem Background="#FF323132">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="Img/logo.jpg" Height="20px" Width="20px"/>
-                    <Label Content="Add new User"/>
-                </StackPanel>
-            </ComboBoxItem>-->
+        <Label Content="User" HorizontalAlignment="Left" Margin="0,15,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF9E9B9B" Height="24" Width="61" FontSize="13" />
+        <ComboBox x:Name="cmbUser"  ItemsSource="{Binding UsersLogin}" Height="25" VerticalAlignment="Center"  Margin="0" BorderBrush="#FF0A0A0A" RenderTransformOrigin="0.5,0" Grid.Row="2" Grid.Column="1" Width="210" HorizontalAlignment="Left" Foreground="#FF9E9B9B" RequestBringIntoView="cmbUser_RequestBringIntoView">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF363434" Offset="0.038"/>
+                    <GradientStop Color="#FF424040" Offset="0.858"/>
+                    <GradientStop Color="#FF383636" Offset="0.39"/>
+                    <GradientStop Color="#FF2E2C2C" Offset="0.672"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
         </ComboBox>
-        <Label Content="Master Password" HorizontalAlignment="Left" Margin="0,5,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" RenderTransformOrigin="-0.14,0.124" Foreground="#FF9E9B9B" Height="26" Width="100" />
-        <PasswordBox x:Name="psbPassword" FontSize="16" HorizontalAlignment="Left"  Height="25"  Grid.Row="4" Grid.Column="1"  VerticalAlignment="Top" MinWidth="210" Background="#FF323132"  SelectionBrush="#FF292A2B" MaxLength="20" Foreground="#FF9E9B9B">
+        <Label Content="Master Password" HorizontalAlignment="Left" Margin="0,5,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" RenderTransformOrigin="-0.14,0.124" Foreground="#FF9E9B9B" Height="26" Width="156" FontFamily="Verdana" FontSize="13" />
+        <PasswordBox x:Name="psbPassword" FontSize="16" HorizontalAlignment="Left"  Height="25"  Grid.Row="4" Grid.Column="1"  VerticalAlignment="Top" MinWidth="210" Background="#FF323132"  SelectionBrush="#FF080808" MaxLength="20" Foreground="#FF9E9B9B" CaretBrush="#FF4B4747">
+            <PasswordBox.OpacityMask>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF6C1818" Offset="1"/>
+                </LinearGradientBrush>
+            </PasswordBox.OpacityMask>
             <PasswordBox.Template>
                 <ControlTemplate>
                     <Border  CornerRadius="4"  BorderThickness="1" BorderBrush="#FF0A0A0A">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF403F3F" Offset="0"/>
+                                <GradientStop Color="#FF302F2F" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
                     </Border>
                 </ControlTemplate>
             </PasswordBox.Template>
         </PasswordBox>
 
-        <Button x:Name="btnLogin" Content="Login"  HorizontalAlignment="Center" Margin="0,15,0,15" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" MinWidth="121" RenderTransformOrigin="-0.195,-1.635" BorderBrush="#FF0C0B0B" Foreground="#FF9E9B9B" Height="22" Width="120" FontSize="13" FontWeight="Bold" FontFamily="Verdana" Click="Button_Click">
-
-        </Button>
+        <Button x:Name="btnLogin" Content="Login"  HorizontalAlignment="Center" Margin="0,15,0,15" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" MinWidth="121" RenderTransformOrigin="-0.195,-1.635"  Height="22" Width="120" Click="Button_Click"/>
         <Image Source="Img/logo.jpg" Grid.ColumnSpan="3" MaxWidth ="300" MaxHeight="300" Grid.Row="0"/>
-        <Button  Grid.Column="1" HorizontalAlignment="Right" Height="15" Margin="241,4,0,0" VerticalAlignment="Top" Width="15" RenderTransformOrigin="1.163,0.193" Click="Button_Exit_Click" FontWeight="Bold" IsCancel="True">
+        <Button  Grid.Column="1" HorizontalAlignment="Right" Height="15" Margin="241,4,5,0" VerticalAlignment="Top" Width="15" RenderTransformOrigin="1.163,0.193" Click="Button_Exit_Click" FontWeight="Bold" IsCancel="True">
             <StackPanel Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="X"/></TextBlock>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,1" Foreground="#FF6880C1">X</TextBlock>
             </StackPanel>
         </Button>
     </Grid>

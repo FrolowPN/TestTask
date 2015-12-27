@@ -22,43 +22,9 @@ namespace WorklistAssistant
     {
         public MainWindow()
         {
-            InitializeComponent();
-            cmbUserInitialize();
-            
+            InitializeComponent(); 
         }
-        public void cmbUserInitialize()
-        {
-            foreach (var item in UserManager.GetListLogin())
-            {
-                StackPanel stc = new StackPanel();
-                stc.Orientation = Orientation.Horizontal;
-                Label lbl = new Label();
-                lbl.Content = item;
-
-                Label lbl1 = new Label();
-                lbl1.Content = "=)";
-                stc.Children.Add(lbl1);
-                stc.Children.Add(lbl);
-                cmbUser.Items.Add(stc);
-            }
-            StackPanel stc1 = new StackPanel();
-                stc1.Orientation = Orientation.Horizontal;
-                Label lblnu = new Label();
-                lblnu.Content = "Add new User";
-
-                Label lblnu1 = new Label();
-                lblnu1.Content = "+";
-                stc1.Children.Add(lblnu1);
-                stc1.Children.Add(lblnu);
-                Button newBtn = new Button();
-                newBtn.Content = stc1;
-                newBtn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF323132"));
-                newBtn.Width = 210;
-                newBtn.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF323132"));
-                newBtn.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF323132"));
-                cmbUser.Items.Add(newBtn);
-            
-        }
+       
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -99,8 +65,7 @@ namespace WorklistAssistant
         private void Window_Activated(object sender, EventArgs e)
         {
             //Refresh();
-            cmbUser.Items.Clear();
-            cmbUserInitialize();
+
         }
 
      

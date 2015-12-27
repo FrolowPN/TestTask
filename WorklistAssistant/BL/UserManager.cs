@@ -15,6 +15,7 @@ namespace BL
             {
                 result.Add(item.Login.ToString());
             }
+            result.Add("Add new User");
             return result;
         }
         public static  User GetUserOnLogin(string userName)

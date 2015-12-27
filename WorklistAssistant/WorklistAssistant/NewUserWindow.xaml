@@ -20,15 +20,61 @@
             <Setter Property="Control.Foreground" Value="#FF9E9B9B"></Setter>
             <Setter Property="Control.Margin" Value="0,10,0,0"></Setter>
         </Style>
-        <Style x:Key="MyButtonStyle">
-            <Setter Property="Control.Height" Value="20"></Setter>
-            <Setter Property="Control.Width" Value="60"></Setter>
-            <Setter Property="Control.FontFamily" Value="Verdana"></Setter>
-            <Setter Property="Control.FontSize" Value="12"></Setter>
-            <Setter Property="Control.Foreground" Value="#FF9E9B9B"></Setter>
-            <Setter Property="Control.Background" Value="#FF323132"></Setter>
-            <Setter Property="Control.Margin" Value="10,10,0,0"></Setter>
-            <Setter Property="Control.BorderBrush" Value="#FF0A0A0A"></Setter>
+        <Style  TargetType="Button">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Foreground" Value="#FF9E9B9B"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+          x:Name="Border"  
+          CornerRadius="2" 
+          BorderThickness="1"
+          BorderBrush="#FF0C0B0B">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF3A3838" Offset="0.052"/>
+                                    <GradientStop Color="#FF1B1919" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter TargetName="Border" Property="BorderBrush" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF3A3535" Offset="0"/>
+                                            <GradientStop Color="#FF4D4C4C" Offset="0.297"/>
+                                            <GradientStop Color="#FF3F3B3B" Offset="0.933"/>
+                                            <GradientStop Color="#FF6B6868" Offset="0.69"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF302C2C" Offset="0"/>
+                                            <GradientStop Color="#FF2B2323" Offset="1"/>
+                                            <GradientStop Color="#FF191515" Offset="0.636"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF151414" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FF0C0B0B" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <Grid>
@@ -78,8 +124,8 @@
         </PasswordBox>
         <!--<Rectangle Grid.Row="6" Grid.ColumnSpan="2" Fill="Black" Margin="0,10,0,0"></Rectangle>-->
         <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0,10,0,20" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Button Style="{StaticResource MyButtonStyle}" Content="Save" Click="button_save_click" VerticalAlignment="Top"/>
-            <Button Style="{StaticResource MyButtonStyle}" Content="Cancel" IsCancel="True" Click="Button_Click"/>
+            <Button Width="70" Margin="0,0,10,0" Content="Save" Click="button_save_click" VerticalAlignment="Top"/>
+            <Button Width="70" Margin="0,0,10,0" Content="Cancel" IsCancel="True" Click="Button_Click"/>
         </StackPanel>
         <GridSplitter Height="1"  Margin="0,20,0,0" Grid.Row="6"  Width="294" Grid.ColumnSpan="2" Background="#FF0C0B0B" Foreground="#FF0C0B0B"/>
     </Grid>
