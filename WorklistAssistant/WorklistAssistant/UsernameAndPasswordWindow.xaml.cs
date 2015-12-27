@@ -30,13 +30,13 @@ namespace WorklistAssistant
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (txtOldPassword.Text != UserLog.Password)
+            if (psbOldPassword.Password != UserLog.Password)
             {
                 MessageBox.Show("Passwords wrong!");
             }
             else
             {
-                if (txtNewPassword.Text == txtConfirmNewPassword.Text)
+                if (psbNewPassword.Password == psbConfirmNewPassword.Password)
                 {
                     this.Close();
                 }

@@ -19,15 +19,15 @@
         <Label Content="User" HorizontalAlignment="Left" Margin="0,15,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontFamily="Tahoma" FontWeight="Bold" Foreground="#FF9E9B9B" Height="24" Width="37" />
         <ComboBox x:Name="cmbUser" Height="25" VerticalAlignment="Center"  Margin="0" Background="#FF323132" BorderBrush="#FF0A0A0A" RenderTransformOrigin="0.5,0" Grid.Row="2" Grid.Column="1" Width="210" HorizontalAlignment="Left" Foreground="#FF9E9B9B" RequestBringIntoView="cmbUser_RequestBringIntoView"  />
         <Label Content="Master Password" HorizontalAlignment="Left" Margin="0,5,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" RenderTransformOrigin="-0.14,0.124" Foreground="#FF9E9B9B" Height="26" Width="100" />
-        <TextBox x:Name="txtPassword" HorizontalAlignment="Left"  Height="25"  Grid.Row="4" Grid.Column="1"  VerticalAlignment="Top" MinWidth="210" Background="#FF323132"  SelectionBrush="#FF292A2B" MaxLength="25" Foreground="#FF9E9B9B">
-            <TextBox.Template>
+        <PasswordBox x:Name="psbPassword" HorizontalAlignment="Left"  Height="25"  Grid.Row="4" Grid.Column="1"  VerticalAlignment="Top" MinWidth="210" Background="#FF323132"  SelectionBrush="#FF292A2B" MaxLength="25" Foreground="#FF9E9B9B">
+            <PasswordBox.Template>
                 <ControlTemplate>
                     <Border  CornerRadius="4"  BorderThickness="1" BorderBrush="#FF0A0A0A">
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
                     </Border>
                 </ControlTemplate>
-            </TextBox.Template>
-        </TextBox>
+            </PasswordBox.Template>
+        </PasswordBox>
 
         <Button x:Name="btnLogin" Content="Login"  HorizontalAlignment="Center" Margin="0,15,0,15" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" MinWidth="121" RenderTransformOrigin="-0.195,-1.635" BorderBrush="#FF0C0B0B" Foreground="#FF9E9B9B" Height="22" Width="120" FontSize="13" FontWeight="Bold" FontFamily="Verdana" Click="Button_Click">
             <Button.Background>

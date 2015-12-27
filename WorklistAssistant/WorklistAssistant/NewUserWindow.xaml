@@ -57,25 +57,25 @@
             </TextBox.Template>
         </TextBox>
         <Label Content="Master password" Style="{StaticResource MyLabelStyle}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="26" Width="120"/>
-        <TextBox x:Name="txtNewPassword" Style="{StaticResource MyTextBoxStyle}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left"   VerticalAlignment="Top">
-            <TextBox.Template>
+        <PasswordBox x:Name="psbNewPassword" Style="{StaticResource MyTextBoxStyle}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left"   VerticalAlignment="Top">
+            <PasswordBox.Template>
                 <ControlTemplate>
                     <Border  CornerRadius="4"  BorderThickness="1" BorderBrush="#FF0A0A0A">
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
                     </Border>
                 </ControlTemplate>
-            </TextBox.Template>
-        </TextBox>
+            </PasswordBox.Template>
+        </PasswordBox>
         <Label Content="Confirm Master Password" Style="{StaticResource MyLabelStyle}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="26" Width="170"/>
-        <TextBox x:Name="txtConfirmNewPassword"  Style="{StaticResource MyTextBoxStyle}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top">
-            <TextBox.Template>
+        <PasswordBox x:Name="psbConfirmNewPassword"  Style="{StaticResource MyTextBoxStyle}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top">
+            <PasswordBox.Template>
                 <ControlTemplate>
                     <Border  CornerRadius="4"  BorderThickness="1" BorderBrush="#FF0A0A0A">
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
                     </Border>
                 </ControlTemplate>
-            </TextBox.Template>
-        </TextBox>
+            </PasswordBox.Template>
+        </PasswordBox>
         <!--<Rectangle Grid.Row="6" Grid.ColumnSpan="2" Fill="Black" Margin="0,10,0,0"></Rectangle>-->
         <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0,10,0,20" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <Button Style="{StaticResource MyButtonStyle}" Content="Save" Click="button_save_click"/>

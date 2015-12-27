@@ -36,7 +36,7 @@ namespace WorklistAssistant
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (UserManager.VerifyingPassword(cmbUser.Text, txtPassword.Text))
+            if (UserManager.VerifyingPassword(cmbUser.Text, psbPassword.Password))
             {
 
                 WorklistAssistantWindow form = new WorklistAssistantWindow(UserManager.GetUserOnLogin(cmbUser.Text));

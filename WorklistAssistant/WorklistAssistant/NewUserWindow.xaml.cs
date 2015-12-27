@@ -24,9 +24,9 @@ namespace WorklistAssistant
 
         private void button_save_click(object sender, RoutedEventArgs e)
         {
-            if (txtConfirmNewPassword.Text ==txtNewPassword.Text)
+            if (psbConfirmNewPassword.Password == psbNewPassword.Password)
             {
-                if (!FileManager.AddUserInFile(txtNewUser.Text, txtNewPassword.Text))
+                if (!FileManager.AddUserInFile(txtNewUser.Text, psbNewPassword.Password))
                 {
                     MessageBox.Show("Oops! =(");
                 }
@@ -40,5 +40,7 @@ namespace WorklistAssistant
                 MessageBox.Show("Passwords do not match");
             }
         }
+
+      
     }
 }

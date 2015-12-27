@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,8 @@ namespace BL
     {
         public static IList<User> GetUsersFromFile()
         {
-            using (StreamReader file = new StreamReader(@"D:\VS\Тестовое задание\WorklistAssistant\BL\Resources\users.txt"))
+            var path = ConfigurationManager.AppSettings["UsersFile"];
+            using (StreamReader file = new StreamReader(path))
             {
                 string tempString = file.ReadLine();
                 List<User> users = new List<User>();
@@ -27,7 +29,8 @@ namespace BL
         }
         public static bool AddUserInFile(string nameUser, string password)
         {
-            using (StreamWriter file = new StreamWriter(@"D:\VS\Тестовое задание\WorklistAssistant\BL\Resources\users.txt", true))
+            var path = ConfigurationManager.AppSettings["UsersFile"];
+            using (StreamWriter file = new StreamWriter(path, true))
             {
                 try
                 {
