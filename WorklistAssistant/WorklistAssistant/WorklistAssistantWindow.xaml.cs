@@ -47,5 +47,15 @@ namespace WorklistAssistant
             SettingWindow formSet = new SettingWindow(LoginUser, Users);
             formSet.ShowDialog();
         }
+
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

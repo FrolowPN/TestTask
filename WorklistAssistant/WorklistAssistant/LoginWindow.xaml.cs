@@ -18,15 +18,15 @@ using System.Windows.Shapes;
 
 namespace WorklistAssistant
 {
-    
+
     public partial class MainWindow : Window
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public MainWindow()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
-       
+
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -54,9 +54,9 @@ namespace WorklistAssistant
             if (cmbUser.Text == "Add new User")
             {
                 cmbUser.SelectedIndex = -1;
-            NewUserWindow form = new NewUserWindow();
-            form.Show();
-            
+                NewUserWindow form = new NewUserWindow();
+                form.Show();
+
             }
             else
             {
@@ -71,34 +71,44 @@ namespace WorklistAssistant
         }
 
         private void Refresh()
-        { 
+        {
             try
             {
-List<string> users = UserManager.GetListLogin();
-            cmbUser.ItemsSource = users;
+                List<string> users = UserManager.GetListLogin();
+                cmbUser.ItemsSource = users;
             }
             catch (Exception ex)
             {
 
-                logger.Trace(ex+"\r\n");
+                logger.Trace(ex + "\r\n");
             }
-            
+
         }
 
-     
+        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
 
-      
-        
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
 
-       
 
 
-       
 
-       
 
-       
 
-       
+
+
+
+
+
+
+
+
+
+
     }
 }

@@ -77,5 +77,15 @@ namespace WorklistAssistant
             }
 
         }
+
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

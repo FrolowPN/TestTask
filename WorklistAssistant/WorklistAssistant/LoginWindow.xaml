@@ -4,7 +4,7 @@
         xmlns:BL="clr-namespace:BL;assembly=BL" x:Class="WorklistAssistant.MainWindow" 
         SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
     <Window.Resources>
-        
+
 
         <Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -152,11 +152,7 @@
         </PasswordBox>
 
         <Button x:Name="btnLogin" Content="Login"  HorizontalAlignment="Center" Margin="0,15,0,15" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" MinWidth="121" RenderTransformOrigin="-0.195,-1.635"  Height="22" Width="120" Click="Button_Click"/>
-        <Image Source="Img/logo.jpg" Grid.ColumnSpan="3" MaxWidth ="300" MaxHeight="300" Grid.Row="0"/>
-        <Button  Grid.Column="1" HorizontalAlignment="Right" Height="15" Margin="241,4,5,0" VerticalAlignment="Top" Width="15" RenderTransformOrigin="1.163,0.193" Click="Button_Exit_Click" FontWeight="Bold" IsCancel="True">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,1" Foreground="#FF6880C1">X</TextBlock>
-            </StackPanel>
-        </Button>
+        <Image Source="Img/logo.jpg" Grid.ColumnSpan="3" MaxWidth ="300" MaxHeight="300" Grid.Row="0" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+        <TextBlock VerticalAlignment="Bottom" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#FF21A567" Margin="0,0,5,263" Grid.Column="1" Panel.ZIndex="1" Background="White"  Text=" X " FontSize="10" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp" />
     </Grid>
 </Window>

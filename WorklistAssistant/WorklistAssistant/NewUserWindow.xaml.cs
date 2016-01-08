@@ -50,6 +50,18 @@ namespace WorklistAssistant
             this.Close();
         }
 
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        
+
       
     }
 }
