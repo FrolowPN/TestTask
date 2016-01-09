@@ -71,12 +71,20 @@
                                 <Setter TargetName="Border" Property="Background" Value="#FF151414" />
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#FF0C0B0B" />
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Border" Property="Background" Value="#FF1D1C1C" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FF0C0B0B" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="Button_Close_Click"/>
+        <CommandBinding Command="Save" Executed="button_save_click"/>
+    </Window.CommandBindings>
     <Grid>
         <Border CornerRadius="3,3,3,3" BorderBrush="Black" BorderThickness="1">
             <Grid>
@@ -129,8 +137,8 @@
                 </PasswordBox>
                
                 <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0,10,0,20" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                    <Button Width="70" Margin="0,0,10,0" Content="Save" Click="button_save_click" VerticalAlignment="Top"/>
-                    <Button Width="70" Margin="0,0,10,0" Content="Cancel" IsCancel="True" Click="Button_Click"/>
+                    <Button Width="70" Margin="0,0,10,0" Content="Save" Command="Save" VerticalAlignment="Top"/>
+                    <Button Width="70"   Margin="0,0,10,0" Content="Cancel" IsCancel="True" Command="Close" />
                 </StackPanel>
             </Grid>
         </Border>

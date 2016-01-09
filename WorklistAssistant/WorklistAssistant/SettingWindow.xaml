@@ -69,7 +69,7 @@
         </Style>
     </Window.Resources>
     <Grid >
-        <Border BorderThickness="1" CornerRadius="3,50,3,3" BorderBrush="Black">
+        <Border BorderThickness="1" CornerRadius="3,3,3,3" BorderBrush="Black">
             <Grid Background="#FF323132">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="26"/>

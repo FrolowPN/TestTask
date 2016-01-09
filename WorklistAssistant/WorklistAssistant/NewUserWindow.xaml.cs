@@ -22,9 +22,9 @@ namespace WorklistAssistant
             InitializeComponent();
         }
 
-        private void button_save_click(object sender, RoutedEventArgs e)
+        private void button_save_click(object sender, ExecutedRoutedEventArgs e)
         {
-            if (txtNewUser.Text != "" || psbNewPassword.Password !="")
+            if (txtNewUser.Text != "" && psbNewPassword.Password !="")
             {
                 if (psbConfirmNewPassword.Password == psbNewPassword.Password)
             {
@@ -45,7 +45,7 @@ namespace WorklistAssistant
            
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Close_Click(object sender, ExecutedRoutedEventArgs e)
         {
             this.Close();
         }
@@ -57,7 +57,9 @@ namespace WorklistAssistant
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            //this.Close();
+            
+            ApplicationCommands.Close.Execute(null, this);
         }
 
         
