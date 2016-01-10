@@ -32,13 +32,13 @@ namespace WorklistAssistant
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Edit_Click(object sender, ExecutedRoutedEventArgs e)
         {
             UsernameAndPasswordWindow form = new UsernameAndPasswordWindow(LogUser);
             form.ShowDialog();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Delete_Click(object sender, ExecutedRoutedEventArgs e)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace WorklistAssistant
 
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_EditRow_Click(object sender, ExecutedRoutedEventArgs e)
         {
             try
             {
@@ -86,6 +86,10 @@ namespace WorklistAssistant
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
+        }
+        private void Mouse_Add_Click(object sender, ExecutedRoutedEventArgs e)
+        {
+           
         }
     }
 }

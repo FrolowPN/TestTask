@@ -13,17 +13,32 @@ namespace WorklistAssistant.MyCommands
         private static RoutedUICommand setting;
         private static RoutedUICommand logOut;
         private static RoutedUICommand refresh;
+        private static RoutedUICommand add;
+        private static RoutedUICommand edit;
+        private static RoutedUICommand editRow;
+        public static RoutedUICommand Add
+        {
+            get { return add;}
+        }
+        public static RoutedUICommand EditRow
+        {
+            get { return editRow;}
+        }
+        public static RoutedUICommand Edit
+        {
+            get { return edit;}
+        }
         public static RoutedUICommand Refresh
         {
-            get { return refresh; }
+            get { return refresh;}
         }
         public static RoutedUICommand LogOut
         {
-            get { return logOut; }
+            get { return logOut;}
         }
         public static RoutedUICommand Setting
         {
-            get { return setting; }
+            get { return setting;}
         }
         public static RoutedUICommand Login
         { 
@@ -35,6 +50,9 @@ namespace WorklistAssistant.MyCommands
             setting = new RoutedUICommand("Setting", "Setting", typeof(LocalCommands));
             logOut = new RoutedUICommand("LogOut", "Log Out", typeof(LocalCommands));
             refresh = new RoutedUICommand("Refresh", "Refresh", typeof(LocalCommands));
+            add = new RoutedUICommand("Add", "Add", typeof(LocalCommands));
+            edit = new RoutedUICommand("Edit", "Edit", typeof(LocalCommands));
+            editRow = new RoutedUICommand("EditRow", "Edit Row", typeof(LocalCommands));
         }
     }
 }
