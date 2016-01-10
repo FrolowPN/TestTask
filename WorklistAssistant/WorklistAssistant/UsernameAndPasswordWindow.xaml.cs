@@ -28,7 +28,7 @@ namespace WorklistAssistant
             txtUserName.Text = user.Login;
         }
 
-        private void Button_Save_Click(object sender, ExecutedRoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (psbOldPassword.Password != UserLog.Password)
             {
@@ -50,17 +50,11 @@ namespace WorklistAssistant
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             this.Close();
-            //ApplicationCommands.Close.Execute(null, this);
         }
 
         private void Label1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
-        }
-
-        private void Button_Cancel_Click(object sender, ExecutedRoutedEventArgs e)
-        {
-            this.Close();
         }
 
        

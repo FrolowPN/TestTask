@@ -29,7 +29,7 @@ namespace WorklistAssistant
 
 
 
-        private void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (UserManager.VerifyingPassword(cmbUser.Text, psbPassword.Password))
             {

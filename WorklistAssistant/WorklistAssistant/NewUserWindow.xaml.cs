@@ -57,9 +57,9 @@ namespace WorklistAssistant
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            //this.Close();
             
-            //ApplicationCommands.Close.Execute(null, this);
+            ApplicationCommands.Close.Execute(null, this);
         }
 
         

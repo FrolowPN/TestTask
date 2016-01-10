@@ -1,7 +1,6 @@
 ﻿<Window x:Class="WorklistAssistant.WorklistAssistantWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       
         Title="Worklist Assistant"  BorderBrush="Red" ShowInTaskbar="True" SizeToContent="WidthAndHeight" Background="#FF323132" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" OpacityMask="#FFC50D0D" Width="567">
     <Window.Resources>
         <Style x:Key="MyLabelStyle">
@@ -69,11 +68,6 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
-    <Window.CommandBindings>
-        <CommandBinding Command="" Executed="btnSetting_Click"/>
-    </Window.CommandBindings>
-    
     <Grid>
         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3,3,3,3">
             <Grid>
