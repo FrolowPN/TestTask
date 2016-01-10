@@ -35,14 +35,14 @@ namespace WorklistAssistant
             lblUserName.Content = LoginUser.Login;
         }
 
-        private void btnLogOut_Click(object sender, RoutedEventArgs e)
+        private void btnLogOut_Click(object sender, ExecutedRoutedEventArgs e)
         {
             MainWindow form = new MainWindow();
             form.Show();
             this.Close();
         }
 
-        private void btnSetting_Click(object sender, RoutedEventArgs e)
+        private void btnSetting_Click(object sender, ExecutedRoutedEventArgs e)
         {
             SettingWindow formSet = new SettingWindow(LoginUser, Users);
             formSet.ShowDialog();
