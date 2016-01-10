@@ -81,10 +81,12 @@
             </Setter>
         </Style>
     </Window.Resources>
+    
     <Window.CommandBindings>
         <CommandBinding Command="Close" Executed="Button_Close_Click"/>
         <CommandBinding Command="Save" Executed="button_save_click"/>
     </Window.CommandBindings>
+    
     <Grid>
         <Border CornerRadius="3,3,3,3" BorderBrush="Black" BorderThickness="1">
             <Grid>
