@@ -10,22 +10,27 @@ using System.Threading.Tasks;
 namespace BL
 {
     public static class FileManager
-    {
+    { 
+        
+        private static string Path 
+        { 
+            get {return new Uri(Directory.GetCurrentDirectory() + "/users.txt", UriKind.RelativeOrAbsolute).LocalPath;} 
+        }
+      
         
         public static IList<User> GetUsersFromFile()
          {
              Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
-                var path = ConfigurationManager.AppSettings["UsersFile"];
-                using (StreamReader file = new StreamReader(path))
+                using (StreamReader file = new StreamReader(Path))
                 {
                     string tempString = file.ReadLine();
                     List<User> users = new List<User>();
                     while (tempString != null)
                     {
 
-                        users.Add(new User(tempString.Split(' ')[0], tempString.Split(' ')[1]));
+                        users.Add(new User(tempString.Split('/')[0], tempString.Split('/')[1]));
                         tempString = file.ReadLine();
                     }
                     return users;
@@ -45,10 +50,9 @@ namespace BL
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
-                var path = ConfigurationManager.AppSettings["UsersFile"];
-                using (StreamWriter file = new StreamWriter(path, true))
+                using (StreamWriter file = new StreamWriter(Path, true))
                 {
-                    file.WriteLine(nameUser + " " + password);
+                    file.WriteLine(nameUser + "/" + password);
                     return true;
                 }
             }
