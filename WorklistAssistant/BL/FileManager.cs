@@ -14,7 +14,7 @@ namespace BL
         
         private static string Path 
         { 
-            get {return new Uri(Directory.GetCurrentDirectory() + "/users.txt", UriKind.RelativeOrAbsolute).LocalPath;} 
+            get {return new Uri(Directory.GetCurrentDirectory() + "/Resources/users.txt", UriKind.RelativeOrAbsolute).LocalPath;} 
         }
       
         

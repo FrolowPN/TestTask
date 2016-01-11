@@ -59,15 +59,5 @@ namespace BL.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to admin admin
-        ///user 12345.
-        /// </summary>
-        internal static string users {
-            get {
-                return ResourceManager.GetString("users", resourceCulture);
-            }
-        }
     }
 }

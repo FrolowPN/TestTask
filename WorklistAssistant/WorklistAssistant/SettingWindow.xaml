@@ -63,6 +63,10 @@
                                 <Setter TargetName="Border" Property="Background" Value="#FF151414" />
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#FF0C0B0B" />
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Border" Property="Background" Value="#FF1D1C1C" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FF0C0B0B" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
