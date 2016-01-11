@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace WorklistAssistant
 {
@@ -24,7 +25,10 @@ namespace WorklistAssistant
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public MainWindow()
         {
+           
             InitializeComponent();
+             EnterItemSource();
+            
         }
 
 
@@ -43,6 +47,36 @@ namespace WorklistAssistant
                 MessageBox.Show("Password Wrong");
             }
         }
+        public void EnterItemSource()
+        {
+            List<string> userLogins = UserManager.GetListLogin();
+            
+            foreach (var login in userLogins)
+            {
+                StackPanel stPanel = new StackPanel();
+                stPanel.Orientation = Orientation.Horizontal;
+                Image myImage = new Image();
+                BitmapImage bi = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + "/Resources/s.jpg", UriKind.RelativeOrAbsolute));
+                myImage.Source = bi;
+                stPanel.Children.Add(myImage);
+
+                TextBlock txt = new TextBlock();
+                txt.Text = login;
+                stPanel.Children.Add(txt);
+
+                Button btn = new Button();
+                StackPanel sp = new StackPanel();
+                sp.Children.Add(new Image { Source = bi });
+                btn.Content = sp;
+                btn.Visibility = Visibility.Hidden;
+                
+                stPanel.Children.Add(btn);
+
+                cmbUser.Items.Add(stPanel);
+                
+            }
+
+        }
 
         private void Button_Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -51,7 +85,18 @@ namespace WorklistAssistant
 
         private void cmbUser_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
-            if (cmbUser.Text == "Add new User")
+            //if (cmbUser.Text == "Add new User")
+            //{
+            //    cmbUser.SelectedIndex = -1;
+            //    NewUserWindow form = new NewUserWindow();
+            //    form.Show();
+
+            //}
+            //else
+            //{
+            //    return;
+            //}
+            if (cmbUser.SelectedIndex == cmbUser.Items.Count-1)
             {
                 cmbUser.SelectedIndex = -1;
                 NewUserWindow form = new NewUserWindow();
@@ -72,16 +117,18 @@ namespace WorklistAssistant
 
         private void Refresh()
         {
-            try
-            {
-                List<string> users = UserManager.GetListLogin();
-                cmbUser.ItemsSource = users;
-            }
-            catch (Exception ex)
-            {
+            //try
+            //{
+            //    List<string> users = UserManager.GetListLogin();
+            //    cmbUser.ItemsSource = users;
+            //}
+            //catch (Exception ex)
+            //{
 
-                logger.Trace(ex + "\r\n");
-            }
+            //    logger.Trace(ex + "\r\n");
+            //}
+            cmbUser.ItemsSource = new List<string>();
+            EnterItemSource();
 
         }
 
@@ -96,7 +143,7 @@ namespace WorklistAssistant
         }
 
 
-
+     
 
 
 
