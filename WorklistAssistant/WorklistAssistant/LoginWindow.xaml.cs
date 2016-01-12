@@ -25,20 +25,17 @@ namespace WorklistAssistant
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public MainWindow()
         {
-           
             InitializeComponent();
-             EnterItemSource();
-            
+            cmbUser.ItemsSource = UserManager.ConvertToBind(UserManager.GetListLogin());
         }
-
 
 
         private void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            if (UserManager.VerifyingPassword(cmbUser.Text, psbPassword.Password))
+            if (UserManager.VerifyingPassword(((UsersListView)cmbUser.SelectedValue).Text, psbPassword.Password))
             {
 
-                WorklistAssistantWindow form = new WorklistAssistantWindow(UserManager.GetUserOnLogin(cmbUser.Text));
+                WorklistAssistantWindow form = new WorklistAssistantWindow(UserManager.GetUserOnLogin(((UsersListView)cmbUser.SelectedValue).Text));
                 form.Show();
                 this.Close();
             }
@@ -47,36 +44,44 @@ namespace WorklistAssistant
                 MessageBox.Show("Password Wrong");
             }
         }
-        public void EnterItemSource()
-        {
-            List<string> userLogins = UserManager.GetListLogin();
-            
-            foreach (var login in userLogins)
-            {
-                StackPanel stPanel = new StackPanel();
-                stPanel.Orientation = Orientation.Horizontal;
-                Image myImage = new Image();
-                BitmapImage bi = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + "/Resources/s.jpg", UriKind.RelativeOrAbsolute));
-                myImage.Source = bi;
-                stPanel.Children.Add(myImage);
+        //private void EnterItemSource()
+        //{
+        //    try
+        //    {
+        //        List<string> userLogins = UserManager.GetListLogin();
+        //        foreach (var login in userLogins)
+        //        {
+        //            StackPanel stPanel = new StackPanel();
+        //            stPanel.Orientation = Orientation.Horizontal;
+        //            Image myImage = new Image();
+        //            BitmapImage bi = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + "/Resources/s.jpg", UriKind.RelativeOrAbsolute));
+        //            myImage.Source = bi;
+        //            stPanel.Children.Add(myImage);
 
-                TextBlock txt = new TextBlock();
-                txt.Text = login;
-                stPanel.Children.Add(txt);
+        //            TextBlock txt = new TextBlock();
+        //            txt.Text = login;
+        //            stPanel.Children.Add(txt);
 
-                Button btn = new Button();
-                StackPanel sp = new StackPanel();
-                sp.Children.Add(new Image { Source = bi });
-                btn.Content = sp;
-                btn.Visibility = Visibility.Hidden;
-                
-                stPanel.Children.Add(btn);
+        //            Button btn = new Button();
+        //            StackPanel sp = new StackPanel();
+        //            sp.Children.Add(new Image { Source = bi });
+        //            btn.Content = sp;
+        //            btn.Visibility = Visibility.Hidden;
 
-                cmbUser.Items.Add(stPanel);
-                
-            }
+        //            stPanel.Children.Add(btn);
 
-        }
+        //            cmbUser.Items.Add(stPanel);
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        logger.Trace(ex + "\r\n");
+        //    }
+
+
+        //}
 
         private void Button_Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -85,23 +90,11 @@ namespace WorklistAssistant
 
         private void cmbUser_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
-            //if (cmbUser.Text == "Add new User")
-            //{
-            //    cmbUser.SelectedIndex = -1;
-            //    NewUserWindow form = new NewUserWindow();
-            //    form.Show();
-
-            //}
-            //else
-            //{
-            //    return;
-            //}
-            if (cmbUser.SelectedIndex == cmbUser.Items.Count-1)
+            if (cmbUser.SelectedIndex == cmbUser.Items.Count - 1)
             {
                 cmbUser.SelectedIndex = -1;
                 NewUserWindow form = new NewUserWindow();
                 form.Show();
-
             }
             else
             {
@@ -112,24 +105,11 @@ namespace WorklistAssistant
         private void Window_Activated(object sender, EventArgs e)
         {
             Refresh();
-
         }
 
         private void Refresh()
         {
-            //try
-            //{
-            //    List<string> users = UserManager.GetListLogin();
-            //    cmbUser.ItemsSource = users;
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    logger.Trace(ex + "\r\n");
-            //}
-            cmbUser.ItemsSource = new List<string>();
-            EnterItemSource();
-
+            cmbUser.ItemsSource = UserManager.ConvertToBind(UserManager.GetListLogin());
         }
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -142,8 +122,14 @@ namespace WorklistAssistant
             this.DragMove();
         }
 
+        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            
+            MessageBox.Show("Delete");
+        }
 
-     
+
+
 
 
 

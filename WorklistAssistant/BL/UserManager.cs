@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace BL
 {
     public static class UserManager
     {
-        public static List<string> GetListLogin() 
+        public static List<string> GetListLogin()
         {
             List<string> result = new List<string>();
             foreach (var item in FileManager.GetUsersFromFile())
@@ -18,7 +20,7 @@ namespace BL
             result.Add("Add new User");
             return result;
         }
-        public static  User GetUserOnLogin(string userName)
+        public static User GetUserOnLogin(string userName)
         {
             User result = new User();
             foreach (var item in FileManager.GetUsersFromFile())
@@ -44,20 +46,20 @@ namespace BL
         }
         public static IList<WorklistViewModel> ConvertToView(List<UserInClinik> users)
         {
-           List<WorklistViewModel> result = new List<WorklistViewModel>();
-           foreach (var item in users)
-           {
-               result.Add( new WorklistViewModel() 
-                                               {
-                                                   Login =  item.Login,
-                                                   CountS = item.CountS,
-                                                   CountU = item.CountU,
-                                                   CountR = item.CountR,
-                                                   Status = item.Status
-                                               });
-           }
-            
-           
+            List<WorklistViewModel> result = new List<WorklistViewModel>();
+            foreach (var item in users)
+            {
+                result.Add(new WorklistViewModel()
+                                                {
+                                                    Login = item.Login,
+                                                    CountS = item.CountS,
+                                                    CountU = item.CountU,
+                                                    CountR = item.CountR,
+                                                    Status = item.Status
+                                                });
+            }
+
+
             return result;
         }
 
@@ -73,6 +75,27 @@ namespace BL
                                                 Status = item.Status
                                             });
             }
+            return result;
+        }
+        public static ObservableCollection<UsersListView> ConvertToBind(IList<string> users)
+        {
+            ObservableCollection<UsersListView> result = new ObservableCollection<UsersListView>();
+            foreach (var item in users)
+            {
+                if (item == users[users.Count()-1])
+                {
+                   string imageLogo = new Uri(Directory.GetCurrentDirectory() + "/Resources/add.png", UriKind.RelativeOrAbsolute).LocalPath;
+                   string imageDel = new Uri(Directory.GetCurrentDirectory() + "/Resources/adds.png", UriKind.RelativeOrAbsolute).LocalPath;
+                    result.Add(new UsersListView(imageLogo,item, imageDel));
+                }
+                else
+                {
+                    result.Add(new UsersListView(item));
+                }
+
+            }
+
+
             return result;
         }
     }

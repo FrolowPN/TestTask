@@ -375,7 +375,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-      
+
 
         <Style  TargetType="Button">
             <Setter Property="SnapsToDevicePixels" Value="true"/>
@@ -431,7 +431,7 @@
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter TargetName="Border" Property="Background" Value="#FF1D1C1C" />
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#FF0C0B0B" />
-                                
+
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -439,14 +439,14 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <BL:UsersListView/>
-    </Window.DataContext>
-    
+    </Window.DataContext>-->
+
     <Window.CommandBindings>
         <CommandBinding Command="local:LocalCommands.Login" Executed="Button_Login_Click"/>
     </Window.CommandBindings>
-    
+
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1">
             <Grid >
@@ -470,7 +470,22 @@
 
                 </Grid.RowDefinitions>
                 <Label Content="User" HorizontalAlignment="Left" Margin="0,15,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF9E9B9B" Height="24" Width="61" FontSize="13" />
-                <ComboBox x:Name="cmbUser"   Height="25" VerticalAlignment="Center"  Margin="0" BorderBrush="#FF0A0A0A" RenderTransformOrigin="0.5,0" Grid.Row="2" Grid.Column="1" Width="210" HorizontalAlignment="Left" Foreground="#FF9E9B9B" RequestBringIntoView="cmbUser_RequestBringIntoView"/>
+                <ComboBox x:Name="cmbUser" ItemsSource="{Binding}"  Height="25" VerticalAlignment="Center"  Margin="0" BorderBrush="#FF0A0A0A" RenderTransformOrigin="0.5,0" Grid.Row="2" Grid.Column="1" Width="210" HorizontalAlignment="Left" Foreground="#FF9E9B9B" RequestBringIntoView="cmbUser_RequestBringIntoView">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Height="16" Width="16" HorizontalAlignment="Left" Source="{Binding ImageLogo}"/>
+                                <TextBlock Margin="5,0,0,0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Text}"/>
+                                <Image Height="16" Width="16" Grid.Column="2" HorizontalAlignment="Right" Source="{Binding ImageDel}" MouseLeftButtonUp="Image_MouseLeftButtonUp"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <Label Content="Master Password" HorizontalAlignment="Left" Margin="0,5,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" RenderTransformOrigin="-0.14,0.124" Foreground="#FF9E9B9B" Height="26" Width="156" FontFamily="Verdana" FontSize="13" />
                 <PasswordBox x:Name="psbPassword" FontSize="16" HorizontalAlignment="Left"  Height="25"  Grid.Row="4" Grid.Column="1"  VerticalAlignment="Top" MinWidth="210" Background="#FF323132"  SelectionBrush="#FF080808" MaxLength="20" Foreground="#FF9E9B9B" CaretBrush="#FF4B4747">
                     <PasswordBox.OpacityMask>
