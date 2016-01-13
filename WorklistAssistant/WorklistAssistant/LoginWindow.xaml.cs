@@ -87,8 +87,11 @@ namespace WorklistAssistant
 
         private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            
-            MessageBox.Show("Delete");
+            FrameworkElement frm = new FrameworkElement();
+            var parentSender = ((FrameworkElement)sender).Parent;
+            var textWithTxtBlock = ((TextBlock)((FrameworkElement)parentSender).FindName("txtBlockLogin")).Text;
+            FileManager.DeleteUserFromFile(textWithTxtBlock);
+             Refresh();
         }
 
 

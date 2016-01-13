@@ -331,7 +331,7 @@
           Value="true" />
             <Setter Property="OverridesDefaultStyle"
           Value="true" />
-       
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ComboBoxItem}">
@@ -346,9 +346,9 @@
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Height="16" Width="16" HorizontalAlignment="Left" Source="{Binding ImageLogo}"/>
-                                <TextBlock Margin="5,0,0,0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Text}"/>
+                                <TextBlock x:Name="txtBlockLogin" Margin="5,0,0,0" Grid.Column="1"  HorizontalAlignment="Left" Text="{Binding Text}"/>
                                 <Image x:Name="busket" Visibility="Hidden" Height="16" Width="16" Grid.Column="2" HorizontalAlignment="Right" Source="{Binding ImageDel}" MouseLeftButtonUp="Image_MouseLeftButtonUp"/>
-                            </Grid>      
+                            </Grid>
                         </Border>
 
                         <ControlTemplate.Triggers>
@@ -375,10 +375,10 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border 
-          x:Name="Border"  
-          CornerRadius="2" 
-          BorderThickness="1"
-          BorderBrush="#FF0C0B0B">
+                          x:Name="Border"  
+                          CornerRadius="2" 
+                          BorderThickness="1"
+                          BorderBrush="#FF0C0B0B">
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="#FF3A3838" Offset="0.052"/>
@@ -454,7 +454,7 @@
 
                 </Grid.RowDefinitions>
                 <Label Content="User" HorizontalAlignment="Left" Margin="0,15,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF9E9B9B" Height="24" Width="61" FontSize="13" />
-                <ComboBox x:Name="cmbUser" ItemsSource="{Binding}" DisplayMemberPath="Text"  Height="25" VerticalAlignment="Center"  Margin="0" BorderBrush="#FF0A0A0A" RenderTransformOrigin="0.5,0" Grid.Row="2" Grid.Column="1" Width="210" HorizontalAlignment="Left" Foreground="#FF9E9B9B" RequestBringIntoView="cmbUser_RequestBringIntoView"/>
+                <ComboBox x:Name="cmbUser" ItemsSource="{Binding}" FontFamily="Verdana" FontSize="13" DisplayMemberPath="Text"  Height="25" VerticalAlignment="Center"  Margin="0" BorderBrush="#FF0A0A0A" RenderTransformOrigin="0.5,0" Grid.Row="2" Grid.Column="1" Width="210" HorizontalAlignment="Left" Foreground="#FF9E9B9B" RequestBringIntoView="cmbUser_RequestBringIntoView"/>
                 <Label Content="Master Password" HorizontalAlignment="Left" Margin="0,5,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" RenderTransformOrigin="-0.14,0.124" Foreground="#FF9E9B9B" Height="26" Width="156" FontFamily="Verdana" FontSize="13" />
                 <PasswordBox x:Name="psbPassword" FontSize="16" HorizontalAlignment="Left"  Height="25"  Grid.Row="4" Grid.Column="1"  VerticalAlignment="Top" MinWidth="210" Background="#FF323132"  SelectionBrush="#FF080808" MaxLength="20" Foreground="#FF9E9B9B" CaretBrush="#FF4B4747">
                     <PasswordBox.OpacityMask>
