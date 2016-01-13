@@ -44,44 +44,7 @@ namespace WorklistAssistant
                 MessageBox.Show("Password Wrong");
             }
         }
-        //private void EnterItemSource()
-        //{
-        //    try
-        //    {
-        //        List<string> userLogins = UserManager.GetListLogin();
-        //        foreach (var login in userLogins)
-        //        {
-        //            StackPanel stPanel = new StackPanel();
-        //            stPanel.Orientation = Orientation.Horizontal;
-        //            Image myImage = new Image();
-        //            BitmapImage bi = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + "/Resources/s.jpg", UriKind.RelativeOrAbsolute));
-        //            myImage.Source = bi;
-        //            stPanel.Children.Add(myImage);
-
-        //            TextBlock txt = new TextBlock();
-        //            txt.Text = login;
-        //            stPanel.Children.Add(txt);
-
-        //            Button btn = new Button();
-        //            StackPanel sp = new StackPanel();
-        //            sp.Children.Add(new Image { Source = bi });
-        //            btn.Content = sp;
-        //            btn.Visibility = Visibility.Hidden;
-
-        //            stPanel.Children.Add(btn);
-
-        //            cmbUser.Items.Add(stPanel);
-
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        logger.Trace(ex + "\r\n");
-        //    }
-
-
-        //}
+        
 
         private void Button_Exit_Click(object sender, RoutedEventArgs e)
         {

@@ -91,7 +91,21 @@
                 </Grid.RowDefinitions>
                 <TextBlock VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#FF21A567" Margin="0,6,5,0" Panel.ZIndex="1" Background="White"  Text=" X " FontSize="10" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp" />
                 <Label Content="Worklist Assistant" FontFamily="Verdana" FontSize="13" Grid.Row="0" Grid.ColumnSpan="2" Background="#FF21A567"  Foreground="#FFF3EEEE" MouseLeftButtonDown="Label_MouseLeftButtonDown"  />
-                <DataGrid x:Name="dtGridWorklists" RowBackground="#FF323132" ColumnWidth="110"  FontFamily="Verdana" FontSize="16"  VerticalGridLinesBrush="#FF323132" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="561" Height="auto" Background="#FF323132" Foreground="#FF9E9B9B" BorderBrush="#FF323132" HeadersVisibility="None" />
+                <DataGrid x:Name="dtGridWorklists" ItemsSource="{Binding}" AutoGenerateColumns="False" RowBackground="#FF323132"   FontFamily="Verdana" FontSize="16"  VerticalGridLinesBrush="#FF323132" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"  Height="auto" Background="#FF323132" Foreground="#FF9E9B9B" BorderBrush="#FF323132" HeadersVisibility="None" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Продукт"  
+                             Binding="{Binding Path=Login}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Цена" 
+                             Binding="{Binding Path=CountS}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Цена" 
+                             Binding="{Binding Path=CountU}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Цена" 
+                             Binding="{Binding Path=CountR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Цена"  
+                             Binding="{Binding Path=Status}"></DataGridTextColumn>
+                        
+                    </DataGrid.Columns>
+                </DataGrid>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="10,10,0,0" HorizontalAlignment="Center"  Width="auto">
                     <Button x:Name="btnSetting"   Width="70" HorizontalAlignment="Left" Content="Setting" Command="local:LocalCommands.Setting"></Button>
