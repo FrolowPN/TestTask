@@ -27,8 +27,7 @@ namespace WorklistAssistant
             WorkLists = worklists;
             InitializeComponent();
             lblUserName.Content = logUser.Login;
-            dtGridWorklists.ItemsSource = UserManager.ConvertToSettingView(worklists);
-            dtGridWorklists.CanUserAddRows = false;
+            lbxSetting.ItemsSource = UserManager.ConvertToSettingView(worklists);
 
         }
 
@@ -40,41 +39,41 @@ namespace WorklistAssistant
 
         private void Button_Delete_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            try
-            {
-                var index = dtGridWorklists.SelectedIndex;
-                WorkLists.RemoveRange(index, 1);
-                dtGridWorklists.ItemsSource = UserManager.ConvertToSettingView(WorkLists);
-            }
-            catch (ArgumentOutOfRangeException arg)
-            {
-                logger.Trace(arg + " Не выбрана строка для удаления\r\n");
-            }
-            catch (Exception ex)
-            {
-                logger.Trace(ex);
-            }
+            //try
+            //{
+            //    var index = dtGridWorklists.SelectedIndex;
+            //    WorkLists.RemoveRange(index, 1);
+            //    dtGridWorklists.ItemsSource = UserManager.ConvertToSettingView(WorkLists);
+            //}
+            //catch (ArgumentOutOfRangeException arg)
+            //{
+            //    logger.Trace(arg + " Не выбрана строка для удаления\r\n");
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Trace(ex);
+            //}
 
         }
 
         private void Button_EditRow_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            try
-            {
-                var index = dtGridWorklists.SelectedIndex;
-                var tempUser = new User(WorkLists[index].Login, WorkLists[index].Password);
-                UsernameAndPasswordWindow form = new UsernameAndPasswordWindow(tempUser);
-                form.ShowDialog();
-            }
+            //try
+            //{
+            //    var index = dtGridWorklists.SelectedIndex;
+            //    var tempUser = new User(WorkLists[index].Login, WorkLists[index].Password);
+            //    UsernameAndPasswordWindow form = new UsernameAndPasswordWindow(tempUser);
+            //    form.ShowDialog();
+            //}
 
-            catch (ArgumentOutOfRangeException arg)
-            {
-                logger.Trace(arg + " Не выбрана строка для редактирования\r\n");
-            }
-            catch (Exception ex)
-            {
-                logger.Trace(ex);
-            }
+            //catch (ArgumentOutOfRangeException arg)
+            //{
+            //    logger.Trace(arg + " Не выбрана строка для редактирования\r\n");
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Trace(ex);
+            //}
 
         }
 

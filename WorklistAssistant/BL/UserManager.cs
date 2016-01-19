@@ -73,7 +73,8 @@ namespace BL
                                             {
                                                 Login = item.Login,
                                                 Password = item.Password,
-                                                Status = item.Status
+                                                Status = item.Status,
+                                                StatusImg = item.StatusImg
                                             });
             }
             return result;
