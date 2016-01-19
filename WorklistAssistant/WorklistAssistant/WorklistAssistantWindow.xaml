@@ -12,6 +12,78 @@
             <Setter Property="Control.Height" Value="auto"></Setter>
             <Setter Property="Control.VerticalAlignment" Value="Bottom"></Setter>
         </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Name="border_lbx"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="2" CornerRadius="3"
+                            Margin="5">
+                            <ScrollViewer Focusable="False">
+                                <ItemsPresenter Margin="2"></ItemsPresenter>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FF9E9B9B"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="lbxi_border"
+                            BorderThickness="1" CornerRadius="4"
+                       Padding="1" 
+                       SnapsToDevicePixels="True">
+
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Height="20" Width="20" HorizontalAlignment="Left" Source="Resources/userface.png"/>
+                                <TextBlock x:Name="txtBlockLogin" Margin="5,0,0,0" Grid.Column="1" Text="{Binding Login}"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                    <Image   Height="18" Width="12"   Source="Resources/s.jpg" />
+                                    <TextBlock   Margin="5,0,0,0"  Text="{Binding CountS}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3">
+                                    <Image  Height="18" Width="12" Source="Resources/u.jpg" />
+                                    <TextBlock  Margin="5,0,0,0" Text="{Binding CountU}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Column="4">
+                                    <Image   Height="18" Width="12"  Source="Resources/r.jpg" />
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding CountR}"/>
+                                </StackPanel>
+                                <StackPanel>
+
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="lbxi_border" Property="BorderBrush" Value="black"></Setter>
+                                <Setter TargetName="lbxi_border" Property="Background" Value="#FF252523"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="lbxi_border" Property="Background" Value="#FF252523"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style  TargetType="Button">
             <Setter Property="SnapsToDevicePixels" Value="true"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -68,13 +140,13 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Window.CommandBindings>
         <CommandBinding Command="local:LocalCommands.Setting" Executed="btnSetting_Click" />
         <CommandBinding Command="local:LocalCommands.LogOut" Executed="btnLogOut_Click" />
         <CommandBinding Command="local:LocalCommands.Refresh" Executed="btnRefresh_Click" />
     </Window.CommandBindings>
-    
+
     <Grid>
         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3,3,3,3">
             <Grid>
@@ -85,22 +157,8 @@
                     <RowDefinition  Height="auto" />
                 </Grid.RowDefinitions>
                 <TextBlock VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#FF21A567" Margin="0,6,5,0" Panel.ZIndex="1" Background="White"  Text=" X " FontSize="10" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp" />
-                <Label Content="Worklist Assistant" FontFamily="Verdana" FontSize="13" Grid.Row="0" Grid.ColumnSpan="2" Background="#FF21A567"  Foreground="#FFF3EEEE" MouseLeftButtonDown="Label_MouseLeftButtonDown"  />
-                <DataGrid x:Name="dtGridWorklists" ItemsSource="{Binding}" AutoGenerateColumns="False" RowBackground="#FF323132"   FontFamily="Verdana" FontSize="16"  VerticalGridLinesBrush="#FF323132" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"  Height="auto" Background="#FF323132" Foreground="#FF9E9B9B" BorderBrush="#FF323132" HeadersVisibility="None" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Продукт"  
-                             Binding="{Binding Path=Login}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Цена" 
-                             Binding="{Binding Path=CountS}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Цена" 
-                             Binding="{Binding Path=CountU}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Цена" 
-                             Binding="{Binding Path=CountR}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Цена"  
-                             Binding="{Binding Path=Status}"></DataGridTextColumn>
-                        
-                    </DataGrid.Columns>
-                </DataGrid>
+                <Label Content="Worklist Assistant" FontFamily="Verdana" FontSize="13" Grid.Row="0" Grid.ColumnSpan="2" Background="#FF21A567"  Foreground="#FFF3EEEE" MouseLeftButtonDown="Label_MouseLeftButtonDown"  />   
+                <ListBox Name="lbxWorklists" Grid.Row="1" Margin="5" ItemsSource="{Binding}"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,5,0,5" HorizontalAlignment="Center">
                     <Button x:Name="btnSetting"    HorizontalAlignment="Left"  Command="local:LocalCommands.Setting">
@@ -110,7 +168,7 @@
                     <Button x:Name="btnLogOut" HorizontalAlignment="Center"  Margin="70,0,0,0" IsCancel="True" Command="local:LocalCommands.LogOut">
                         <Image Source="Resources/logOut.png" Width="20" Height="20"/>
                     </Button>
-                    <Label Content="LogOut" Style="{StaticResource MyLabelStyle}"/>
+                    <Label Content="Logout" Style="{StaticResource MyLabelStyle}"/>
                     <Label Content="Refreshed ?? min ago" Style="{StaticResource MyLabelStyle}" Margin="50,0,0,0"/>
                     <Button x:Name="btnRefresh"  Margin="0,0,20,0"  HorizontalAlignment="Right" Command="local:LocalCommands.Refresh">
                         <Image Source="Resources/refresh.png" Width="20" Height="20"/>

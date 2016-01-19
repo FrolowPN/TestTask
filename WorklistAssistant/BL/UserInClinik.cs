@@ -19,9 +19,9 @@ namespace BL
         {
             Login = login;
             Password = pass;
-            CountS = "S - " + s;
-            CountU = "U - " + u;
-            CountR = "R - " + u;
+            CountS =  s.ToString();
+            CountU = u.ToString();
+            CountR = r.ToString();
             if (status != 0)
             {
                 Status = "Connected";

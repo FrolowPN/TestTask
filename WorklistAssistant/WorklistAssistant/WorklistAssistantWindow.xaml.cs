@@ -30,8 +30,9 @@ namespace WorklistAssistant
             Users = new List<UserInClinik>(){new UserInClinik("Alex", "123", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
                                                                 new UserInClinik("Alex_1", "sdf", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
                                                                 new UserInClinik("Alex_2", "dfsdfh", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2))};
-            dtGridWorklists.ItemsSource = UserManager.ConvertToView(Users);
-            dtGridWorklists.CanUserAddRows = false;
+            //dtGridWorklists.ItemsSource = UserManager.ConvertToView(Users);
+            //dtGridWorklists.CanUserAddRows = false;
+            lbxWorklists.ItemsSource = UserManager.ConvertToView(Users);
             lblUserName.Content = LoginUser.Login;
         }
 
