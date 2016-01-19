@@ -26,13 +26,8 @@
           x:Name="Border"  
           CornerRadius="2" 
           BorderThickness="1"
-          BorderBrush="#FF0C0B0B">
-                            <Border.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF3A3838" Offset="0.052"/>
-                                    <GradientStop Color="#FF1B1919" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
+          BorderBrush="Transparent"
+          Background="Transparent"               >
                             <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -107,13 +102,19 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="10,10,0,0" HorizontalAlignment="Center"  Width="auto">
-                    <Button x:Name="btnSetting"   Width="70" HorizontalAlignment="Left" Content="Setting" Command="local:LocalCommands.Setting"></Button>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,5,0,5" HorizontalAlignment="Center">
+                    <Button x:Name="btnSetting"    HorizontalAlignment="Left"  Command="local:LocalCommands.Setting">
+                        <Image Source="Resources/setting.png" Width="20" Height="20"/>
+                    </Button>
                     <Label x:Name="lblUserName" Content="" Style="{StaticResource MyLabelStyle}"/>
-                    <Button x:Name="btnLogOut" Width="70" HorizontalAlignment="Center" Content="Log Out" Margin="70,0,0,0" IsCancel="True" Command="local:LocalCommands.LogOut"></Button>
+                    <Button x:Name="btnLogOut" HorizontalAlignment="Center"  Margin="70,0,0,0" IsCancel="True" Command="local:LocalCommands.LogOut">
+                        <Image Source="Resources/logOut.png" Width="20" Height="20"/>
+                    </Button>
                     <Label Content="LogOut" Style="{StaticResource MyLabelStyle}"/>
                     <Label Content="Refreshed ?? min ago" Style="{StaticResource MyLabelStyle}" Margin="50,0,0,0"/>
-                    <Button x:Name="btnRefresh" Width="70" Margin="0,0,20,0" Content="Refresh" HorizontalAlignment="Right" Command="local:LocalCommands.Refresh"></Button>
+                    <Button x:Name="btnRefresh"  Margin="0,0,20,0"  HorizontalAlignment="Right" Command="local:LocalCommands.Refresh">
+                        <Image Source="Resources/refresh.png" Width="20" Height="20"/>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Border>
