@@ -13,5 +13,6 @@ namespace BL
         public string CountU { get; set; }
         public string CountR { get; set; }
         public string Status { get; set; }
+        public string StatusImg { get; set; }
     }
 }

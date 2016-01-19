@@ -55,7 +55,8 @@ namespace BL
                                                     CountS = item.CountS,
                                                     CountU = item.CountU,
                                                     CountR = item.CountR,
-                                                    Status = item.Status
+                                                    Status = item.Status,
+                                                    StatusImg = item.StatusImg
                                                 });
             }
 
