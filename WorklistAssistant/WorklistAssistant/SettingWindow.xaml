@@ -22,6 +22,67 @@
             </Setter>
         </Style>
 
+        <Style x:Key="ButtonWithBorder" TargetType="Button">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Foreground" Value="#FF9E9B9B"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+          x:Name="Border"  
+          CornerRadius="2" 
+          BorderThickness="1"
+           BorderBrush="#FF0C0B0B">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF3A3838" Offset="0.052"/>
+                                    <GradientStop Color="#FF1B1919" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter TargetName="Border" Property="BorderBrush" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF3A3535" Offset="0"/>
+                                            <GradientStop Color="#FF4D4C4C" Offset="0.297"/>
+                                            <GradientStop Color="#FF3F3B3B" Offset="0.933"/>
+                                            <GradientStop Color="#FF6B6868" Offset="0.69"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF302C2C" Offset="0"/>
+                                            <GradientStop Color="#FF2B2323" Offset="1"/>
+                                            <GradientStop Color="#FF191515" Offset="0.636"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF151414" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FF0C0B0B" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Border" Property="Background" Value="#FF1D1C1C" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FF0C0B0B" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style TargetType="ListBoxItem">
             <Setter Property="FontFamily" Value="Verdana"/>
             <Setter Property="FontSize" Value="13"/>
@@ -31,24 +92,34 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border Name="lbxi_border"
-                            BorderThickness="1" CornerRadius="4"
-                       Padding="1" 
+                            BorderThickness="1"
+                       Padding="1" BorderBrush="#FF232121"
                        SnapsToDevicePixels="True">
 
-                            <Grid >
+                            <Grid Margin="5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="50"/>
                                     <ColumnDefinition Width="100"/>
-                                    
+                                    <ColumnDefinition Width="120"/>
+
                                 </Grid.ColumnDefinitions>
-                                <Image Height="20" Width="20" HorizontalAlignment="Left" Source="Resources/userface.png"/>
-                                <TextBlock x:Name="txtBlockLogin" Margin="5,0,0,0" Grid.Column="1" Text="{Binding Login}"/>
+                                <Image Height="20" Width="20" HorizontalAlignment="Left"  Source="Resources/userface.png"/>
+                                <TextBlock  x:Name="txtBlockLogin" Margin="5,0,0,0" Grid.Column="1" Text="{Binding Login}"/>
                                 <TextBlock  Margin="5,0,0,0" Grid.Column="2"  Text="{Binding Password}"/>
-                                <StackPanel Orientation="Horizontal" Grid.Column="3" Margin="5,0,0,0">
+
+                                <StackPanel Name="stpStatus" Orientation="Horizontal" Grid.Column="3" >
                                     <Image   Height="18" Width="12"  Source="{Binding StatusImg}" />
                                     <TextBlock Margin="5,0,0,0" Text="{Binding Status}"/>
+                                </StackPanel>
+
+                                <StackPanel Name="stpEditDelete" Orientation="Horizontal" Grid.Column="3" Visibility="Collapsed">
+                                    <Button BorderBrush="Black"  Width="50" Style="{StaticResource ButtonWithBorder}">
+                                        <Image Height="15" Width="15" Source="Resources/pencil.png"/>
+                                    </Button>
+                                    <Button  Width="50" Style="{StaticResource ButtonWithBorder}">
+                                        <Image Height="15" Width="15" Source="Resources/busket.png"/>
+                                    </Button>
                                 </StackPanel>
                             </Grid>
                         </Border>
@@ -56,16 +127,21 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="lbxi_border" Property="BorderBrush" Value="black"></Setter>
                                 <Setter TargetName="lbxi_border" Property="Background" Value="#FF252523"></Setter>
+                                <Setter TargetName="lbxi_border" Property="CornerRadius" Value="6"></Setter>
+                                <Setter TargetName="stpStatus" Property="Visibility" Value="Hidden"></Setter>
+                                <Setter TargetName="stpEditDelete" Property="Visibility" Value="Visible"></Setter>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="lbxi_border" Property="Background" Value="#FF252523"></Setter>
+                                <Setter TargetName="stpStatus" Property="Visibility" Value="Hidden"></Setter>
+                                <Setter TargetName="stpEditDelete" Property="Visibility" Value="Visible"></Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="MyLabelStyle">
             <Setter Property="Control.FontFamily" Value="Verdana"></Setter>
             <Setter Property="Control.FontSize" Value="12"></Setter>
@@ -129,39 +205,49 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
-    
+
     <Window.CommandBindings>
         <CommandBinding Command="Delete" Executed="Button_Delete_Click"/>
         <CommandBinding Command="local:LocalCommands.Add" Executed="Mouse_Add_Click"/>
         <CommandBinding Command="local:LocalCommands.Edit" Executed="Button_Edit_Click"/>
         <CommandBinding Command="local:LocalCommands.EditRow" Executed="Button_EditRow_Click"/>
     </Window.CommandBindings>
-    
+
     <Grid >
         <Border BorderThickness="1" CornerRadius="3,3,3,3" BorderBrush="Black">
-            <Grid Background="#FF323132">
+            <Grid Background="#FF323132" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="26"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" MaxHeight="35"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#FF21A567" Margin="5" Grid.Column="1" Panel.ZIndex="1" Background="White"  Text=" X " FontSize="10" MouseLeftButtonUp="TextBlock_MouseLeftButtonDown"/>
                 <Label Content="Settings"  FontFamily="Verdana" FontSize="13"  Background="#FF21A567" HorizontalAlignment="Stretch"  Foreground="#FFF3EEEE" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="0,5,0,0"  HorizontalAlignment="Stretch">
-                    <Label Content="User" Style="{StaticResource MyLabelStyle}"/>
-                    <Label x:Name="lblUserName"  Style="{StaticResource MyLabelStyle}"/>
-                    <Button   Command="local:LocalCommands.Edit">
+
+                <Grid Grid.Row="1" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="User"   Style="{StaticResource MyLabelStyle}"/>
+                    <Image Source="Resources/userface.png" Grid.Column="1" Width="20" Height="20" Margin="10,0,0,0"/>
+                    <Label x:Name="lblUserName" Grid.Column="2" Margin="5,0,0,0" Style="{StaticResource MyLabelStyle}"/>
+                    <Button  Grid.Column="3" Command="local:LocalCommands.Edit">
                         <Image Source="Resources/pencil.png" Width="20" Height="20"/>
                     </Button>
-                    <Label Content="Change username and password" Style="{StaticResource MyLabelStyle}"/>
-                </StackPanel>
-                <GridSplitter Height="1"  Margin="0,5,0,0" Grid.Row="2"  HorizontalAlignment="Stretch" BorderThickness="2"  Background="#FF0C0B0B" Foreground="#FF232121" />
+                    <Label Grid.Column="4" Content="Change username and password" Style="{StaticResource MyLabelStyle}"/>
+                </Grid>
 
+                <GridSplitter Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="1" BorderBrush="#FF232121"/>
 
-                <Grid Grid.Row="3" >
+                <Grid Grid.Row="3" Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
@@ -174,7 +260,7 @@
                         <Label Content="Add worklist" Style="{StaticResource MyLabelStyle}"/>
                     </StackPanel>
                 </Grid>
-                <ListBox Name="lbxSetting" Grid.Row="4" Margin="5" ItemsSource="{Binding}" Grid.ColumnSpan="2"/>
+                <ListBox Name="lbxSetting" Grid.Row="4" Margin="0,0,0,10" ItemsSource="{Binding}" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"/>
             </Grid>
         </Border>
     </Grid>
