@@ -28,14 +28,28 @@ namespace WorklistAssistant
             LoginUser = user;
             Users = FileManager.GetWorklistsForUser(LoginUser);
             InitializeComponent();
+            double workHeight = SystemParameters.WorkArea.Height;
+            double workWidth = SystemParameters.WorkArea.Width;
+            var primaryMonitorArea = SystemParameters.WorkArea;
+            this.Show();
+            Left = primaryMonitorArea.Right - ActualWidth;
+            Top = primaryMonitorArea.Bottom - ActualHeight;
             lbxWorklists.ItemsSource = Users;
             lblUserName.Content = LoginUser.Login;
             ni.Icon = new System.Drawing.Icon("Resources/v_icon.ico");
             ni.Visible = true;
-            ni.DoubleClick += (sndr, args) =>
+            ni.Click += (sndr, args) =>
             {
-                this.Show();
-                this.WindowState = WindowState.Normal;
+                
+                this.ShowInTaskbar = !this.ShowInTaskbar;
+
+                if (this.ShowInTaskbar)
+                {
+                    this.Show();
+                }
+                else
+
+                { this.Hide(); }
             };
             
             
