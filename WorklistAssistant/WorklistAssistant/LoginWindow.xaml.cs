@@ -91,6 +91,7 @@ namespace WorklistAssistant
             var parentSender = ((FrameworkElement)sender).Parent;
             var textWithTxtBlock = ((TextBlock)((FrameworkElement)parentSender).FindName("txtBlockLogin")).Text;
             FileManager.DeleteUserFromFile(textWithTxtBlock);
+            FileManager.DeleteAllWorklistForUser(textWithTxtBlock);
              Refresh();
         }
 

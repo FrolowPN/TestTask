@@ -38,7 +38,8 @@ namespace WorklistAssistant
             {
                 if (psbNewPassword.Password == psbConfirmNewPassword.Password)
                 {
-                    UserManager.EditUser(UserLog.Login, txtUserName.Text, psbConfirmNewPassword.Password);    
+                    UserManager.EditUser(UserLog.Login, txtUserName.Text, psbConfirmNewPassword.Password);
+                    UserManager.ChangeMasterUserForWorklists(UserLog.Login, txtUserName.Text);
                     SettingWindow form = new SettingWindow(UserManager.GetUserOnLogin(txtUserName.Text));
                     form.Show();
                     this.Close();
@@ -62,6 +63,8 @@ namespace WorklistAssistant
 
         private void Button_Cancel_Click(object sender, ExecutedRoutedEventArgs e)
         {
+            SettingWindow form = new SettingWindow(UserLog);
+            form.Show();
             this.Close();
         }
 

@@ -84,11 +84,11 @@ namespace BL
                     {
                         if (tempString.Split('/')[0] == user.Login)
                         {
-                          workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
-                          
+                            workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
+
                         }
 
-                       tempString = file.ReadLine(); 
+                        tempString = file.ReadLine();
                     }
                     return workls;
                 }
@@ -127,7 +127,7 @@ namespace BL
                 {
                     foreach (var item in workls)
                     {
-                        file.WriteLine(item.MasterUserLogin+"/"+item.LoginUser + "/" + item.PasswordUser);
+                        file.WriteLine(item.MasterUserLogin + "/" + item.LoginUser + "/" + item.PasswordUser);
                     }
                 }
             }
@@ -160,7 +160,7 @@ namespace BL
             {
                 using (StreamWriter file = new StreamWriter(PathWorklists, true))
                 {
-                    file.WriteLine(masterUserLogin+"/"+loginUser + "/" + passwordUser);
+                    file.WriteLine(masterUserLogin + "/" + loginUser + "/" + passwordUser);
                     return true;
                 }
             }
@@ -182,9 +182,9 @@ namespace BL
                 {
                     if (item.Login != tempUser.Login)
                     {
-                        result.Add(item); 
+                        result.Add(item);
                     }
-                    
+
                 }
                 WriteUsersInFile(result);
                 return true;
@@ -201,13 +201,13 @@ namespace BL
             try
             {
                 List<Worklist> tempList = (List<Worklist>)GetWorklistsFromFile();
-                
+
                 List<Worklist> result = new List<Worklist>();
                 foreach (var item in tempList)
                 {
                     if (item.MasterUserLogin == masterUserLogin && item.LoginUser == loginUser)
                     {
-                        
+
                     }
                     else
                     {
@@ -225,6 +225,29 @@ namespace BL
             }
         }
 
-        
+        public static bool DeleteAllWorklistForUser(string masterUserLogin)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                List<Worklist> tempList = (List<Worklist>)GetWorklistsFromFile();
+
+                List<Worklist> result = new List<Worklist>();
+                foreach (var item in tempList)
+                {
+                    if (item.MasterUserLogin != masterUserLogin)
+                    {
+                        result.Add(item);
+                    }
+                }
+                WriteWorklistsInFile(result);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                logger.Trace(ex + "\r\n");
+            }
+        }
     }
 }

@@ -41,7 +41,8 @@ namespace WorklistAssistant
         private void btnSetting_Click(object sender, ExecutedRoutedEventArgs e)
         {
             SettingWindow formSet = new SettingWindow(LoginUser);
-            formSet.ShowDialog();
+            formSet.Show();
+            this.Close();
         }
 
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

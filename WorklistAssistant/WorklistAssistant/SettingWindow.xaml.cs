@@ -87,11 +87,14 @@ namespace WorklistAssistant
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            
+            WorklistAssistantWindow form = new WorklistAssistantWindow(LogUser);
+            form.Show();
             this.Close();
         }
         private void Mouse_Add_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            FileManager.AddWorklistInFile(LogUser.Login, " ", " ");
+            FileManager.AddWorklistInFile(LogUser.Login, "-", "-");
             lbxSetting.ItemsSource = FileManager.GetWorklistsForUser(LogUser);
         }
 

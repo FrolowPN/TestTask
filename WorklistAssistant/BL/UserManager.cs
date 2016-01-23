@@ -109,5 +109,26 @@ namespace BL
                 FileManager.WriteWorklistsInFile(result);
            
         }
+        public static void ChangeMasterUserForWorklists(string oldMasterUser, string newMasterUser)
+        {
+
+            List<Worklist> tempList = (List<Worklist>)FileManager.GetWorklistsFromFile();
+            List<Worklist> result = new List<Worklist>();
+            foreach (var item in tempList)
+            {
+                if (item.MasterUserLogin == oldMasterUser)
+                {
+                    Worklist tempWorklist = new Worklist(newMasterUser, item.LoginUser, item.PasswordUser);
+                    result.Add(tempWorklist);
+                }
+                else
+                {
+                    result.Add(item);
+                }
+
+            }
+            FileManager.WriteWorklistsInFile(result);
+
+        }
     }
 }
