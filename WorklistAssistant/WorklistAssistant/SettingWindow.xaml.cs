@@ -19,12 +19,13 @@ namespace WorklistAssistant
     public partial class SettingWindow : Window
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static string oldUserLogin;
         public User LogUser { get; set; }
-        public IList<UserInClinik> WorkLists { get; set; }
+        public IList<Worklist> WorkLists { get; set; }
         public SettingWindow(User logUser)
         {
             LogUser = logUser;
-            WorkLists = UserManager.ConvertToUserInClinik(FileManager.GetWorklistsForUser(logUser));
+            WorkLists = FileManager.GetWorklistsForUser(LogUser);
             InitializeComponent();
             lblUserName.Content = logUser.Login;
             lbxSetting.ItemsSource = WorkLists;
@@ -90,18 +91,46 @@ namespace WorklistAssistant
         }
         private void Mouse_Add_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            FileManager.AddWorklistInFile(LogUser.Login, "", "");
-            lbxSetting.ItemsSource = UserManager.ConvertToUserInClinik(FileManager.GetWorklistsForUser(LogUser));
+            FileManager.AddWorklistInFile(LogUser.Login, " ", " ");
+            lbxSetting.ItemsSource = FileManager.GetWorklistsForUser(LogUser);
         }
 
         private void Button_EditWorklist_Click(object sender, RoutedEventArgs e)
         {
             FrameworkElement frm = new FrameworkElement();
             var parentSender = ((FrameworkElement)sender).Parent;
+            oldUserLogin = ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).Text;
             ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).IsEnabled = true;
+            ((TextBox)((FrameworkElement)parentSender).FindName("txtPassword")).IsEnabled = true;
             ((StackPanel)((FrameworkElement)parentSender).FindName("stpOkCancel")).Visibility = Visibility.Visible;
             ((StackPanel)((FrameworkElement)parentSender).FindName("stpEditDelete")).Visibility = Visibility.Hidden;
            
         }
+
+        private void Button_DeleteWorklist_Click(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement frm = new FrameworkElement();
+            var parentSender = ((FrameworkElement)sender).Parent;
+            var userName = ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).Text;
+            var masterUserName = LogUser.Login;
+            FileManager.DeleteWorklistFromFile(masterUserName, userName);
+            lbxSetting.ItemsSource = FileManager.GetWorklistsForUser(LogUser);
+        }
+
+        private void Button_Cancel_Click(object sender, RoutedEventArgs e)
+        {     
+            lbxSetting.ItemsSource = FileManager.GetWorklistsForUser(LogUser);
+        }
+
+        private void Button_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement frm = new FrameworkElement();
+            var parentSender = ((FrameworkElement)sender).Parent;
+            string loginUser = ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).Text;
+            string passUser = ((TextBox)((FrameworkElement)parentSender).FindName("txtPassword")).Text;
+            UserManager.EditWorklist(LogUser.Login, oldUserLogin, loginUser, passUser);
+            lbxSetting.ItemsSource = FileManager.GetWorklistsForUser(LogUser);
+        }
+
     }
 }

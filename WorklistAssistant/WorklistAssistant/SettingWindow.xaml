@@ -126,33 +126,33 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition x:Name="activate" Width="150"/>
                                     <ColumnDefinition Width="120"/>
 
                                 </Grid.ColumnDefinitions>
                                 <Image Height="20" Width="20" HorizontalAlignment="Left"  Source="Resources/userface.png"/>
-                                <TextBox  Name="txtLogin" Margin="5,0,0,0" Grid.Column="1" Text="{Binding Login}"/>
-                                <TextBlock  Margin="5,0,0,0" Grid.Column="2"  Text="{Binding Password}"/>
+                                <TextBox  Name="txtLogin" Margin="5,0,0,0" Grid.Column="1" Text="{Binding LoginUser}"/>
+                                <TextBox  Name ="txtPassword" Margin="5,0,0,0" Grid.Column="2"  Text="{Binding PasswordUser}"/>
 
-                                <StackPanel Name="stpStatus" Orientation="Horizontal" Grid.Column="3" >
+                                <StackPanel Name="stpStatus" Margin="5,0,0,0" Orientation="Horizontal" Grid.Column="3" >
                                     <Image   Height="18" Width="12"  Source="{Binding StatusImg}" />
                                     <TextBlock Margin="5,0,0,0" Text="{Binding Status}"/>
                                 </StackPanel>
 
-                                <StackPanel Name="stpEditDelete" Orientation="Horizontal" Grid.Column="3" Visibility="Hidden">
+                                <StackPanel Name="stpEditDelete" Margin="5,0,0,0" Orientation="Horizontal" Grid.Column="3" Visibility="Hidden">
                                     <Button BorderBrush="Black"  Width="50" Style="{StaticResource ButtonWithBorder}" Click="Button_EditWorklist_Click">
                                         <Image Height="15" Width="15" Source="Resources/pencil.png"/>
                                     </Button>
-                                    <Button  Width="50" Style="{StaticResource ButtonWithBorder}">
+                                    <Button  Width="50" Style="{StaticResource ButtonWithBorder}" Click="Button_DeleteWorklist_Click">
                                         <Image Height="15" Width="15" Source="Resources/busket.png"/>
                                     </Button>
                                 </StackPanel>
 
-                                <StackPanel Name="stpOkCancel" Orientation="Horizontal" Grid.Column="3" Visibility="Hidden">
-                                    <Button BorderBrush="Black"  Width="50" Style="{StaticResource ButtonWithBorder}">
+                                <StackPanel Name="stpOkCancel" Margin="5,0,0,0" Orientation="Horizontal" Grid.Column="3" Visibility="Hidden">
+                                    <Button BorderBrush="Black"  Width="50" Style="{StaticResource ButtonWithBorder}" Click="Button_Ok_Click">
                                         <Image Height="15" Width="15" Source="Resources/ok.png"/>
                                     </Button>
-                                    <Button  Width="50" Style="{StaticResource ButtonWithBorder}">
+                                    <Button  Width="50" Style="{StaticResource ButtonWithBorder}" Click="Button_Cancel_Click">
                                         <Image Height="15" Width="15" Source="Resources/cancel.png"/>
                                     </Button>
                                 </StackPanel>

@@ -58,7 +58,7 @@ namespace BL
                     while (tempString != null)
                     {
 
-                        workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[3]));
+                        workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
                         tempString = file.ReadLine();
                     }
                     return workls;
@@ -84,11 +84,11 @@ namespace BL
                     {
                         if (tempString.Split('/')[0] == user.Login)
                         {
-                          workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[3]));
-                        tempString = file.ReadLine();  
+                          workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
+                          
                         }
 
-                        
+                       tempString = file.ReadLine(); 
                     }
                     return workls;
                 }
@@ -205,7 +205,11 @@ namespace BL
                 List<Worklist> result = new List<Worklist>();
                 foreach (var item in tempList)
                 {
-                    if (item.MasterUserLogin != masterUserLogin && item.LoginUser != loginUser)
+                    if (item.MasterUserLogin == masterUserLogin && item.LoginUser == loginUser)
+                    {
+                        
+                    }
+                    else
                     {
                         result.Add(item);
                     }

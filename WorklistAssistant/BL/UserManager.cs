@@ -65,58 +65,7 @@ namespace BL
                 return false;
             }
         }
-        public static IList<WorklistViewModel> ConvertToView(List<UserInClinik> users)
-        {
-            List<WorklistViewModel> result = new List<WorklistViewModel>();
-            foreach (var item in users)
-            {
-                result.Add(new WorklistViewModel()
-                                                {
-                                                    Login = item.Login,
-                                                    CountS = item.CountS,
-                                                    CountU = item.CountU,
-                                                    CountR = item.CountR,
-                                                    Status = item.Status,
-                                                    StatusImg = item.StatusImg
-                                                });
-            }
-
-
-            return result;
-        }
-        public static IList<UserInClinik> ConvertToUserInClinik(IList<Worklist> workls)
-        {
-            List<UserInClinik> result = new List<UserInClinik>();
-            Random rnd = new Random();
-            foreach (var item in workls)
-            {
-                result.Add(new UserInClinik(
-                    item.LoginUser,
-                    item.PasswordUser,
-                    rnd.Next(1, 100),
-                    rnd.Next(1, 100),
-                    rnd.Next(1, 100),
-                    rnd.Next(0, 1)  
-                ));
-            }
-            return result;
-        }
-
-        public static IList<SettingView> ConvertToSettingView(List<UserInClinik> users)
-        {
-            List<SettingView> result = new List<SettingView>();
-            foreach (var item in users)
-            {
-                result.Add(new SettingView()
-                                            {
-                                                Login = item.Login,
-                                                Password = item.Password,
-                                                Status = item.Status,
-                                                StatusImg = item.StatusImg
-                                            });
-            }
-            return result;
-        }
+      
         public static ObservableCollection<UsersListView> ConvertToBind(IList<string> users)
         {
             ObservableCollection<UsersListView> result = new ObservableCollection<UsersListView>();
@@ -137,6 +86,28 @@ namespace BL
 
 
             return result;
+        }
+        public static void EditWorklist(string masterUserLogin, string oldUserLogin,  string newUserLogin, string newUserPassword)
+        {
+           
+                List<Worklist> tempList = (List<Worklist>)FileManager.GetWorklistsFromFile();
+
+                List<Worklist> result = new List<Worklist>();
+                foreach (var item in tempList)
+                {
+                    if (item.MasterUserLogin == masterUserLogin && item.LoginUser == oldUserLogin)
+                    {
+                        Worklist tempWorklist = new Worklist(masterUserLogin, newUserLogin, newUserPassword);
+                        result.Add(tempWorklist);
+                    }
+                    else
+                    {
+                        result.Add(item);
+                    }
+
+                }
+                FileManager.WriteWorklistsInFile(result);
+           
         }
     }
 }

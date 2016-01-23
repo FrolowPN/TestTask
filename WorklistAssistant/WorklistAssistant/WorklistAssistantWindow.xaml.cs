@@ -21,11 +21,11 @@ namespace WorklistAssistant
     public partial class WorklistAssistantWindow : Window
     {
         public User LoginUser { get; set; }
-        public IList<UserInClinik> Users { get; set; }
+        public IList<Worklist> Users { get; set; }
         public WorklistAssistantWindow(User user)
         {
             LoginUser = user;
-            Users = UserManager.ConvertToUserInClinik(FileManager.GetWorklistsForUser(LoginUser));
+            Users = FileManager.GetWorklistsForUser(LoginUser);
             InitializeComponent();
             lbxWorklists.ItemsSource = Users;
             lblUserName.Content = LoginUser.Login;
@@ -57,6 +57,11 @@ namespace WorklistAssistant
         private void btnRefresh_Click(object sender, ExecutedRoutedEventArgs e)
         {
 
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            lbxWorklists.ItemsSource = FileManager.GetWorklistsForUser(LoginUser);
         }
     }
 }
