@@ -16,7 +16,10 @@ namespace BL
         {
             get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/users.txt", UriKind.RelativeOrAbsolute).LocalPath; }
         }
-
+        private static string PathWorklists
+        {
+            get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/usersWorklists.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+        }
 
         public static IList<User> GetUsersFromFile()
         {
@@ -43,6 +46,60 @@ namespace BL
 
             }
         }
+        public static IList<Worklist> GetWorklistsFromFile()
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                using (StreamReader file = new StreamReader(PathWorklists))
+                {
+                    string tempString = file.ReadLine();
+                    List<Worklist> workls = new List<Worklist>();
+                    while (tempString != null)
+                    {
+
+                        workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[3]));
+                        tempString = file.ReadLine();
+                    }
+                    return workls;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return new List<Worklist>() { new Worklist() };
+
+            }
+        }
+        public static IList<Worklist> GetWorklistsForUser(User user)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                using (StreamReader file = new StreamReader(PathWorklists))
+                {
+                    string tempString = file.ReadLine();
+                    List<Worklist> workls = new List<Worklist>();
+                    while (tempString != null)
+                    {
+                        if (tempString.Split('/')[0] == user.Login)
+                        {
+                          workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[3]));
+                        tempString = file.ReadLine();  
+                        }
+
+                        
+                    }
+                    return workls;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return new List<Worklist>() { new Worklist() };
+
+            }
+        }
         public static void WriteUsersInFile(IList<User> users)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
@@ -60,10 +117,25 @@ namespace BL
             {
                 logger.Trace(ex + "\r\n");
             }
-
-
         }
-
+        public static void WriteWorklistsInFile(IList<Worklist> workls)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                using (StreamWriter file = new StreamWriter(PathWorklists, false))
+                {
+                    foreach (var item in workls)
+                    {
+                        file.WriteLine(item.MasterUserLogin+"/"+item.LoginUser + "/" + item.PasswordUser);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+            }
+        }
         public static bool AddUserInFile(string nameUser, string password)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
@@ -81,7 +153,23 @@ namespace BL
                 logger.Trace(ex + "\r\n");
             }
         }
-
+        public static bool AddWorklistInFile(string masterUserLogin, string loginUser, string passwordUser)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                using (StreamWriter file = new StreamWriter(PathWorklists, true))
+                {
+                    file.WriteLine(masterUserLogin+"/"+loginUser + "/" + passwordUser);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+                logger.Trace(ex + "\r\n");
+            }
+        }
         public static bool DeleteUserFromFile(string nameUser)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
@@ -106,8 +194,33 @@ namespace BL
                 return false;
                 logger.Trace(ex + "\r\n");
             }
-
-
         }
+        public static bool DeleteWorklistFromFile(string masterUserLogin, string loginUser)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                List<Worklist> tempList = (List<Worklist>)GetWorklistsFromFile();
+                
+                List<Worklist> result = new List<Worklist>();
+                foreach (var item in tempList)
+                {
+                    if (item.MasterUserLogin != masterUserLogin && item.LoginUser != loginUser)
+                    {
+                        result.Add(item);
+                    }
+
+                }
+                WriteWorklistsInFile(result);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                logger.Trace(ex + "\r\n");
+            }
+        }
+
+        
     }
 }

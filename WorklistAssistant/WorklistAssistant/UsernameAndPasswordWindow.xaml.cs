@@ -38,19 +38,8 @@ namespace WorklistAssistant
             {
                 if (psbNewPassword.Password == psbConfirmNewPassword.Password)
                 {
-                    UserManager.EditUser(UserLog.Login, txtUserName.Text, psbConfirmNewPassword.Password);
-                    Random rnd = new Random();
-                   var Users = new List<UserInClinik>(){new UserInClinik("Alex", "123", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_1", "sdf", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_2", "dfsdfh", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                    new UserInClinik("Alex", "123", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_112131212321234213423", "sdf", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_212112", "dfsdfh", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                    new UserInClinik("Alex", "123", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_11", "sdf", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_222", "dfsdfh", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2))};
-                   
-                    SettingWindow form = new SettingWindow(UserManager.GetUserOnLogin(txtUserName.Text), Users);
+                    UserManager.EditUser(UserLog.Login, txtUserName.Text, psbConfirmNewPassword.Password);    
+                    SettingWindow form = new SettingWindow(UserManager.GetUserOnLogin(txtUserName.Text));
                     form.Show();
                     this.Close();
                 }

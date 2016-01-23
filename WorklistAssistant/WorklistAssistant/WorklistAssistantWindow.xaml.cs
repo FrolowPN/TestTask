@@ -21,23 +21,13 @@ namespace WorklistAssistant
     public partial class WorklistAssistantWindow : Window
     {
         public User LoginUser { get; set; }
-        public List<UserInClinik> Users { get; set; }
+        public IList<UserInClinik> Users { get; set; }
         public WorklistAssistantWindow(User user)
         {
             LoginUser = user;
-            Random rnd = new Random();
+            Users = UserManager.ConvertToUserInClinik(FileManager.GetWorklistsForUser(LoginUser));
             InitializeComponent();
-            Users = new List<UserInClinik>(){new UserInClinik("Alex", "123", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_1", "sdf", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_2", "dfsdfh", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                    new UserInClinik("Alex", "123", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_112131212321234213423", "sdf", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_212112", "dfsdfh", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                    new UserInClinik("Alex", "123", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_11", "sdf", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
-                                                                new UserInClinik("Alex_222", "dfsdfh", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2))};
-           
-            lbxWorklists.ItemsSource = UserManager.ConvertToView(Users);
+            lbxWorklists.ItemsSource = Users;
             lblUserName.Content = LoginUser.Login;
         }
 
@@ -50,7 +40,7 @@ namespace WorklistAssistant
 
         private void btnSetting_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            SettingWindow formSet = new SettingWindow(LoginUser, Users);
+            SettingWindow formSet = new SettingWindow(LoginUser);
             formSet.ShowDialog();
         }
 

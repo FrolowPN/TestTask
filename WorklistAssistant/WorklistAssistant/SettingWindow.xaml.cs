@@ -20,14 +20,14 @@ namespace WorklistAssistant
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public User LogUser { get; set; }
-        public List<UserInClinik> WorkLists { get; set; }
-        public SettingWindow(User logUser, List<UserInClinik> worklists)
+        public IList<UserInClinik> WorkLists { get; set; }
+        public SettingWindow(User logUser)
         {
             LogUser = logUser;
-            WorkLists = worklists;
+            WorkLists = UserManager.ConvertToUserInClinik(FileManager.GetWorklistsForUser(logUser));
             InitializeComponent();
             lblUserName.Content = logUser.Login;
-            lbxSetting.ItemsSource = UserManager.ConvertToSettingView(worklists);
+            lbxSetting.ItemsSource = WorkLists;
 
         }
 
@@ -90,7 +90,8 @@ namespace WorklistAssistant
         }
         private void Mouse_Add_Click(object sender, ExecutedRoutedEventArgs e)
         {
-           
+            FileManager.AddWorklistInFile(LogUser.Login, "", "");
+            lbxSetting.ItemsSource = UserManager.ConvertToUserInClinik(FileManager.GetWorklistsForUser(LogUser));
         }
 
         private void Button_EditWorklist_Click(object sender, RoutedEventArgs e)

@@ -55,6 +55,7 @@
     <Compile Include="UserInClinik.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="UsersListView.cs" />
+    <Compile Include="Worklist.cs" />
     <Compile Include="WorklistViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

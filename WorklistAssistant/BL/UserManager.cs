@@ -39,6 +39,8 @@ namespace BL
 
             FileManager.WriteUsersInFile(usersResult);
         }
+
+        
         public static User GetUserOnLogin(string userName)
         {
             User result = new User();
@@ -80,6 +82,23 @@ namespace BL
             }
 
 
+            return result;
+        }
+        public static IList<UserInClinik> ConvertToUserInClinik(IList<Worklist> workls)
+        {
+            List<UserInClinik> result = new List<UserInClinik>();
+            Random rnd = new Random();
+            foreach (var item in workls)
+            {
+                result.Add(new UserInClinik(
+                    item.LoginUser,
+                    item.PasswordUser,
+                    rnd.Next(1, 100),
+                    rnd.Next(1, 100),
+                    rnd.Next(1, 100),
+                    rnd.Next(0, 1)  
+                ));
+            }
             return result;
         }
 
