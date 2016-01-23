@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:BL="clr-namespace:BL;assembly=BL" x:Class="WorklistAssistant.MainWindow" 
     xmlns:local="clr-namespace:WorklistAssistant.MyCommands"
-        SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Activated="Window_Activated" Background="#FF787474" Icon="Resources/v_icon.ico">
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" ShowInTaskbar="True" WindowStyle="None" WindowStartupLocation="CenterScreen" Activated="Window_Activated" Background="#FF787474" Icon="Resources/v_icon.ico" >
     <Window.Resources>
         <Color x:Key="WindowColor">#FFE8EDF9</Color>
         <Color x:Key="ContentAreaColorLight">#FFC5CBF9</Color>

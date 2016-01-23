@@ -32,23 +32,31 @@ namespace WorklistAssistant
 
         private void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            if (UserManager.VerifyingPassword(((UsersListView)cmbUser.SelectedValue).Text, psbPassword.Password))
+            try
+            {
+                if (UserManager.VerifyingPassword(((UsersListView)cmbUser.SelectedValue).Text, psbPassword.Password))
+                {
+
+                    WorklistAssistantWindow form = new WorklistAssistantWindow(UserManager.GetUserOnLogin(((UsersListView)cmbUser.SelectedValue).Text));
+                    form.Hide();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Password Wrong");
+                }
+            }
+            catch (Exception ex)
             {
 
-                WorklistAssistantWindow form = new WorklistAssistantWindow(UserManager.GetUserOnLogin(((UsersListView)cmbUser.SelectedValue).Text));
-                form.Show();
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Password Wrong");
+                logger.Trace(ex + "\r\n");
             }
         }
-        
+
 
         private void Button_Exit_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         private void cmbUser_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
@@ -92,7 +100,7 @@ namespace WorklistAssistant
             var textWithTxtBlock = ((TextBlock)((FrameworkElement)parentSender).FindName("txtBlockLogin")).Text;
             FileManager.DeleteUserFromFile(textWithTxtBlock);
             FileManager.DeleteAllWorklistForUser(textWithTxtBlock);
-             Refresh();
+            Refresh();
         }
 
 

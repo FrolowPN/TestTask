@@ -2,7 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:WorklistAssistant.MyCommands"
-        Title="Worklist Assistant"  AllowsTransparency="True"  Background="Transparent" ShowInTaskbar="True" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" OpacityMask="#FFC50D0D" MinWidth="467">
+        Title="Worklist Assistant"  AllowsTransparency="True"  Background="Transparent" ShowInTaskbar="True" Icon="Resources/v_icon.ico" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" OpacityMask="#FFC50D0D" MinWidth="467">
+
+    <Window.CommandBindings>
+       
+        <CommandBinding Command="local:LocalCommands.Add" Executed="Mouse_Add_Click"/>
+        <CommandBinding Command="local:LocalCommands.Edit" Executed="Button_Edit_Click"/>
+        
+    </Window.CommandBindings>
     <Window.Resources>
         <Style TargetType="ListBox">
             <Setter Property="Template">
@@ -243,12 +250,7 @@
 
     </Window.Resources>
 
-    <Window.CommandBindings>
-        <CommandBinding Command="Delete" Executed="Button_Delete_Click"/>
-        <CommandBinding Command="local:LocalCommands.Add" Executed="Mouse_Add_Click"/>
-        <CommandBinding Command="local:LocalCommands.Edit" Executed="Button_Edit_Click"/>
-        <CommandBinding Command="local:LocalCommands.EditRow" Executed="Button_EditRow_Click"/>
-    </Window.CommandBindings>
+    
 
     <Grid >
         <Border BorderThickness="1" CornerRadius="3,3,3,3" BorderBrush="Black">

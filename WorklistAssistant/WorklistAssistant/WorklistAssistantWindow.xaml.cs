@@ -22,6 +22,7 @@ namespace WorklistAssistant
     {
         public User LoginUser { get; set; }
         public IList<Worklist> Users { get; set; }
+        System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
         public WorklistAssistantWindow(User user)
         {
             LoginUser = user;
@@ -29,6 +30,15 @@ namespace WorklistAssistant
             InitializeComponent();
             lbxWorklists.ItemsSource = Users;
             lblUserName.Content = LoginUser.Login;
+            ni.Icon = new System.Drawing.Icon("Resources/v_icon.ico");
+            ni.Visible = true;
+            ni.DoubleClick += (sndr, args) =>
+            {
+                this.Show();
+                this.WindowState = WindowState.Normal;
+            };
+            
+            
         }
 
         private void btnLogOut_Click(object sender, ExecutedRoutedEventArgs e)
@@ -36,6 +46,7 @@ namespace WorklistAssistant
             MainWindow form = new MainWindow();
             form.Show();
             this.Close();
+            ni.Dispose();
         }
 
         private void btnSetting_Click(object sender, ExecutedRoutedEventArgs e)
@@ -43,6 +54,7 @@ namespace WorklistAssistant
             SettingWindow formSet = new SettingWindow(LoginUser);
             formSet.Show();
             this.Close();
+            ni.Dispose();
         }
 
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -52,7 +64,7 @@ namespace WorklistAssistant
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
 
         private void btnRefresh_Click(object sender, ExecutedRoutedEventArgs e)
