@@ -34,7 +34,9 @@ namespace WorklistAssistant
         private void Button_Edit_Click(object sender, ExecutedRoutedEventArgs e)
         {
             UsernameAndPasswordWindow form = new UsernameAndPasswordWindow(LogUser);
-            form.ShowDialog();
+           
+            this.Close();
+            form.Show();
         }
 
         private void Button_Delete_Click(object sender, ExecutedRoutedEventArgs e)
@@ -88,6 +90,16 @@ namespace WorklistAssistant
         }
         private void Mouse_Add_Click(object sender, ExecutedRoutedEventArgs e)
         {
+           
+        }
+
+        private void Button_EditWorklist_Click(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement frm = new FrameworkElement();
+            var parentSender = ((FrameworkElement)sender).Parent;
+            ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).IsEnabled = true;
+            ((StackPanel)((FrameworkElement)parentSender).FindName("stpOkCancel")).Visibility = Visibility.Visible;
+            ((StackPanel)((FrameworkElement)parentSender).FindName("stpEditDelete")).Visibility = Visibility.Hidden;
            
         }
     }

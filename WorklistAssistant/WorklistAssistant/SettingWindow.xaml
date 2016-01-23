@@ -22,6 +22,32 @@
             </Setter>
         </Style>
 
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="#FF9E9B9B"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="CaretBrush" Value="#FF9E9B9B"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Name="Bd" BorderThickness="1" 
+                                             BorderBrush="Transparent" 
+                                             Background="Transparent" 
+                                             CornerRadius="6"
+                                             SnapsToDevicePixels="true">
+                            <ScrollViewer Name="PART_ContentHost" Background="Transparent"/>
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="Black"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#FF2C2B2B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="ButtonWithBorder" TargetType="Button">
             <Setter Property="SnapsToDevicePixels" Value="true"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -105,7 +131,7 @@
 
                                 </Grid.ColumnDefinitions>
                                 <Image Height="20" Width="20" HorizontalAlignment="Left"  Source="Resources/userface.png"/>
-                                <TextBlock  x:Name="txtBlockLogin" Margin="5,0,0,0" Grid.Column="1" Text="{Binding Login}"/>
+                                <TextBox  Name="txtLogin" Margin="5,0,0,0" Grid.Column="1" Text="{Binding Login}"/>
                                 <TextBlock  Margin="5,0,0,0" Grid.Column="2"  Text="{Binding Password}"/>
 
                                 <StackPanel Name="stpStatus" Orientation="Horizontal" Grid.Column="3" >
@@ -113,12 +139,21 @@
                                     <TextBlock Margin="5,0,0,0" Text="{Binding Status}"/>
                                 </StackPanel>
 
-                                <StackPanel Name="stpEditDelete" Orientation="Horizontal" Grid.Column="3" Visibility="Collapsed">
-                                    <Button BorderBrush="Black"  Width="50" Style="{StaticResource ButtonWithBorder}">
+                                <StackPanel Name="stpEditDelete" Orientation="Horizontal" Grid.Column="3" Visibility="Hidden">
+                                    <Button BorderBrush="Black"  Width="50" Style="{StaticResource ButtonWithBorder}" Click="Button_EditWorklist_Click">
                                         <Image Height="15" Width="15" Source="Resources/pencil.png"/>
                                     </Button>
                                     <Button  Width="50" Style="{StaticResource ButtonWithBorder}">
                                         <Image Height="15" Width="15" Source="Resources/busket.png"/>
+                                    </Button>
+                                </StackPanel>
+
+                                <StackPanel Name="stpOkCancel" Orientation="Horizontal" Grid.Column="3" Visibility="Hidden">
+                                    <Button BorderBrush="Black"  Width="50" Style="{StaticResource ButtonWithBorder}">
+                                        <Image Height="15" Width="15" Source="Resources/ok.png"/>
+                                    </Button>
+                                    <Button  Width="50" Style="{StaticResource ButtonWithBorder}">
+                                        <Image Height="15" Width="15" Source="Resources/cancel.png"/>
                                     </Button>
                                 </StackPanel>
                             </Grid>
@@ -132,7 +167,7 @@
                                 <Setter TargetName="stpEditDelete" Property="Visibility" Value="Visible"></Setter>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="lbxi_border" Property="Background" Value="#FF252523"></Setter>
+                                <Setter TargetName="lbxi_border" Property="Background" Value="#FF3A3A39"></Setter>
                                 <Setter TargetName="stpStatus" Property="Visibility" Value="Hidden"></Setter>
                                 <Setter TargetName="stpEditDelete" Property="Visibility" Value="Visible"></Setter>
                             </Trigger>

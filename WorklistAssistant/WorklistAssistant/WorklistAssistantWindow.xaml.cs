@@ -36,8 +36,7 @@ namespace WorklistAssistant
                                                                     new UserInClinik("Alex", "123", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
                                                                 new UserInClinik("Alex_11", "sdf", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2)),
                                                                 new UserInClinik("Alex_222", "dfsdfh", rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(1, 100), rnd.Next(0, 2))};
-            //dtGridWorklists.ItemsSource = UserManager.ConvertToView(Users);
-            //dtGridWorklists.CanUserAddRows = false;
+           
             lbxWorklists.ItemsSource = UserManager.ConvertToView(Users);
             lblUserName.Content = LoginUser.Login;
         }

@@ -20,6 +20,25 @@ namespace BL
             result.Add("Add new User");
             return result;
         }
+        public static void EditUser(string userLogin, string newUserLogin, string newUserPassword)
+        {
+            IList<User> users = FileManager.GetUsersFromFile();
+            IList<User> usersResult = new List<User>();
+            foreach (var item in users)
+            {
+                if (item.Login == userLogin)
+                {
+                    User tempUser = new User(newUserLogin, newUserPassword);
+                    usersResult.Add(tempUser); 
+                }
+                else
+                {
+                    usersResult.Add(item); 
+                }
+            }
+
+            FileManager.WriteUsersInFile(usersResult);
+        }
         public static User GetUserOnLogin(string userName)
         {
             User result = new User();
