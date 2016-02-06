@@ -67,7 +67,7 @@
                                     <TextBlock Margin="5,0,0,0" Text="{Binding CountR}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Column="5">
-                                    <Image   Height="18" Width="12"  Source="{Binding StatusImg}" />
+                                    <Image   Height="18" Width="12"  Source="Resources/greenOk.png" />
                                     <TextBlock Margin="5,0,0,0" Text="{Binding Status}"/>
                                 </StackPanel>
                             </Grid>

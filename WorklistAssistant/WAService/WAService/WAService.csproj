@@ -50,14 +50,10 @@
     <Compile Include="BL\FileManager.cs" />
     <Compile Include="IWAService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BL\SettingView.cs" />
     <Compile Include="BL\User.cs" />
-    <Compile Include="BL\UserInClinik.cs" />
     <Compile Include="BL\UserManager.cs" />
-    <Compile Include="BL\UsersListView.cs" />
     <Compile Include="WAService.cs" />
     <Compile Include="BL\Worklist.cs" />
-    <Compile Include="BL\WorklistViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
@@ -67,6 +63,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\usersWorklists.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\usersWorklistsBase.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="app.config" />

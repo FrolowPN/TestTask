@@ -19,6 +19,10 @@ namespace WAService
         {
             get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/usersWorklists.txt", UriKind.RelativeOrAbsolute).LocalPath; }
         }
+        private static string PathWorklistsBase
+        {
+            get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/usersWorklistsBase.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+        }
 
         public static IList<User> GetUsersFromFile()
         {
@@ -96,7 +100,6 @@ namespace WAService
             {
                 logger.Trace(ex + "\r\n");
                 return new List<Worklist>() { new Worklist() };
-
             }
         }
         public static void WriteUsersInFile(IList<User> users)
@@ -126,7 +129,10 @@ namespace WAService
                 {
                     foreach (var item in workls)
                     {
-                        file.WriteLine(item.MasterUserLogin + "/" + item.LoginUser + "/" + item.PasswordUser);
+                        if (VerificateWorklist(item.MasterUserLogin, item.LoginUser, item.PasswordUser))
+                        {
+                            file.WriteLine(item.MasterUserLogin + "/" + item.LoginUser + "/" + item.PasswordUser);
+                        }
                     }
                 }
             }
@@ -158,10 +164,60 @@ namespace WAService
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
-                using (StreamWriter file = new StreamWriter(PathWorklists, true))
+                if (VerificateWorklist(masterUserLogin, loginUser, passwordUser))
                 {
-                    file.WriteLine(masterUserLogin + "/" + loginUser + "/" + passwordUser);
-                    return true;
+                    using (StreamWriter file = new StreamWriter(PathWorklists, true))
+                    {
+                        file.WriteLine(masterUserLogin + "/" + loginUser + "/" + passwordUser);
+                        return true;
+                    }
+                }
+                else if (loginUser=="-" && passwordUser=="-")
+                {
+                    using (StreamWriter file = new StreamWriter(PathWorklists, true))
+                    {
+                        file.WriteLine(masterUserLogin + "/-/-");
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return false;
+            }
+        }
+        public static bool VerificateWorklist(string masterUserLogin, string loginUser, string passwordUser)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                using (StreamReader file = new StreamReader(PathWorklistsBase))
+                {
+                    string tempString = file.ReadLine();
+                    List<Worklist> workls = new List<Worklist>();
+                    while (tempString != null)
+                    {
+                        if (tempString.Split('/')[0] == masterUserLogin)
+                        {
+                            workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
+                        }
+                        tempString = file.ReadLine();
+                    }
+                    
+                    if (workls.Where(x => x.LoginUser == loginUser && x.PasswordUser == passwordUser).ToList().Count()>0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
             catch (Exception ex)

@@ -28,23 +28,21 @@ namespace WAService
             MasterUserLogin = masterUserLogin;
             LoginUser = userLogin;
             PasswordUser = userPassword;
-            CountS = rnd.Next(1, 100).ToString();
-            CountU = rnd.Next(1, 100).ToString();
-            CountR = rnd.Next(1, 100).ToString();
-            if (rnd.Next(0, 2) != 0)
+            if (LoginUser == "-" && PasswordUser=="-")
             {
-                Status = "Connected";
-                StatusImg = new Uri(Directory.GetCurrentDirectory() + "/Resources/greenOk.png", UriKind.RelativeOrAbsolute).LocalPath;
+                CountS = "null";
+                CountU = "null";
+                CountR = "null";
+                Status = "Error";
             }
             else
             {
-                Status = "Error";
-                StatusImg = new Uri(Directory.GetCurrentDirectory() + "/Resources/redCancel.png", UriKind.RelativeOrAbsolute).LocalPath;
+                CountS = rnd.Next(1, 100).ToString();
+                CountU = rnd.Next(1, 100).ToString();
+                CountR = rnd.Next(1, 100).ToString();
+                Status = "Connected";
             }
-
-
-
-
+           // StatusImg = new Uri(Directory.GetCurrentDirectory() + "/Resources/greenOk.png", UriKind.RelativeOrAbsolute).LocalPath;
         }
     }
 

@@ -50,8 +50,6 @@ namespace WAService
             }
             
         }
-
-
         public static User GetUserOnLogin(string userName)
         {
             User result = new User();
@@ -75,28 +73,6 @@ namespace WAService
             {
                 return false;
             }
-        }
-
-        public static IList<UsersListView> ConvertToBind(IList<string> users)
-        {
-            IList<UsersListView> result = new List<UsersListView>();
-            foreach (var item in users)
-            {
-                if (item == users[users.Count() - 1])
-                {
-                    string imageLogo = new Uri(Directory.GetCurrentDirectory() + "/Resources/add.png", UriKind.RelativeOrAbsolute).LocalPath;
-                    string imageDel = new Uri(Directory.GetCurrentDirectory() + "/Resources/adds.png", UriKind.RelativeOrAbsolute).LocalPath;
-                    result.Add(new UsersListView(imageLogo, item, imageDel));
-                }
-                else
-                {
-                    result.Add(new UsersListView(item));
-                }
-
-            }
-
-
-            return result;
         }
         public static void EditWorklist(string masterUserLogin, string oldUserLogin, string newUserLogin, string newUserPassword)
         {
