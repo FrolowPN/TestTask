@@ -1,13 +1,12 @@
 ﻿using NLog;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL
+namespace WAService
 {
     public static class FileManager
     {
@@ -149,8 +148,9 @@ namespace BL
             }
             catch (Exception ex)
             {
-                return false;
                 logger.Trace(ex + "\r\n");
+                return false;
+
             }
         }
         public static bool AddWorklistInFile(string masterUserLogin, string loginUser, string passwordUser)
@@ -166,8 +166,8 @@ namespace BL
             }
             catch (Exception ex)
             {
-                return false;
                 logger.Trace(ex + "\r\n");
+                return false;
             }
         }
         public static bool DeleteUserFromFile(string nameUser)
@@ -191,8 +191,8 @@ namespace BL
             }
             catch (Exception ex)
             {
-                return false;
                 logger.Trace(ex + "\r\n");
+                return false;
             }
         }
         public static bool DeleteWorklistFromFile(string masterUserLogin, string loginUser)
@@ -220,8 +220,8 @@ namespace BL
             }
             catch (Exception ex)
             {
-                return false;
                 logger.Trace(ex + "\r\n");
+                return false;
             }
         }
 
@@ -245,9 +245,10 @@ namespace BL
             }
             catch (Exception ex)
             {
-                return false;
                 logger.Trace(ex + "\r\n");
+                return false;
             }
         }
     }
+
 }

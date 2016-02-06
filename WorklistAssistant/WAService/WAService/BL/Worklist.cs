@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL
+namespace WAService
 {
     public class Worklist
     {
@@ -41,10 +41,11 @@ namespace BL
                 Status = "Error";
                 StatusImg = new Uri(Directory.GetCurrentDirectory() + "/Resources/redCancel.png", UriKind.RelativeOrAbsolute).LocalPath;
             }
-           
-                    
-                    
-                      
+
+
+
+
         }
     }
+
 }

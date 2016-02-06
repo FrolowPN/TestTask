@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL
+namespace WAService
 {
-   public class UserInClinik
+    public class UserInClinik
     {
-       
+
         public string Login { get; set; }
         public string Password { get; set; }
         public string CountS { get; set; }
@@ -22,7 +22,7 @@ namespace BL
         {
             Login = login;
             Password = pass;
-            CountS =  s.ToString();
+            CountS = s.ToString();
             CountU = u.ToString();
             CountR = r.ToString();
             if (status != 0)
@@ -38,4 +38,5 @@ namespace BL
 
         }
     }
+
 }

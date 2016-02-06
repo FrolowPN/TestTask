@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WAService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WAService" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IWAService_VerifyingPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyingPassword" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_VerifyingPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyingPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_AddUserInFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserInFile" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_AddUserInFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserInFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_GetWorklistsForUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorklistsForUser" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_GetWorklistsForUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorklistsForUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_AddWorklistInFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddWorklistInFile" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_AddWorklistInFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddWorklistInFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_DeleteWorklistFromFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteWorklistFromFile" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_DeleteWorklistFromFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteWorklistFromFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_EditWorklist_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditWorklist" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_EditWorklist_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditWorklistResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_EditUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditUser" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_EditUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_ChangeMasterUserForWorklists_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeMasterUserForWorklists" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_ChangeMasterUserForWorklists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeMasterUserForWorklistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_DeleteAllWorklistForUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAllWorklistForUser" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_DeleteAllWorklistForUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAllWorklistForUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_DeleteUserFromFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserFromFile" />
+  </wsdl:message>
+  <wsdl:message name="IWAService_DeleteUserFromFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserFromFileResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IWAService">
+    <wsdl:operation name="VerifyingPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/VerifyingPassword" message="tns:IWAService_VerifyingPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/VerifyingPasswordResponse" message="tns:IWAService_VerifyingPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUserInFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/AddUserInFile" message="tns:IWAService_AddUserInFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/AddUserInFileResponse" message="tns:IWAService_AddUserInFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorklistsForUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/GetWorklistsForUser" message="tns:IWAService_GetWorklistsForUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/GetWorklistsForUserResponse" message="tns:IWAService_GetWorklistsForUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddWorklistInFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/AddWorklistInFile" message="tns:IWAService_AddWorklistInFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/AddWorklistInFileResponse" message="tns:IWAService_AddWorklistInFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWorklistFromFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/DeleteWorklistFromFile" message="tns:IWAService_DeleteWorklistFromFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/DeleteWorklistFromFileResponse" message="tns:IWAService_DeleteWorklistFromFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditWorklist">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/EditWorklist" message="tns:IWAService_EditWorklist_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/EditWorklistResponse" message="tns:IWAService_EditWorklist_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/EditUser" message="tns:IWAService_EditUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/EditUserResponse" message="tns:IWAService_EditUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeMasterUserForWorklists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/ChangeMasterUserForWorklists" message="tns:IWAService_ChangeMasterUserForWorklists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/ChangeMasterUserForWorklistsResponse" message="tns:IWAService_ChangeMasterUserForWorklists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllWorklistForUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/DeleteAllWorklistForUser" message="tns:IWAService_DeleteAllWorklistForUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/DeleteAllWorklistForUserResponse" message="tns:IWAService_DeleteAllWorklistForUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserFromFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWAService/DeleteUserFromFile" message="tns:IWAService_DeleteUserFromFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWAService/DeleteUserFromFileResponse" message="tns:IWAService_DeleteUserFromFile_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IWAService" type="tns:IWAService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="VerifyingPassword">
+      <soap:operation soapAction="http://tempuri.org/IWAService/VerifyingPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserInFile">
+      <soap:operation soapAction="http://tempuri.org/IWAService/AddUserInFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorklistsForUser">
+      <soap:operation soapAction="http://tempuri.org/IWAService/GetWorklistsForUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddWorklistInFile">
+      <soap:operation soapAction="http://tempuri.org/IWAService/AddWorklistInFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWorklistFromFile">
+      <soap:operation soapAction="http://tempuri.org/IWAService/DeleteWorklistFromFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditWorklist">
+      <soap:operation soapAction="http://tempuri.org/IWAService/EditWorklist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditUser">
+      <soap:operation soapAction="http://tempuri.org/IWAService/EditUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeMasterUserForWorklists">
+      <soap:operation soapAction="http://tempuri.org/IWAService/ChangeMasterUserForWorklists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllWorklistForUser">
+      <soap:operation soapAction="http://tempuri.org/IWAService/DeleteAllWorklistForUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserFromFile">
+      <soap:operation soapAction="http://tempuri.org/IWAService/DeleteUserFromFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WAService">
+    <wsdl:port name="BasicHttpBinding_IWAService" binding="tns:BasicHttpBinding_IWAService">
+      <soap:address location="http://localhost:8080/WAService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

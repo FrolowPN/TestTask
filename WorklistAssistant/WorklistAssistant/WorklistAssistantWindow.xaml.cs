@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BL;
+using WorklistAssistant.WAService;
 
 namespace WorklistAssistant
 {
@@ -20,13 +20,14 @@ namespace WorklistAssistant
     /// </summary>
     public partial class WorklistAssistantWindow : Window
     {
-        public User LoginUser { get; set; }
+        public string LoginUser { get; set; }
         public IList<Worklist> Users { get; set; }
         System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
-        public WorklistAssistantWindow(User user)
+        public WorklistAssistantWindow(string userLogin)
         {
-            LoginUser = user;
-            Users = FileManager.GetWorklistsForUser(LoginUser);
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            LoginUser = userLogin;
+            Users = client.GetWorklistsForUser(LoginUser);
             InitializeComponent();
             double workHeight = SystemParameters.WorkArea.Height;
             double workWidth = SystemParameters.WorkArea.Width;
@@ -35,24 +36,16 @@ namespace WorklistAssistant
             Left = primaryMonitorArea.Right - ActualWidth;
             Top = primaryMonitorArea.Bottom - ActualHeight;
             lbxWorklists.ItemsSource = Users;
-            lblUserName.Content = LoginUser.Login;
+            lblUserName.Content = LoginUser;
             ni.Icon = new System.Drawing.Icon("Resources/v_icon.ico");
             ni.Visible = true;
-            ni.Click += (sndr, args) =>
+            ni.DoubleClick += (sndr, args) =>
             {
-                
-                this.ShowInTaskbar = !this.ShowInTaskbar;
-
-                if (this.ShowInTaskbar)
-                {
-                    this.Show();
-                }
-                else
-
-                { this.Hide(); }
+                this.Show();
+                this.WindowState = WindowState.Normal;
             };
-            
-            
+
+            client.Close();
         }
 
         private void btnLogOut_Click(object sender, ExecutedRoutedEventArgs e)
@@ -88,7 +81,9 @@ namespace WorklistAssistant
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            lbxWorklists.ItemsSource = FileManager.GetWorklistsForUser(LoginUser);
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            lbxWorklists.ItemsSource = client.GetWorklistsForUser(LoginUser);
+            client.Close();
         }
     }
 }

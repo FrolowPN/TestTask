@@ -11,12 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BL;
 
 namespace WorklistAssistant
 {
     public partial class NewUserWindow : Window
     {
+
         public NewUserWindow()
         {
             InitializeComponent();
@@ -24,25 +24,30 @@ namespace WorklistAssistant
 
         private void button_save_click(object sender, ExecutedRoutedEventArgs e)
         {
-            if (txtNewUser.Text != "" && psbNewPassword.Password !="")
+            var client = new WAService.WAServiceClient("BasicHttpBinding_IWAService");
+            if (txtNewUser.Text != "" && psbNewPassword.Password != "")
             {
                 if (psbConfirmNewPassword.Password == psbNewPassword.Password)
-            {
-                if (!FileManager.AddUserInFile(txtNewUser.Text, psbNewPassword.Password))
                 {
-                    MessageBox.Show("Oops! =(");
+                    if (!client.AddUserInFile(txtNewUser.Text, psbNewPassword.Password))
+                    {
+                        MessageBox.Show("Oops! =(");
+                        client.Close();
+                    }
+                    else
+                    {
+                        ClientFileHelper.AddUser(txtNewUser.Text);
+                        client.Close();
+                        Close();
+                    }
                 }
-                else 
-                { 
-                    Close();
+                else
+                {
+                    client.Close();
+                    MessageBox.Show("Passwords do not match");
                 }
             }
-            else
-            {
-                MessageBox.Show("Passwords do not match");
-            } 
-            }
-           
+
         }
 
         private void Button_Close_Click(object sender, ExecutedRoutedEventArgs e)
@@ -57,13 +62,11 @@ namespace WorklistAssistant
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            //this.Close();
-            
             ApplicationCommands.Close.Execute(null, this);
         }
 
-        
 
-      
+
+
     }
 }

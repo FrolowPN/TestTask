@@ -1,4 +1,4 @@
-﻿using BL;
+﻿
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -17,38 +17,42 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 
+
 namespace WorklistAssistant
 {
 
     public partial class MainWindow : Window
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public MainWindow()
         {
             InitializeComponent();
-            cmbUser.ItemsSource = UserManager.ConvertToBind(UserManager.GetListLogin());
+            cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
         }
 
 
         private void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
         {
+            var client = new WAService.WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
-                if (UserManager.VerifyingPassword(((UsersListView)cmbUser.SelectedValue).Text, psbPassword.Password))
+                if (client.VerifyingPassword(((Login)cmbUser.SelectedValue).MasterUserLogin, psbPassword.Password))
                 {
-
-                    WorklistAssistantWindow form = new WorklistAssistantWindow(UserManager.GetUserOnLogin(((UsersListView)cmbUser.SelectedValue).Text));
+                    WorklistAssistantWindow form = new WorklistAssistantWindow(((Login)cmbUser.SelectedValue).MasterUserLogin);
                     form.Hide();
+                    client.Close();
                     this.Close();
                 }
                 else
                 {
+                    client.Close();
                     MessageBox.Show("Password Wrong");
                 }
             }
             catch (Exception ex)
             {
-
+                client.Close();
                 logger.Trace(ex + "\r\n");
             }
         }
@@ -80,7 +84,7 @@ namespace WorklistAssistant
 
         private void Refresh()
         {
-            cmbUser.ItemsSource = UserManager.ConvertToBind(UserManager.GetListLogin());
+            cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
         }
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -95,11 +99,17 @@ namespace WorklistAssistant
 
         private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            var client = new WAService.WAServiceClient("BasicHttpBinding_IWAService");
             FrameworkElement frm = new FrameworkElement();
             var parentSender = ((FrameworkElement)sender).Parent;
             var textWithTxtBlock = ((TextBlock)((FrameworkElement)parentSender).FindName("txtBlockLogin")).Text;
-            FileManager.DeleteUserFromFile(textWithTxtBlock);
-            FileManager.DeleteAllWorklistForUser(textWithTxtBlock);
+
+            if (client.DeleteUserFromFile(textWithTxtBlock))
+            {
+                ClientFileHelper.RemoveUser(textWithTxtBlock);
+                client.DeleteAllWorklistForUser(textWithTxtBlock);
+            }
+            client.Close();
             Refresh();
         }
 

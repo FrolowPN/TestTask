@@ -11,8 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BL;
 using NLog;
+using WorklistAssistant.WAService;
 
 namespace WorklistAssistant
 {
@@ -20,14 +20,15 @@ namespace WorklistAssistant
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private static string oldUserLogin;
-        public User LogUser { get; set; }
+        public string LogUser { get; set; }
         public IList<Worklist> WorkLists { get; set; }
-        public SettingWindow(User logUser)
+        public SettingWindow(string logUser)
         {
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
             LogUser = logUser;
-            WorkLists = FileManager.GetWorklistsForUser(LogUser);
+            WorkLists = client.GetWorklistsForUser(LogUser);
             InitializeComponent();
-            lblUserName.Content = logUser.Login;
+            lblUserName.Content = logUser;
             lbxSetting.ItemsSource = WorkLists;
 
         }
@@ -54,14 +55,16 @@ namespace WorklistAssistant
         }
         private void Mouse_Add_Click(object sender, ExecutedRoutedEventArgs e)
         {
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
-                FileManager.AddWorklistInFile(LogUser.Login, "-", "-");
-                lbxSetting.ItemsSource = FileManager.GetWorklistsForUser(LogUser);
+               client.AddWorklistInFile(LogUser, "-", "-");
+                lbxSetting.ItemsSource = client.GetWorklistsForUser(LogUser);
+                client.Close();
             }
             catch (Exception ex)
             {
-
+                client.Close();
                 logger.Trace(ex + "\r\n");
             }
 
@@ -88,18 +91,20 @@ namespace WorklistAssistant
 
         private void Button_DeleteWorklist_Click(object sender, RoutedEventArgs e)
         {
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
                 FrameworkElement frm = new FrameworkElement();
                 var parentSender = ((FrameworkElement)sender).Parent;
                 var userName = ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).Text;
-                var masterUserName = LogUser.Login;
-                FileManager.DeleteWorklistFromFile(masterUserName, userName);
-                lbxSetting.ItemsSource = FileManager.GetWorklistsForUser(LogUser);
+                var masterUserName = LogUser;
+                client.DeleteWorklistFromFile(masterUserName, userName);
+                lbxSetting.ItemsSource = client.GetWorklistsForUser(LogUser);
+                client.Close();
             }
             catch (Exception ex)
             {
-
+                client.Close();
                 logger.Trace(ex + "\r\n");
             }
 
@@ -107,13 +112,15 @@ namespace WorklistAssistant
 
         private void Button_Cancel_Click(object sender, RoutedEventArgs e)
         {
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
-                lbxSetting.ItemsSource = FileManager.GetWorklistsForUser(LogUser);
+                lbxSetting.ItemsSource = client.GetWorklistsForUser(LogUser);
+                client.Close();
             }
             catch (Exception ex)
             {
-
+                client.Close();
                 logger.Trace(ex + "\r\n");
             }
 
@@ -121,18 +128,20 @@ namespace WorklistAssistant
 
         private void Button_Ok_Click(object sender, RoutedEventArgs e)
         {
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
                 FrameworkElement frm = new FrameworkElement();
                 var parentSender = ((FrameworkElement)sender).Parent;
                 string loginUser = ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).Text;
                 string passUser = ((TextBox)((FrameworkElement)parentSender).FindName("txtPassword")).Text;
-                UserManager.EditWorklist(LogUser.Login, oldUserLogin, loginUser, passUser);
-                lbxSetting.ItemsSource = FileManager.GetWorklistsForUser(LogUser);
+                client.EditWorklist(LogUser, oldUserLogin, loginUser, passUser);
+                lbxSetting.ItemsSource = client.GetWorklistsForUser(LogUser);
+                client.Close();
             }
             catch (Exception ex)
             {
-
+                client.Close();
                 logger.Trace(ex + "\r\n");
             }
 

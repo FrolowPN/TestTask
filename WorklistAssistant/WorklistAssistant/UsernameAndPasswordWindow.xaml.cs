@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BL;
+using WorklistAssistant.WAService;
 
 namespace WorklistAssistant
 {
@@ -20,28 +20,34 @@ namespace WorklistAssistant
     /// </summary>
     public partial class UsernameAndPasswordWindow : Window
     {
-        public User UserLog { get; set; }
-        public UsernameAndPasswordWindow(User user)
+        public string UserLog { get; set; }
+        public UsernameAndPasswordWindow(string user)
         {
             UserLog = user;
             InitializeComponent();
-            txtUserName.Text = user.Login;
+            txtUserName.Text = UserLog;
         }
 
         private void Button_Save_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            if (psbOldPassword.Password != UserLog.Password)
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            if (!client.VerifyingPassword(UserLog, psbOldPassword.Password))
             {
+                client.Close();
                 MessageBox.Show("Passwords wrong!");
             }
             else
             {
                 if (psbNewPassword.Password == psbConfirmNewPassword.Password)
                 {
-                    UserManager.EditUser(UserLog.Login, txtUserName.Text, psbConfirmNewPassword.Password);
-                    UserManager.ChangeMasterUserForWorklists(UserLog.Login, txtUserName.Text);
-                    SettingWindow form = new SettingWindow(UserManager.GetUserOnLogin(txtUserName.Text));
+                    if (client.EditUser(UserLog, txtUserName.Text, psbConfirmNewPassword.Password))
+                    {
+                        ClientFileHelper.UpdateUser(UserLog, txtUserName.Text);
+                        client.ChangeMasterUserForWorklists(UserLog, txtUserName.Text);
+                    }
+                    SettingWindow form = new SettingWindow(txtUserName.Text);
                     form.Show();
+                    client.Close();
                     this.Close();
                 }
                 else
@@ -68,6 +74,6 @@ namespace WorklistAssistant
             this.Close();
         }
 
-       
+
     }
 }
