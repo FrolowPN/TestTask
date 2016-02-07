@@ -142,7 +142,7 @@
                                 <TextBox  Name ="txtPassword" Margin="5,0,0,0" Grid.Column="2"  Text="{Binding PasswordUser}"/>
 
                                 <StackPanel Name="stpStatus" Margin="5,0,0,0" Orientation="Horizontal" Grid.Column="3" >
-                                    <Image   Height="18" Width="12"  Source="Resources/greenOk.png" />
+                                    <Image   Height="18" Width="12"  Source="{Binding StatusImg}" />
                                     <TextBlock Margin="5,0,0,0" Text="{Binding Status}"/>
                                 </StackPanel>
 

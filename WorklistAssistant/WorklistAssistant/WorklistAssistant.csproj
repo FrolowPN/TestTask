@@ -83,11 +83,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\ClientFileHelper.cs" />
+    <Compile Include="Helpers\WLStatusHelper.cs" />
     <Compile Include="MyCommands\LocalCommands.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WAServiceOnIIS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\WAService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -192,6 +198,26 @@
     <Content Include="Resources\v_icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Service References\WAServiceOnIIS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WAServiceOnIIS\configuration.svcinfo" />
+    <None Include="Service References\WAServiceOnIIS\configuration91.svcinfo" />
+    <None Include="Service References\WAServiceOnIIS\Service.disco" />
+    <None Include="Service References\WAServiceOnIIS\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WAServiceOnIIS\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WAServiceOnIIS\Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WAServiceOnIIS\WAService.wsdl" />
+    <None Include="Service References\WAServiceOnIIS\WorklistAssistant.WAServiceOnIIS.Worklist.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\WAService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -231,7 +257,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Img\logo.jpg" />
@@ -246,6 +274,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WAServiceOnIIS\" />
     <WCFMetadataStorage Include="Service References\WAService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

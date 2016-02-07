@@ -44,7 +44,6 @@ namespace WAService
                 Status = "Connected";
                 rnd = new Random();
             }
-           // StatusImg = new Uri(Directory.GetCurrentDirectory() + "/Resources/greenOk.png", UriKind.RelativeOrAbsolute).LocalPath;
         }
     }
 

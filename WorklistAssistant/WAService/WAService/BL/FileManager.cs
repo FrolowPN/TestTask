@@ -1,6 +1,7 @@
 ﻿using NLog;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,15 +14,19 @@ namespace WAService
 
         private static string Path
         {
-            get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/users.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+            //get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/users.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+            get { return ConfigurationManager.AppSettings["UsersFile"]; }
         }
         private static string PathWorklists
         {
-            get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/usersWorklists.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+            //get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/usersWorklists.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+            get { return ConfigurationManager.AppSettings["UsersWorklistsFile"]; }
+
         }
         private static string PathWorklistsBase
         {
-            get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/usersWorklistsBase.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+            //get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/usersWorklistsBase.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+            get { return ConfigurationManager.AppSettings["UsersWorklistsBase"]; }
         }
 
         public static IList<User> GetUsersFromFile()

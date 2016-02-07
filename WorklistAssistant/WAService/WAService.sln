@@ -7,6 +7,31 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WAService", "WAService\WASe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WAServiceHost", "WAServiceHost\WAServiceHost.csproj", "{51407655-B7DA-4A29-BE28-8E2C2ACF493B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceHost", "WindowsServiceHost\WindowsServiceHost.csproj", "{DB71010B-FEAD-4019-9479-63DD31C9694C}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WAServiceIIS(1)", "WAServiceIIS\", "{4DD35D2E-11D8-47CB-BD59-BD57053F534B}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{11376bd1-1b3b-4fab-8e6e-69d64a452a4a}|WAService.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_63412"
+		Debug.AspNetCompiler.PhysicalPath = "WAServiceIIS\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63412\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_63412"
+		Release.AspNetCompiler.PhysicalPath = "WAServiceIIS\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63412\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "63412"
+		SlnRelativePath = "WAServiceIIS\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +46,14 @@ Global
 		{51407655-B7DA-4A29-BE28-8E2C2ACF493B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51407655-B7DA-4A29-BE28-8E2C2ACF493B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51407655-B7DA-4A29-BE28-8E2C2ACF493B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB71010B-FEAD-4019-9479-63DD31C9694C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB71010B-FEAD-4019-9479-63DD31C9694C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB71010B-FEAD-4019-9479-63DD31C9694C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB71010B-FEAD-4019-9479-63DD31C9694C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DD35D2E-11D8-47CB-BD59-BD57053F534B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DD35D2E-11D8-47CB-BD59-BD57053F534B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DD35D2E-11D8-47CB-BD59-BD57053F534B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DD35D2E-11D8-47CB-BD59-BD57053F534B}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

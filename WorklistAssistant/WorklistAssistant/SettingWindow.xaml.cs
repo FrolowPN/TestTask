@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using NLog;
 using WorklistAssistant.WAService;
+using WorklistAssistant.Helpers;
 
 namespace WorklistAssistant
 {
@@ -26,7 +27,7 @@ namespace WorklistAssistant
         {
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             LogUser = logUser;
-            WorkLists = client.GetWorklistsForUser(LogUser);
+            WorkLists = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
             InitializeComponent();
             lblUserName.Content = logUser;
             lbxSetting.ItemsSource = WorkLists;
@@ -59,7 +60,7 @@ namespace WorklistAssistant
             try
             {
                client.AddWorklistInFile(LogUser, "-", "-");
-                lbxSetting.ItemsSource = client.GetWorklistsForUser(LogUser);
+                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
                 client.Close();
             }
             catch (Exception ex)
@@ -99,7 +100,7 @@ namespace WorklistAssistant
                 var userName = ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).Text;
                 var masterUserName = LogUser;
                 client.DeleteWorklistFromFile(masterUserName, userName);
-                lbxSetting.ItemsSource = client.GetWorklistsForUser(LogUser);
+                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
                 client.Close();
             }
             catch (Exception ex)
@@ -115,7 +116,7 @@ namespace WorklistAssistant
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
-                lbxSetting.ItemsSource = client.GetWorklistsForUser(LogUser);
+                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
                 client.Close();
             }
             catch (Exception ex)
@@ -136,7 +137,7 @@ namespace WorklistAssistant
                 string loginUser = ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).Text;
                 string passUser = ((TextBox)((FrameworkElement)parentSender).FindName("txtPassword")).Text;
                 client.EditWorklist(LogUser, oldUserLogin, loginUser, passUser);
-                lbxSetting.ItemsSource = client.GetWorklistsForUser(LogUser);
+                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
                 client.Close();
             }
             catch (Exception ex)
