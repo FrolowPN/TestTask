@@ -17,6 +17,7 @@ namespace WAService
         public string CountR { get; set; }
         public string Status { get; set; }
         public string StatusImg { get; set; }
+        private static Random rnd = new Random();
         public Worklist()
         {
 
@@ -24,7 +25,7 @@ namespace WAService
 
         public Worklist(string masterUserLogin, string userLogin, string userPassword)
         {
-            Random rnd = new Random();
+            
             MasterUserLogin = masterUserLogin;
             LoginUser = userLogin;
             PasswordUser = userPassword;
@@ -37,10 +38,11 @@ namespace WAService
             }
             else
             {
-                CountS = rnd.Next(1, 100).ToString();
-                CountU = rnd.Next(1, 100).ToString();
-                CountR = rnd.Next(1, 100).ToString();
+                CountS = rnd.Next(100).ToString();
+                CountU = rnd.Next(100).ToString();
+                CountR = rnd.Next(100).ToString();
                 Status = "Connected";
+                rnd = new Random();
             }
            // StatusImg = new Uri(Directory.GetCurrentDirectory() + "/Resources/greenOk.png", UriKind.RelativeOrAbsolute).LocalPath;
         }

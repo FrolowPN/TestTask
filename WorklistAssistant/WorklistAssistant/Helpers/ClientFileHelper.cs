@@ -98,7 +98,10 @@ namespace WorklistAssistant
                     {
                         if (item.MasterUserLogin != oldMasterUserLogin)
                         {
-                            file.WriteLine(item.MasterUserLogin);
+                            if (item.MasterUserLogin != "Add new user")
+                            {
+                                file.WriteLine(item.MasterUserLogin);
+                            }
                         }
                         else
                         {
