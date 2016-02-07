@@ -182,7 +182,7 @@
                         <Image Source="Resources/logOut.png" Width="20" Height="20"/>
                     </Button>
                     <Label Content="Logout" Grid.Column="3"  Style="{StaticResource MyLabelStyle}"/>
-                    <Label Content="Refreshed ?? min ago" Grid.Column="5"  Style="{StaticResource MyLabelStyle}" />
+                    <Label Name="lblTimer"  Grid.Column="5"  Style="{StaticResource MyLabelStyle}" />
                     <Button x:Name="btnRefresh"  Grid.Column="6"  Command="local:LocalCommands.Refresh">
                         <Image Source="Resources/refresh.png" Width="20" Height="20"/>
                     </Button>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WorklistAssistant.WAService;
+using System.Windows.Threading;
 
 namespace WorklistAssistant
 {
@@ -20,15 +21,24 @@ namespace WorklistAssistant
     /// </summary>
     public partial class WorklistAssistantWindow : Window
     {
+       DispatcherTimer Timer = new DispatcherTimer();
+        public int m = 0;
+
         public string LoginUser { get; set; }
         public IList<Worklist> Users { get; set; }
         System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
         public WorklistAssistantWindow(string userLogin)
         {
+
+            Timer.Interval = new TimeSpan(0, 1, 0);
+            Timer.Tick += new EventHandler(timer);
+            Timer.Start();
+           
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             LoginUser = userLogin;
             Users = client.GetWorklistsForUser(LoginUser);
             InitializeComponent();
+            lblTimer.Content = "Refreshed " + m.ToString() + " min ago";
             double workHeight = SystemParameters.WorkArea.Height;
             double workWidth = SystemParameters.WorkArea.Width;
             var primaryMonitorArea = SystemParameters.WorkArea;
@@ -46,6 +56,19 @@ namespace WorklistAssistant
             };
 
             client.Close();
+         
+        }
+
+        private void timer(object sender, EventArgs e)
+        {
+            lblTimer.Content = "Refreshed "+ m++.ToString() + " min ago";
+            if (m==16)
+            {
+                var client = new WAServiceClient("BasicHttpBinding_IWAService");
+                m = 0;
+                lbxWorklists.ItemsSource= client.GetWorklistsForUser(LoginUser);
+                client.Close();
+            }
         }
 
         private void btnLogOut_Click(object sender, ExecutedRoutedEventArgs e)
@@ -76,7 +99,10 @@ namespace WorklistAssistant
 
         private void btnRefresh_Click(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            m = 0;
+            lbxWorklists.ItemsSource = client.GetWorklistsForUser(LoginUser);
+            client.Close();
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -85,5 +111,7 @@ namespace WorklistAssistant
             lbxWorklists.ItemsSource = client.GetWorklistsForUser(LoginUser);
             client.Close();
         }
+
+       
     }
 }
