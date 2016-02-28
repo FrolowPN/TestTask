@@ -24,7 +24,8 @@ namespace WAService
         }
         public IList<Worklist> GetWorklistsForUser(string userLogin)
         {
-            return FileManager.GetWorklistsForUser(UserManager.GetUserOnLogin(userLogin));
+            //return FileManager.GetWorklistsForUser(UserManager.GetUserOnLogin(userLogin));
+            return FileManager.GetWorklistsForUser(userLogin);
         }
         public bool AddWorklistInFile(string masterUserLogin, string loginUser, string passwordUser)
         {

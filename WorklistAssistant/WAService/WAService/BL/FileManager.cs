@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WABase;
 using WABase.BaseHelpers;
 
 namespace WAService
@@ -42,7 +43,7 @@ namespace WAService
                     while (tempString != null)
                     {
 
-                        users.Add(new User(tempString.Split('/')[0], tempString.Split('/')[1]));
+                        //users.Add(new User(tempString.Split('/')[0], tempString.Split('/')[1]));
                         tempString = file.ReadLine();
                     }
                     return users;
@@ -67,7 +68,7 @@ namespace WAService
                     while (tempString != null)
                     {
 
-                        workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
+                        //workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
                         tempString = file.ReadLine();
                     }
                     return workls;
@@ -80,32 +81,47 @@ namespace WAService
 
             }
         }
-        public static IList<Worklist> GetWorklistsForUser(User user)
+        public static IList<Worklist> GetWorklistsForUser(string userLogin)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
+            //try
+            //{
+            //    using (StreamReader file = new StreamReader(PathWorklists))
+            //    {
+            //        string tempString = file.ReadLine();
+            //        List<Worklist> workls = new List<Worklist>();
+            //        while (tempString != null)
+            //        {
+            //            if (tempString.Split('/')[0] == user.Login)
+            //            {
+            //                workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
+
+            //            }
+
+            //            tempString = file.ReadLine();
+            //        }
+            //        return workls;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Trace(ex + "\r\n");
+            //    return new List<Worklist>() { new Worklist() };
+            //}
             try
             {
-                using (StreamReader file = new StreamReader(PathWorklists))
+                ICollection<User> users = MUserHelper.GetMUserOnLogin(userLogin).Users;
+                List<Worklist> workls = new List<Worklist>();
+                foreach (var user in users)
                 {
-                    string tempString = file.ReadLine();
-                    List<Worklist> workls = new List<Worklist>();
-                    while (tempString != null)
-                    {
-                        if (tempString.Split('/')[0] == user.Login)
-                        {
-                            workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
-
-                        }
-
-                        tempString = file.ReadLine();
-                    }
-                    return workls;
+                    workls.Add(new Worklist(user));
                 }
+                return workls;
             }
             catch (Exception ex)
             {
                 logger.Trace(ex + "\r\n");
-                return new List<Worklist>() { new Worklist() };
+               return new List<Worklist>() { new Worklist() };
             }
         }
         public static void WriteUsersInFile(IList<User> users)
@@ -117,7 +133,7 @@ namespace WAService
                 {
                     foreach (var item in users)
                     {
-                        file.WriteLine(item.Login + "/" + item.Password);
+                        //file.WriteLine(item.Login + "/" + item.Password);
                     }
                 }
             }
@@ -135,9 +151,9 @@ namespace WAService
                 {
                     foreach (var item in workls)
                     {
-                        if (VerificateWorklist(item.MasterUserLogin, item.LoginUser, item.PasswordUser))
+                        //if (VerificateWorklist(item.MasterUserLogin, item.LoginUser, item.PasswordUser))
                         {
-                            file.WriteLine(item.MasterUserLogin + "/" + item.LoginUser + "/" + item.PasswordUser);
+                            //file.WriteLine(item.MasterUserLogin + "/" + item.LoginUser + "/" + item.PasswordUser);
                         }
                     }
                 }
@@ -220,7 +236,7 @@ namespace WAService
                     {
                         if (tempString.Split('/')[0] == masterUserLogin)
                         {
-                            workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
+                            //workls.Add(new Worklist(tempString.Split('/')[0], tempString.Split('/')[1], tempString.Split('/')[2]));
                         }
                         tempString = file.ReadLine();
                     }
@@ -285,14 +301,14 @@ namespace WAService
                 List<Worklist> result = new List<Worklist>();
                 foreach (var item in tempList)
                 {
-                    if (item.MasterUserLogin == masterUserLogin && item.LoginUser == loginUser)
-                    {
+                    ////if (item.MasterUserLogin == masterUserLogin && item.LoginUser == loginUser)
+                    //{
 
-                    }
-                    else
-                    {
-                        result.Add(item);
-                    }
+                    //}
+                    //else
+                    //{
+                    //    result.Add(item);
+                    //}
 
                 }
                 WriteWorklistsInFile(result);
@@ -315,7 +331,7 @@ namespace WAService
                 List<Worklist> result = new List<Worklist>();
                 foreach (var item in tempList)
                 {
-                    if (item.MasterUserLogin != masterUserLogin)
+                    //if (item.MasterUserLogin != masterUserLogin)
                     {
                         result.Add(item);
                     }

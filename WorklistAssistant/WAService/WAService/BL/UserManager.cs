@@ -17,7 +17,7 @@ namespace WAService
             List<string> result = new List<string>();
             foreach (var item in FileManager.GetUsersFromFile())
             {
-                result.Add(item.Login.ToString());
+                //result.Add(item.Login.ToString());
             }
             result.Add("Add new User");
             return result;
@@ -31,15 +31,15 @@ namespace WAService
                 IList<User> usersResult = new List<User>();
                 foreach (var item in users)
                 {
-                    if (item.Login == userLogin)
-                    {
-                        User tempUser = new User(newUserLogin, newUserPassword);
-                        usersResult.Add(tempUser);
-                    }
-                    else
-                    {
-                        usersResult.Add(item);
-                    }
+                    ////if (item.Login == userLogin)
+                    //{
+                    //    User tempUser = new User(newUserLogin, newUserPassword);
+                    //    usersResult.Add(tempUser);
+                    //}
+                    //else
+                    //{
+                    //    usersResult.Add(item);
+                    //}
                 }
 
                 FileManager.WriteUsersInFile(usersResult);
@@ -57,10 +57,10 @@ namespace WAService
             User result = new User();
             foreach (var item in FileManager.GetUsersFromFile())
             {
-                if (item.Login == userName)
-                {
-                    result = item;
-                }
+                //if (item.Login == userName)
+                //{
+                //    result = item;
+                //}
             }
             return result;
         }
@@ -93,15 +93,15 @@ namespace WAService
             List<Worklist> result = new List<Worklist>();
             foreach (var item in tempList)
             {
-                if (item.MasterUserLogin == masterUserLogin && item.LoginUser == oldUserLogin)
-                {
-                    Worklist tempWorklist = new Worklist(masterUserLogin, newUserLogin, newUserPassword);
-                    result.Add(tempWorklist);
-                }
-                else
-                {
-                    result.Add(item);
-                }
+                //if (item.MasterUserLogin == masterUserLogin && item.LoginUser == oldUserLogin)
+                //{
+                //    Worklist tempWorklist = new Worklist(masterUserLogin, newUserLogin, newUserPassword);
+                //    result.Add(tempWorklist);
+                //}
+                //else
+                //{
+                //    result.Add(item);
+                //}
 
             }
             FileManager.WriteWorklistsInFile(result);
@@ -114,15 +114,15 @@ namespace WAService
             List<Worklist> result = new List<Worklist>();
             foreach (var item in tempList)
             {
-                if (item.MasterUserLogin == oldMasterUser)
-                {
-                    Worklist tempWorklist = new Worklist(newMasterUser, item.LoginUser, item.PasswordUser);
-                    result.Add(tempWorklist);
-                }
-                else
-                {
-                    result.Add(item);
-                }
+                //if (item.MasterUserLogin == oldMasterUser)
+                //{
+                //    Worklist tempWorklist = new Worklist(newMasterUser, item.LoginUser, item.PasswordUser);
+                //    result.Add(tempWorklist);
+                //}
+                //else
+                //{
+                //    result.Add(item);
+                //}
 
             }
             FileManager.WriteWorklistsInFile(result);
