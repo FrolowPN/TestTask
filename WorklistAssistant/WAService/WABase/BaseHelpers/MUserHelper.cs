@@ -38,5 +38,51 @@ namespace WABase.BaseHelpers
                 return new MasterUser();
             }
         }
+        public static bool AddMUser(string login, string password)
+        {
+            try
+            {
+                using (WABaseContext ctx = new WABaseContext())
+                {
+                    MasterUser mUser = new MasterUser() { MUserLogin = login, MUserPassword = password };
+                    ctx.MasterUsers.Add(mUser);
+                    ctx.SaveChanges();
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return false;
+            }
+
+        }
+        public static bool DeleteMUser(string login)
+        {
+            try
+            {
+                using (WABaseContext ctx = new WABaseContext())
+                {
+                    MasterUser mUser = ctx.MasterUsers.Where(x => x.MUserLogin == login).FirstOrDefault();
+                    if (mUser==null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        ctx.MasterUsers.Remove(mUser);
+                        ctx.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return false;
+            }
+
+        }
     }
 }
