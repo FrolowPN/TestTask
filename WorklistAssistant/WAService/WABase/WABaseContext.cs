@@ -12,8 +12,6 @@ namespace WABase
     {
         public WABaseContext():base("WABaseContext")
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<WABaseContext, Configuration>(true));
-
         }
 
         public DbSet<MasterUser> MasterUsers { get; set; }

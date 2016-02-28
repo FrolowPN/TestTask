@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WABase;
+using WABase.BaseHelpers;
 
 namespace WAService
 {
@@ -64,8 +66,17 @@ namespace WAService
         }
         public static bool VerifyingPassword(string userName, string password)
         {
-            User tempUser = GetUserOnLogin(userName);
-            if (tempUser.Password == password)
+            //User tempUser = GetUserOnLogin(userName);
+            //if (tempUser.Password == password)
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+            MasterUser tempUser = MUserHelper.GetMUserOnLogin(userName);
+            if (tempUser.MUserPassword == password)
             {
                 return true;
             }
