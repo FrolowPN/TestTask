@@ -88,6 +88,33 @@ namespace WABase.BaseHelpers
             }
 
         }
+        public static bool EditMUser(string userLogin, string newUserLogin, string newUserPassword)
+        {
+            try
+            {
+                using (WABaseContext ctx = new WABaseContext())
+                {
+                    MasterUser mUser = ctx.MasterUsers.Where(x => x.MUserLogin == userLogin).FirstOrDefault();
+                    if (mUser == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        mUser.MUserLogin = newUserLogin;
+                        mUser.MUserPassword = newUserPassword;
+                        ctx.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return false;
+            }
+
+        }
 
     }
 }

@@ -24,33 +24,45 @@ namespace WAService
         }
         public static bool EditUser(string userLogin, string newUserLogin, string newUserPassword)
         {
+            #region
+            //Logger logger = LogManager.GetCurrentClassLogger();
+            //try
+            //{
+            //    IList<User> users = FileManager.GetUsersFromFile();
+            //    IList<User> usersResult = new List<User>();
+            //    foreach (var item in users)
+            //    {
+            //        //if (item.Login == userLogin)
+            //        {
+            //            User tempUser = new User(newUserLogin, newUserPassword);
+            //            usersResult.Add(tempUser);
+            //        }
+            //        else
+            //        {
+            //            usersResult.Add(item);
+            //        }
+            //    }
+
+            //    FileManager.WriteUsersInFile(usersResult);
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Trace(ex + "\r\n");
+            //    return false;
+            //}
+            #endregion
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
-                IList<User> users = FileManager.GetUsersFromFile();
-                IList<User> usersResult = new List<User>();
-                foreach (var item in users)
-                {
-                    ////if (item.Login == userLogin)
-                    //{
-                    //    User tempUser = new User(newUserLogin, newUserPassword);
-                    //    usersResult.Add(tempUser);
-                    //}
-                    //else
-                    //{
-                    //    usersResult.Add(item);
-                    //}
-                }
-
-                FileManager.WriteUsersInFile(usersResult);
-                return true;
+                return MUserHelper.EditMUser(userLogin, newUserLogin, newUserPassword);
             }
             catch (Exception ex)
             {
                 logger.Trace(ex + "\r\n");
                 return false;
             }
-            
+
         }
         public static User GetUserOnLogin(string userName)
         {
