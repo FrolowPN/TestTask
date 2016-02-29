@@ -43,6 +43,30 @@ namespace WABase.BaseHelpers
                 return false;
             }
         }
-
+        public static bool DeleteUser(string mUserlogin, string userLogin)
+        {
+            try
+            {
+                using (WABaseContext ctx = new WABaseContext())
+                {
+                    var targetUser = MUserHelper.GetMUserOnLogin(mUserlogin).Users.Where(x => x.UserLogin == userLogin).FirstOrDefault();
+                    if (targetUser!=null)
+                    {
+                        ctx.Users.Remove(targetUser);
+                        ctx.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return false;
+            }
+        }
     }
 }

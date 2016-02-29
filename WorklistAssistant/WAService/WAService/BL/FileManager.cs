@@ -306,26 +306,38 @@ namespace WAService
         }
         public static bool DeleteWorklistFromFile(string masterUserLogin, string loginUser)
         {
+            #region
+            //Logger logger = LogManager.GetCurrentClassLogger();
+            //try
+            //{
+            //    List<Worklist> tempList = (List<Worklist>)GetWorklistsFromFile();
+
+            //    List<Worklist> result = new List<Worklist>();
+            //    foreach (var item in tempList)
+            //    {
+            //        if (item.MasterUserLogin == masterUserLogin && item.LoginUser == loginUser)
+            //        {
+
+            //        }
+            //        else
+            //        {
+            //            result.Add(item);
+            //        }
+
+            //    }
+            //    WriteWorklistsInFile(result);
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Trace(ex + "\r\n");
+            //    return false;
+            //}
+            #endregion
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
-                List<Worklist> tempList = (List<Worklist>)GetWorklistsFromFile();
-
-                List<Worklist> result = new List<Worklist>();
-                foreach (var item in tempList)
-                {
-                    ////if (item.MasterUserLogin == masterUserLogin && item.LoginUser == loginUser)
-                    //{
-
-                    //}
-                    //else
-                    //{
-                    //    result.Add(item);
-                    //}
-
-                }
-                WriteWorklistsInFile(result);
-                return true;
+                return UserHelper.DeleteUser(masterUserLogin, loginUser);
             }
             catch (Exception ex)
             {
