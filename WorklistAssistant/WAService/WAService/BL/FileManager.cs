@@ -192,36 +192,49 @@ namespace WAService
         }
         public static bool AddWorklistInFile(string masterUserLogin, string loginUser, string passwordUser)
         {
+            #region
+            //Logger logger = LogManager.GetCurrentClassLogger();
+            //try
+            //{
+            //    if (VerificateWorklist(masterUserLogin, loginUser, passwordUser))
+            //    {
+            //        using (StreamWriter file = new StreamWriter(PathWorklists, true))
+            //        {
+            //            file.WriteLine(masterUserLogin + "/" + loginUser + "/" + passwordUser);
+            //            return true;
+            //        }
+            //    }
+            //    else if (loginUser == "-" && passwordUser == "-")
+            //    {
+            //        using (StreamWriter file = new StreamWriter(PathWorklists, true))
+            //        {
+            //            file.WriteLine(masterUserLogin + "/-/-");
+            //            return true;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        return false;
+            //    }
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Trace(ex + "\r\n");
+            //    return false;
+            //}
+            #endregion
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
-                if (VerificateWorklist(masterUserLogin, loginUser, passwordUser))
-                {
-                    using (StreamWriter file = new StreamWriter(PathWorklists, true))
-                    {
-                        file.WriteLine(masterUserLogin + "/" + loginUser + "/" + passwordUser);
-                        return true;
-                    }
-                }
-                else if (loginUser=="-" && passwordUser=="-")
-                {
-                    using (StreamWriter file = new StreamWriter(PathWorklists, true))
-                    {
-                        file.WriteLine(masterUserLogin + "/-/-");
-                        return true;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-
+                return UserHelper.AddUser(masterUserLogin, loginUser, passwordUser);
             }
             catch (Exception ex)
             {
                 logger.Trace(ex + "\r\n");
                 return false;
             }
+
         }
         public static bool VerificateWorklist(string masterUserLogin, string loginUser, string passwordUser)
         {

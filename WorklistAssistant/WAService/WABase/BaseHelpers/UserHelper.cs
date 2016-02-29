@@ -14,29 +14,35 @@ namespace WABase.BaseHelpers
 
             get { return LogManager.GetCurrentClassLogger(); }
         }
-        //public static MasterUser GetUsersForMUser(string login)
-        //{
-        //    try
-        //    {
-        //        using (WABaseContext ctx = new WABaseContext())
-        //        {
-        //            MasterUser resUser = ctx.MasterUsers.Where(x => x.MUserLogin == login).FirstOrDefault();
-        //            if (resUser != null)
-        //            {
-        //                return resUser;
-        //            }
-        //            else
-        //            {
-        //                return new MasterUser();
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        logger.Trace(ex + "\r\n");
-        //        return new MasterUser();
-        //    }
-        //}
+        public static bool AddUser(string mUserlogin, string userLogin, string userPassword)
+        {
+            try
+            {
+                using (WABaseContext ctx = new WABaseContext())
+                {
+                    User resUser = new User();
+                    resUser.UserLogin = userLogin;
+                    resUser.UserPassword = userPassword;
+                    if (BUserHelper.UserVerificate(userLogin, userPassword))
+                    {
+                        resUser.ConnectStatus = "connect";
+                    }
+                    else
+                    {
+                        resUser.ConnectStatus = "error";
+                    }
+                    resUser.MasterUser = MUserHelper.GetMUserOnLogin(mUserlogin);
+                    ctx.Users.Add(resUser);
+                    ctx.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return false;
+            }
+        }
 
     }
 }

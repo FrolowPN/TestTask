@@ -37,5 +37,28 @@ namespace WABase.BaseHelpers
                 return new BaseUser();
             }
         }
+        public static bool UserVerificate(string login, string password)
+        {
+            try
+            {
+                using (WABaseContext ctx = new WABaseContext())
+                {
+                    BaseUser resUser = ctx.BaseUsers.Where(x => x.BUserLogin == login).FirstOrDefault();
+                    if (resUser != null && resUser.BUserPassword == password)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return false;
+            }
+        }
     }
 }
