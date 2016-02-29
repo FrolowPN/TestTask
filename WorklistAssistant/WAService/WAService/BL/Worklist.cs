@@ -53,7 +53,8 @@ namespace WAService
 
             LoginUser = user.UserLogin;
             PasswordUser = user.UserPassword;
-            if ((LoginUser == "-" && PasswordUser == "-" )||user.ConnectStatus== "error")
+            //if ((LoginUser == "-" && PasswordUser == "-" )||user.ConnectStatus== "error")
+            if (user.ConnectStatus == "error")
             {
                 CountS = "null";
                 CountU = "null";

@@ -71,6 +71,10 @@ namespace WABase.BaseHelpers
                     }
                     else
                     {
+                        foreach (var user in mUser.Users)
+                        {
+                            ctx.Users.Remove(user);
+                        }
                         ctx.MasterUsers.Remove(mUser);
                         ctx.SaveChanges();
                         return true;
