@@ -87,25 +87,26 @@ namespace WAService
         }
         public static void EditWorklist(string masterUserLogin, string oldUserLogin, string newUserLogin, string newUserPassword)
         {
+            #region
+            //List<Worklist> tempList = (List<Worklist>)FileManager.GetWorklistsFromFile();
 
-            List<Worklist> tempList = (List<Worklist>)FileManager.GetWorklistsFromFile();
+            //List<Worklist> result = new List<Worklist>();
+            //foreach (var item in tempList)
+            //{
+            //    if (item.MasterUserLogin == masterUserLogin && item.LoginUser == oldUserLogin)
+            //    {
+            //        Worklist tempWorklist = new Worklist(masterUserLogin, newUserLogin, newUserPassword);
+            //        result.Add(tempWorklist);
+            //    }
+            //    else
+            //    {
+            //        result.Add(item);
+            //    }
 
-            List<Worklist> result = new List<Worklist>();
-            foreach (var item in tempList)
-            {
-                //if (item.MasterUserLogin == masterUserLogin && item.LoginUser == oldUserLogin)
-                //{
-                //    Worklist tempWorklist = new Worklist(masterUserLogin, newUserLogin, newUserPassword);
-                //    result.Add(tempWorklist);
-                //}
-                //else
-                //{
-                //    result.Add(item);
-                //}
-
-            }
-            FileManager.WriteWorklistsInFile(result);
-
+            //}
+            //FileManager.WriteWorklistsInFile(result);
+            #endregion
+            UserHelper.EditUser(masterUserLogin, oldUserLogin, newUserLogin, newUserPassword);
         }
         public static void ChangeMasterUserForWorklists(string oldMasterUser, string newMasterUser)
         {

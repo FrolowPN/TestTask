@@ -68,5 +68,33 @@ namespace WABase.BaseHelpers
                 return false;
             }
         }
+        public static void EditUser(string masterUserLogin, string oldUserLogin, string newUserLogin, string newUserPassword)
+        {
+            try
+            {
+                using (WABaseContext ctx = new WABaseContext())
+                {
+                    var targetUser = MUserHelper.GetMUserOnLogin(masterUserLogin).Users.Where(x => x.UserLogin == oldUserLogin).FirstOrDefault();
+                    if (targetUser != null)
+                    {
+                        targetUser.UserLogin = newUserLogin;
+                        targetUser.UserPassword = newUserPassword;
+                        if (BUserHelper.UserVerificate(targetUser.UserLogin, targetUser.UserPassword))
+                        {
+                            targetUser.ConnectStatus = "connect";
+                        }
+                        else
+                        {
+                            targetUser.ConnectStatus = "error";
+                        }
+                        ctx.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");  
+            }
+        }
     }
 }
