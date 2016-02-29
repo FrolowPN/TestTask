@@ -11,20 +11,20 @@ namespace WAService
 {
     public class Worklist
     {
-        //public string MasterUserLogin { get; set; }
+        public string MasterUserLogin { get; set; }
         public string LoginUser { get; set; }
         public string PasswordUser { get; set; }
         public string CountS { get; set; }
         public string CountU { get; set; }
         public string CountR { get; set; }
         public string Status { get; set; }
-        //public string StatusImg { get; set; }
+        public string StatusImg { get; set; }
         //private static Random rnd = new Random();
         public Worklist()
         {
 
         }
-
+        #region
         //public Worklist(string masterUserLogin, string userLogin, string userPassword)
         //{
 
@@ -47,6 +47,8 @@ namespace WAService
         //        rnd = new Random();
         //    }
         //}
+        #endregion
+
         public Worklist(User user)
         {
 
@@ -63,10 +65,10 @@ namespace WAService
             }
             else
             {
-                var bUser = BUserHelper.GetBUserOnLogin(user.UserLogin);
-                CountS = bUser.Clinic.CountS.ToString();
-                CountU = bUser.Clinic.CountU.ToString();
-                CountR = bUser.Clinic.CountR.ToString();
+                var clinic = BUserHelper.GetClinicOnUserLogin(user.UserLogin);
+                CountS = clinic.CountS.ToString();
+                CountU = clinic.CountU.ToString();
+                CountR = clinic.CountR.ToString();
                 Status = "Connected";
             }
         }

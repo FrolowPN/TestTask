@@ -31,8 +31,7 @@ namespace WABase.BaseHelpers
                     {
                         resUser.ConnectStatus = "error";
                     }
-                    resUser.MasterUser = MUserHelper.GetMUserOnLogin(mUserlogin);
-                    ctx.Users.Add(resUser);
+                    ctx.MasterUsers.Where(x => x.MUserLogin == mUserlogin).FirstOrDefault().Users.Add(resUser);
                     ctx.SaveChanges();
                     return true;
                 }

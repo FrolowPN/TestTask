@@ -107,7 +107,7 @@ namespace WorklistAssistant
             if (client.DeleteUserFromFile(textWithTxtBlock))
             {
                 ClientFileHelper.RemoveUser(textWithTxtBlock);
-                client.DeleteAllWorklistForUser(textWithTxtBlock);
+                //client.DeleteAllWorklistForUser(textWithTxtBlock);
             }
             client.Close();
             Refresh();

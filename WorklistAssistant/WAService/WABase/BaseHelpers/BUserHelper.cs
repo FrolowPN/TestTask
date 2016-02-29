@@ -37,6 +37,29 @@ namespace WABase.BaseHelpers
                 return new BaseUser();
             }
         }
+        public static Clinic GetClinicOnUserLogin(string login)
+        {
+            try
+            {
+                using (WABaseContext ctx = new WABaseContext())
+                {
+                    BaseUser resUser = ctx.BaseUsers.Where(x => x.BUserLogin == login).FirstOrDefault();
+                    if (resUser != null)
+                    {
+                        return resUser.Clinic;
+                    }
+                    else
+                    {
+                        return new Clinic();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return new Clinic();
+            }
+        }
         public static bool UserVerificate(string login, string password)
         {
             try

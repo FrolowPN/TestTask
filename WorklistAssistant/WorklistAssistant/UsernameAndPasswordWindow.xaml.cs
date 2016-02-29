@@ -43,7 +43,7 @@ namespace WorklistAssistant
                     if (client.EditUser(UserLog, txtUserName.Text, psbConfirmNewPassword.Password))
                     {
                         ClientFileHelper.UpdateUser(UserLog, txtUserName.Text);
-                        client.ChangeMasterUserForWorklists(UserLog, txtUserName.Text);
+                       // client.ChangeMasterUserForWorklists(UserLog, txtUserName.Text);
                     }
                     SettingWindow form = new SettingWindow(txtUserName.Text);
                     form.Show();

@@ -59,7 +59,7 @@ namespace WorklistAssistant
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
-               client.AddWorklistInFile(LogUser, "-", "-");
+              client.AddWorklistInFile(LogUser, "-", "-");
                 lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
                 client.Close();
             }

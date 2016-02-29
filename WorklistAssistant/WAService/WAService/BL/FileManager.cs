@@ -84,6 +84,7 @@ namespace WAService
         public static IList<Worklist> GetWorklistsForUser(string userLogin)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
+            #region
             //try
             //{
             //    using (StreamReader file = new StreamReader(PathWorklists))
@@ -108,15 +109,16 @@ namespace WAService
             //    logger.Trace(ex + "\r\n");
             //    return new List<Worklist>() { new Worklist() };
             //}
+            #endregion
             try
             {
-                ICollection<User> users = MUserHelper.GetMUserOnLogin(userLogin).Users;
-                List<Worklist> workls = new List<Worklist>();
-                foreach (var user in users)
-                {
-                    workls.Add(new Worklist(user));
-                }
-                return workls;
+                ICollection<User> users = MUserHelper.GetAllUsersOnMUser(userLogin);
+                    List<Worklist> workls = new List<Worklist>();
+                    foreach (var user in users)
+                    {
+                        workls.Add(new Worklist(user));
+                    }
+                    return workls;                            
             }
             catch (Exception ex)
             {

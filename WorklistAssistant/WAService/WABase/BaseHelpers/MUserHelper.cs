@@ -38,6 +38,29 @@ namespace WABase.BaseHelpers
                 return new MasterUser();
             }
         }
+        public static ICollection<User> GetAllUsersOnMUser(string login)
+        {
+            try
+            {
+                using (WABaseContext ctx = new WABaseContext())
+                {
+                    MasterUser resUser = ctx.MasterUsers.Where(x => x.MUserLogin == login).FirstOrDefault();
+                    if (resUser != null)
+                    {
+                        return resUser.Users;
+                    }
+                    else
+                    {
+                        return new List<User>();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return new List<User>();
+            }
+        }
         public static bool AddMUser(string login, string password)
         {
             try
