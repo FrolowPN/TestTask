@@ -48,7 +48,7 @@ namespace WABase.BaseHelpers
             {
                 using (WABaseContext ctx = new WABaseContext())
                 {
-                    var targetUser = MUserHelper.GetMUserOnLogin(mUserlogin).Users.Where(x => x.UserLogin == userLogin).FirstOrDefault();
+                    var targetUser = ctx.MasterUsers.Where(x=>x.MUserLogin==mUserlogin).FirstOrDefault().Users.Where(x => x.UserLogin == userLogin).FirstOrDefault();
                     if (targetUser!=null)
                     {
                         ctx.Users.Remove(targetUser);
@@ -73,7 +73,7 @@ namespace WABase.BaseHelpers
             {
                 using (WABaseContext ctx = new WABaseContext())
                 {
-                    var targetUser = MUserHelper.GetMUserOnLogin(masterUserLogin).Users.Where(x => x.UserLogin == oldUserLogin).FirstOrDefault();
+                    var targetUser = ctx.MasterUsers.Where(x=> x.MUserLogin == masterUserLogin).FirstOrDefault().Users.Where(x => x.UserLogin == oldUserLogin).FirstOrDefault();
                     if (targetUser != null)
                     {
                         targetUser.UserLogin = newUserLogin;

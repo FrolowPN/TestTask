@@ -11,7 +11,8 @@ namespace tester
     {
         static void Main(string[] args)
         {
-            var c = FileManager.GetWorklistsForUser("Mr. Frolow");
+            //var c = FileManager.GetWorklistsForUser("Mr. Frolow");
+            FileManager.DeleteUserFromFile("1");
             Console.ReadKey();
         }
     }

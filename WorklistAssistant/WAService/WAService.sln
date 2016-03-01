@@ -34,8 +34,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WAServiceIIS(1)", "WAServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WABase", "WABase\WABase.csproj", "{35BA7D6A-207C-49EB-BAF3-2B9530A9EBD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tester", "tester\tester.csproj", "{644376D7-B2D5-4A2E-82C8-ABA32ECB3680}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,10 +60,6 @@ Global
 		{35BA7D6A-207C-49EB-BAF3-2B9530A9EBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35BA7D6A-207C-49EB-BAF3-2B9530A9EBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35BA7D6A-207C-49EB-BAF3-2B9530A9EBD1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{644376D7-B2D5-4A2E-82C8-ABA32ECB3680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{644376D7-B2D5-4A2E-82C8-ABA32ECB3680}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{644376D7-B2D5-4A2E-82C8-ABA32ECB3680}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{644376D7-B2D5-4A2E-82C8-ABA32ECB3680}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

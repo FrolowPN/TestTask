@@ -94,10 +94,7 @@ namespace WABase.BaseHelpers
                     }
                     else
                     {
-                        foreach (var user in mUser.Users)
-                        {
-                            ctx.Users.Remove(user);
-                        }
+                        ctx.Users.RemoveRange(mUser.Users);
                         ctx.MasterUsers.Remove(mUser);
                         ctx.SaveChanges();
                         return true;
