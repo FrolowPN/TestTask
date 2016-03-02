@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WABase.BaseHelpers
@@ -44,6 +45,7 @@ namespace WABase.BaseHelpers
             {
                 using (WABaseContext ctx = new WABaseContext())
                 {
+                    Thread.Sleep(8000);
                     MasterUser resUser = ctx.MasterUsers.Where(x => x.MUserLogin == login).FirstOrDefault();
                     if (resUser != null)
                     {

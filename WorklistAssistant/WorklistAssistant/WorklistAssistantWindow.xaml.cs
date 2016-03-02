@@ -28,6 +28,7 @@ namespace WorklistAssistant
         public string LoginUser { get; set; }
         public IList<Worklist> Users { get; set; }
         System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
+
         public WorklistAssistantWindow(string userLogin)
         {
 
@@ -35,9 +36,7 @@ namespace WorklistAssistant
             Timer.Tick += new EventHandler(timer);
             Timer.Start();
            
-            var client = new WAServiceClient("BasicHttpBinding_IWAService");
             LoginUser = userLogin;
-            Users = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LoginUser));
             InitializeComponent();
             lblTimer.Content = "Refreshed " + m.ToString() + " min ago";
             double workHeight = SystemParameters.WorkArea.Height;
@@ -45,8 +44,7 @@ namespace WorklistAssistant
             var primaryMonitorArea = SystemParameters.WorkArea;
             this.Show();
             Left = primaryMonitorArea.Right - ActualWidth;
-            Top = primaryMonitorArea.Bottom - ActualHeight;
-            lbxWorklists.ItemsSource = Users;
+            Top = primaryMonitorArea.Bottom - this.ActualHeight;
             lblUserName.Content = LoginUser;
             ni.Icon = new System.Drawing.Icon("Resources/v_icon.ico");
             ni.Visible = true;
@@ -56,18 +54,16 @@ namespace WorklistAssistant
                 this.WindowState = WindowState.Normal;
             };
 
-            client.Close();
-         
         }
 
-        private void timer(object sender, EventArgs e)
+        private async void timer(object sender, EventArgs e)
         {
             lblTimer.Content = "Refreshed "+ m++.ToString() + " min ago";
             if (m==16)
             {
                 var client = new WAServiceClient("BasicHttpBinding_IWAService");
                 m = 0;
-                lbxWorklists.ItemsSource= WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LoginUser));
+                lbxWorklists.ItemsSource= WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LoginUser));
                 client.Close();
             }
         }
@@ -98,22 +94,28 @@ namespace WorklistAssistant
             this.Hide();
         }
 
-        private void btnRefresh_Click(object sender, ExecutedRoutedEventArgs e)
+        private async void btnRefresh_Click(object sender, ExecutedRoutedEventArgs e)
         {
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             m = 0;
             lblTimer.Content = "Refreshed " + m.ToString() + " min ago";
-            lbxWorklists.ItemsSource = WLStatusHelper.UpdateStatusImg( client.GetWorklistsForUser(LoginUser));
+            lbxWorklists.ItemsSource = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LoginUser));
             client.Close();
         }
 
-        private void Window_Activated(object sender, EventArgs e)
+        private async void Window_Activated(object sender, EventArgs e)
         {
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
-            lbxWorklists.ItemsSource = WLStatusHelper.UpdateStatusImg( client.GetWorklistsForUser(LoginUser));
+            lbxWorklists.ItemsSource = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LoginUser));
             client.Close();
         }
 
-       
+        private async void Window_ContentRendered(object sender, EventArgs e)
+        {
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            Users = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LoginUser));
+            lbxWorklists.ItemsSource = Users;
+            client.Close();
+        }
     }
 }

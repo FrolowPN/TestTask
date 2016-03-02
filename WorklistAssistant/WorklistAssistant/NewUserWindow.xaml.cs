@@ -23,23 +23,24 @@ namespace WorklistAssistant
             InitializeComponent();
         }
 
-        private void button_save_click(object sender, ExecutedRoutedEventArgs e)
+        private async void button_save_click(object sender, ExecutedRoutedEventArgs e)
         {
             var client = new WAService.WAServiceClient("BasicHttpBinding_IWAService");
             if (txtNewUser.Text != "" && psbNewPassword.Password != "")
             {
                 if (psbConfirmNewPassword.Password == psbNewPassword.Password)
                 {
-                    if (!client.AddUserInFile(txtNewUser.Text, psbNewPassword.Password))
-                    {
-                        MessageBox.Show("Oops! =(");
-                        client.Close();
-                    }
-                    else
+                    if (await client.AddUserInFileAsync(txtNewUser.Text, psbNewPassword.Password))
                     {
                         ClientFileHelper.AddUser(txtNewUser.Text);
                         client.Close();
                         Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Oops! =(");
+                        client.Close();
+                       
                     }
                 }
                 else

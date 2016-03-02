@@ -28,22 +28,17 @@ namespace WorklistAssistant
             txtUserName.Text = UserLog;
         }
 
-        private void Button_Save_Click(object sender, ExecutedRoutedEventArgs e)
+        private async void Button_Save_Click(object sender, ExecutedRoutedEventArgs e)
         {
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
-            if (!client.VerifyingPassword(UserLog, psbOldPassword.Password))
-            {
-                client.Close();
-                MessageBox.Show("Passwords wrong!");
-            }
-            else
+            if (await client.VerifyingPasswordAsync(UserLog, psbOldPassword.Password))
             {
                 if (psbNewPassword.Password == psbConfirmNewPassword.Password)
                 {
-                    if (client.EditUser(UserLog, txtUserName.Text, psbConfirmNewPassword.Password))
+                    if (await client.EditUserAsync(UserLog, txtUserName.Text, psbConfirmNewPassword.Password))
                     {
                         ClientFileHelper.UpdateUser(UserLog, txtUserName.Text);
-                       // client.ChangeMasterUserForWorklists(UserLog, txtUserName.Text);
+                        // client.ChangeMasterUserForWorklists(UserLog, txtUserName.Text);
                     }
                     SettingWindow form = new SettingWindow(txtUserName.Text);
                     form.Show();
@@ -54,6 +49,11 @@ namespace WorklistAssistant
                 {
                     MessageBox.Show("Passwords do not match!");
                 }
+            }
+            else
+            {
+                client.Close();
+                MessageBox.Show("Passwords wrong!");
             }
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WABase;
 using WABase.BaseHelpers;
@@ -87,6 +88,7 @@ namespace WAService
             //{
             //    return false;
             //}
+            Thread.Sleep(8000);
             MasterUser tempUser = MUserHelper.GetMUserOnLogin(userName);
             if (tempUser.MUserPassword == password)
             {

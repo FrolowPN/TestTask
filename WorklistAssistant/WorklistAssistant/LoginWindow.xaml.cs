@@ -32,12 +32,12 @@ namespace WorklistAssistant
         }
 
 
-        private void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
+        private async void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
         {
             var client = new WAService.WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
-                if (client.VerifyingPassword(((Login)cmbUser.SelectedValue).MasterUserLogin, psbPassword.Password))
+                if (await client.VerifyingPasswordAsync(((Login)cmbUser.SelectedValue).MasterUserLogin, psbPassword.Password))
                 {
                     WorklistAssistantWindow form = new WorklistAssistantWindow(((Login)cmbUser.SelectedValue).MasterUserLogin);
                     form.Hide();
@@ -79,12 +79,12 @@ namespace WorklistAssistant
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            Refresh();
+           Refresh();
         }
 
         private void Refresh()
         {
-            cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
+            cmbUser.ItemsSource =  ClientFileHelper.GetAllLogins();
         }
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -97,20 +97,20 @@ namespace WorklistAssistant
             this.DragMove();
         }
 
-        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private async void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var client = new WAService.WAServiceClient("BasicHttpBinding_IWAService");
             FrameworkElement frm = new FrameworkElement();
             var parentSender = ((FrameworkElement)sender).Parent;
             var textWithTxtBlock = ((TextBlock)((FrameworkElement)parentSender).FindName("txtBlockLogin")).Text;
 
-            if (client.DeleteUserFromFile(textWithTxtBlock))
+            if (await client.DeleteUserFromFileAsync(textWithTxtBlock))
             {
                 ClientFileHelper.RemoveUser(textWithTxtBlock);
                 //client.DeleteAllWorklistForUser(textWithTxtBlock);
             }
             client.Close();
-            Refresh();
+           Refresh();
         }
 
 

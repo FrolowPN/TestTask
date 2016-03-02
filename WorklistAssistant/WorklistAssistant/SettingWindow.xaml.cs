@@ -23,15 +23,12 @@ namespace WorklistAssistant
         private static string oldUserLogin;
         public string LogUser { get; set; }
         public IList<Worklist> WorkLists { get; set; }
+
         public SettingWindow(string logUser)
         {
-            var client = new WAServiceClient("BasicHttpBinding_IWAService");
             LogUser = logUser;
-            WorkLists = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
             InitializeComponent();
             lblUserName.Content = logUser;
-            lbxSetting.ItemsSource = WorkLists;
-
         }
 
         private void Button_Edit_Click(object sender, ExecutedRoutedEventArgs e)
@@ -54,13 +51,13 @@ namespace WorklistAssistant
             form.Show();
             this.Close();
         }
-        private void Mouse_Add_Click(object sender, ExecutedRoutedEventArgs e)
+        private async void Mouse_Add_Click(object sender, ExecutedRoutedEventArgs e)
         {
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
-              client.AddWorklistInFile(LogUser, "-", "-");
-                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
+              await client.AddWorklistInFileAsync(LogUser, "-", "-");
+                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LogUser));
                 client.Close();
             }
             catch (Exception ex)
@@ -68,7 +65,6 @@ namespace WorklistAssistant
                 client.Close();
                 logger.Trace(ex + "\r\n");
             }
-
         }
 
         private void Button_EditWorklist_Click(object sender, RoutedEventArgs e)
@@ -90,7 +86,7 @@ namespace WorklistAssistant
 
         }
 
-        private void Button_DeleteWorklist_Click(object sender, RoutedEventArgs e)
+        private async void Button_DeleteWorklist_Click(object sender, RoutedEventArgs e)
         {
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
@@ -100,7 +96,7 @@ namespace WorklistAssistant
                 var userName = ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).Text;
                 var masterUserName = LogUser;
                 client.DeleteWorklistFromFile(masterUserName, userName);
-                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
+                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LogUser));
                 client.Close();
             }
             catch (Exception ex)
@@ -111,12 +107,12 @@ namespace WorklistAssistant
 
         }
 
-        private void Button_Cancel_Click(object sender, RoutedEventArgs e)
+        private async void Button_Cancel_Click(object sender, RoutedEventArgs e)
         {
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
             {
-                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
+                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LogUser));
                 client.Close();
             }
             catch (Exception ex)
@@ -127,7 +123,7 @@ namespace WorklistAssistant
 
         }
 
-        private void Button_Ok_Click(object sender, RoutedEventArgs e)
+        private async void Button_Ok_Click(object sender, RoutedEventArgs e)
         {
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             try
@@ -137,7 +133,7 @@ namespace WorklistAssistant
                 string loginUser = ((TextBox)((FrameworkElement)parentSender).FindName("txtLogin")).Text;
                 string passUser = ((TextBox)((FrameworkElement)parentSender).FindName("txtPassword")).Text;
                 client.EditWorklist(LogUser, oldUserLogin, loginUser, passUser);
-                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(client.GetWorklistsForUser(LogUser));
+                lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LogUser));
                 client.Close();
             }
             catch (Exception ex)
@@ -148,5 +144,11 @@ namespace WorklistAssistant
 
         }
 
+        private async void Window_ContentRendered(object sender, EventArgs e)
+        {
+            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            WorkLists = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LogUser));
+            lbxSetting.ItemsSource = WorkLists;
+        }
     }
 }
