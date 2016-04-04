@@ -22,6 +22,9 @@ namespace WorklistAssistant.Helpers
                 {
                     wl.StatusImg = new Uri(Directory.GetCurrentDirectory() + "/Resources/redCancel.png", UriKind.RelativeOrAbsolute).LocalPath;
                     wl.Status = "Error";
+                    wl.CountR = "?";
+                    wl.CountS = "?";
+                    wl.CountU = "?";
                 }
             }
             return listWL;
