@@ -35,6 +35,7 @@ namespace WorklistAssistant
         private async void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
         {
             var client = new WAService.WAServiceClient("BasicHttpBinding_IWAService");
+            var c = cmbUser.SelectedValue;
             try
             {
                 if (await client.VerifyingPasswordAsync(((Login)cmbUser.SelectedValue).MasterUserLogin, psbPassword.Password))
@@ -47,6 +48,7 @@ namespace WorklistAssistant
                 else
                 {
                     client.Close();
+                    psbPassword.Password = null; 
                     MessageBox.Show("Password Wrong");
                 }
             }

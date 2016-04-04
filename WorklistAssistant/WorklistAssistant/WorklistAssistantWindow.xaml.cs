@@ -48,10 +48,19 @@ namespace WorklistAssistant
             lblUserName.Content = LoginUser;
             ni.Icon = new System.Drawing.Icon("Resources/v_icon.ico");
             ni.Visible = true;
-            ni.DoubleClick += (sndr, args) =>
+            ni.Click += (sndr, args) =>
             {
+                if (this.IsVisible)
+                {
+                    this.Hide();
+                }
+                else
+                {
                 this.Show();
                 this.WindowState = WindowState.Normal;
+                }
+                
+                
             };
 
         }
@@ -115,6 +124,9 @@ namespace WorklistAssistant
             var client = new WAServiceClient("BasicHttpBinding_IWAService");
             Users = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LoginUser));
             lbxWorklists.ItemsSource = Users;
+            var primaryMonitorArea = SystemParameters.WorkArea;
+            Left = primaryMonitorArea.Right - this.ActualWidth;
+            Top = primaryMonitorArea.Bottom - this.ActualHeight;
             client.Close();
         }
     }

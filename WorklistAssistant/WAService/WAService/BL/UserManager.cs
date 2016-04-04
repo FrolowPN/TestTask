@@ -88,7 +88,6 @@ namespace WAService
             //{
             //    return false;
             //}
-            Thread.Sleep(8000);
             MasterUser tempUser = MUserHelper.GetMUserOnLogin(userName);
             if (tempUser.MUserPassword == password)
             {
