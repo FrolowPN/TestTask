@@ -59,7 +59,10 @@ namespace WorklistAssistant
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+           
+            SettingWindow form = new SettingWindow(UserLog);
+            form.Show();
+            this.Close(); 
         }
 
         private void Label1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
