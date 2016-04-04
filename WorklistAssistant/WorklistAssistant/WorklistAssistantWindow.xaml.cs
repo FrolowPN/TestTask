@@ -42,6 +42,7 @@ namespace WorklistAssistant
             double workHeight = SystemParameters.WorkArea.Height;
             double workWidth = SystemParameters.WorkArea.Width;
             var primaryMonitorArea = SystemParameters.WorkArea;
+            this.Topmost = true;
             this.Show();
             Left = primaryMonitorArea.Right - ActualWidth;
             Top = primaryMonitorArea.Bottom - this.ActualHeight;
