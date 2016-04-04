@@ -356,6 +356,7 @@
                                 <Setter TargetName="Border" Property="BorderBrush" Value="Gray"/>
                                 <Setter TargetName="Border" Property="Background" Value="#FF1B1919"/>
                                 <Setter TargetName="busket" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="Border" Property="CornerRadius" Value="6"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

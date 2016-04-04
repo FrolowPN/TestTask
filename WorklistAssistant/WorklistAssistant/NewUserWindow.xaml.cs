@@ -39,8 +39,7 @@ namespace WorklistAssistant
                     else
                     {
                         MessageBox.Show("Oops! =(");
-                        client.Close();
-                       
+                        client.Close();   
                     }
                 }
                 else
@@ -49,7 +48,6 @@ namespace WorklistAssistant
                     MessageBox.Show("Passwords do not match");
                 }
             }
-
         }
 
         private void Button_Close_Click(object sender, ExecutedRoutedEventArgs e)
