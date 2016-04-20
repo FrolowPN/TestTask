@@ -28,6 +28,7 @@ namespace WorklistAssistant
         {
             InitializeComponent();
             cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
+            this.Topmost = true;
         }
 
         private async void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)

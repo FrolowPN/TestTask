@@ -4,6 +4,75 @@
         xmlns:local="clr-namespace:WorklistAssistant.MyCommands"
         Title="Worklist Assistant"  BorderBrush="Red" ShowInTaskbar="True" Icon="Resources/v_icon.ico" Activated="Window_Activated" SizeToContent="WidthAndHeight" Background="#FF323132" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" OpacityMask="#FFC50D0D" MinWidth="400" ContentRendered="Window_ContentRendered" >
     <Window.Resources>
+        <Style  TargetType="{x:Type ContextMenu}">
+            <Setter Property="Foreground" Value="#FF9E9B9B" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContextMenu}">
+                        <Border BorderThickness="1" BorderBrush="Black" >
+                            <Border Background="#FF323132" BorderThickness="1" BorderBrush="#FF9E9B9B" >
+                                <StackPanel  Margin="0 4" IsItemsHost="True" />
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Separator}">
+                        <Border Height="1" Margin="0 1" Background="#FF9E9B9B"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
+            <Border x:Name="Border" Padding="0,2" Height="25" Background="Transparent">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="35"  SharedSizeGroup="Icon" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
+                        <ColumnDefinition Width="13" />
+                    </Grid.ColumnDefinitions>
+                    <ContentPresenter x:Name="Icon" Margin="5,0" VerticalAlignment="Center" ContentSource="Icon" Grid.Column="0"/>
+                    <ContentPresenter VerticalAlignment="Center" x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" />
+                    <TextBlock FontSize="11" Margin="40 0 0 0" VerticalAlignment="Center" x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" />
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsHighlighted" Value="true">
+                    <Setter Property="Background" TargetName="Border" Value="#FF252523"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Style.Triggers>
+                <Trigger Property="Role" Value="SubmenuItem">
+                    <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <ContextMenu x:Key="TrayMenu" Style="{StaticResource {x:Type ContextMenu}}" FontFamily="Verdana"  FontSize="12">
+            <MenuItem Style="{StaticResource {x:Type MenuItem}}" Header="Open"  Click="ContextMenuOpen_Click">
+            <MenuItem.Icon>
+                    <Image Source="Resources/v_icon.ico" Width="20" Height="20"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator Style="{StaticResource {x:Static MenuItem.SeparatorStyleKey}}" />
+            <MenuItem Style="{StaticResource {x:Type MenuItem}}" Header="Exit" Click="ContextMenuExit_Click" >
+                <MenuItem.Icon>
+                    <Image Source="Resources/logOut.png" Width="20" Height="20"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+
         <Style x:Key="MyLabelStyle">
             <Setter Property="Control.FontFamily" Value="Verdana"></Setter>
             <Setter Property="Control.FontSize" Value="12"></Setter>

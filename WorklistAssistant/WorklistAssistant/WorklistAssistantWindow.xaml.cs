@@ -28,6 +28,7 @@ namespace WorklistAssistant
         public string LoginUser { get; set; }
         public IList<Worklist> Users { get; set; }
         System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
+        private ContextMenu TrayMenu { get; set; }
 
         public WorklistAssistantWindow(string userLogin)
         {
@@ -48,9 +49,16 @@ namespace WorklistAssistant
             Top = primaryMonitorArea.Bottom - this.ActualHeight;
             lblUserName.Content = LoginUser;
             ni.Icon = new System.Drawing.Icon("Resources/v_icon.ico");
+            ni.Text = "Worklist Assistant";
+            TrayMenu = (ContextMenu)FindResource("TrayMenu");
             ni.Visible = true;
-            ni.Click += (sndr, args) =>
+            ni.MouseClick += (sndr, args) =>
             {
+                if (args.Button == System.Windows.Forms.MouseButtons.Right)
+                {
+                    TrayMenu.IsOpen = !TrayMenu.IsOpen;
+                }
+                else
                 if (this.IsVisible)
                 {
                     this.Hide();
@@ -58,12 +66,10 @@ namespace WorklistAssistant
                 else
                 {
                 this.Show();
+                TrayMenu.IsOpen = false;
                 this.WindowState = WindowState.Normal;
                 }
-                
-                
             };
-
         }
 
         private async void timer(object sender, EventArgs e)
@@ -137,6 +143,22 @@ namespace WorklistAssistant
             Left = primaryMonitorArea.Right - this.ActualWidth;
             Top = primaryMonitorArea.Bottom - this.ActualHeight;
             client.Close();
+        }
+        private void ContextMenuOpen_Click(object sender, RoutedEventArgs e)
+        {
+            this.Show();
+            TrayMenu.IsOpen = false;
+        }
+        private void ContextMenuExit_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow form = new MainWindow();
+            form.Show();
+            this.Close();
+            ni.Dispose();
+        }
+        private void ContextMenuMouseLeave(object sender, RoutedEventArgs e)
+        {
+            TrayMenu.IsOpen = false;
         }
     }
 }
