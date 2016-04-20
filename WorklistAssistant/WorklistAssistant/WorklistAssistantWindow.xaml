@@ -11,7 +11,7 @@
                     <ControlTemplate TargetType="{x:Type ContextMenu}">
                         <Border BorderThickness="1" BorderBrush="Black" >
                             <Border Background="#FF323132" BorderThickness="1" BorderBrush="#FF9E9B9B" >
-                                <StackPanel  Margin="0 4" IsItemsHost="True" />
+                                <StackPanel  Margin="0 5" IsItemsHost="True" />
                             </Border>
                         </Border>
                     </ControlTemplate>
@@ -45,6 +45,7 @@
             <ControlTemplate.Triggers>
                 <Trigger Property="IsHighlighted" Value="true">
                     <Setter Property="Background" TargetName="Border" Value="#FF252523"/>
+                    <!--<Setter TargetName="Border" Property="CornerRadius" Value="5"/>-->
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -60,12 +61,18 @@
 
 
         <ContextMenu x:Key="TrayMenu" Style="{StaticResource {x:Type ContextMenu}}" FontFamily="Verdana"  FontSize="12">
-            <MenuItem Style="{StaticResource {x:Type MenuItem}}" Header="Open"  Click="ContextMenuOpen_Click">
-            <MenuItem.Icon>
+            <MenuItem Style="{StaticResource {x:Type MenuItem}}" Header="Worklist Assistant"  Foreground="AliceBlue" FontSize="13" IsTabStop="False" IsHitTestVisible="False">
+                <MenuItem.Icon>
                     <Image Source="Resources/v_icon.ico" Width="20" Height="20"/>
                 </MenuItem.Icon>
             </MenuItem>
             <Separator Style="{StaticResource {x:Static MenuItem.SeparatorStyleKey}}" />
+            <MenuItem Style="{StaticResource {x:Type MenuItem}}" Header="Open"  Click="ContextMenuOpen_Click">
+            <!--<MenuItem.Icon>
+                    <Image Source="Resources/v_icon.ico" Width="20" Height="20"/>
+                </MenuItem.Icon>-->
+            </MenuItem>
+            <!--<Separator Style="{StaticResource {x:Static MenuItem.SeparatorStyleKey}}" />-->
             <MenuItem Style="{StaticResource {x:Type MenuItem}}" Header="Exit" Click="ContextMenuExit_Click" >
                 <MenuItem.Icon>
                     <Image Source="Resources/logOut.png" Width="20" Height="20"/>
