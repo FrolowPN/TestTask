@@ -53,7 +53,9 @@ namespace WorklistAssistant
         }
         private async void Mouse_Add_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
+            client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password;
             try
             {
               await client.AddWorklistInFileAsync(LogUser, "-", "-");
@@ -88,7 +90,9 @@ namespace WorklistAssistant
 
         private async void Button_DeleteWorklist_Click(object sender, RoutedEventArgs e)
         {
-            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
+            client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password;
             try
             {
                 FrameworkElement frm = new FrameworkElement();
@@ -109,7 +113,9 @@ namespace WorklistAssistant
 
         private async void Button_Cancel_Click(object sender, RoutedEventArgs e)
         {
-            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
+            client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password;
             try
             {
                 lbxSetting.ItemsSource = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LogUser));
@@ -125,7 +131,9 @@ namespace WorklistAssistant
 
         private async void Button_Ok_Click(object sender, RoutedEventArgs e)
         {
-            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
+            client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password;
             try
             {
                 FrameworkElement frm = new FrameworkElement();
@@ -146,7 +154,9 @@ namespace WorklistAssistant
 
         private async void Window_ContentRendered(object sender, EventArgs e)
         {
-            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
+            client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password;
             WorkLists = WLStatusHelper.UpdateStatusImg(await client.GetWorklistsForUserAsync(LogUser));
             lbxSetting.ItemsSource = WorkLists;
         }

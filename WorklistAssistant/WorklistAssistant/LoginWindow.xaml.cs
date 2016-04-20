@@ -1,5 +1,4 @@
-﻿
-using NLog;
+﻿using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,17 +30,18 @@ namespace WorklistAssistant
             cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
         }
 
-
         private async void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            var client = new WAService.WAServiceClient("BasicHttpBinding_IWAService");
+            var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
+            client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password; 
             var c = cmbUser.SelectedValue;
             try
             {
                 if (await client.VerifyingPasswordAsync(((Login)cmbUser.SelectedValue).MasterUserLogin, psbPassword.Password))
                 {
                     WorklistAssistantWindow form = new WorklistAssistantWindow(((Login)cmbUser.SelectedValue).MasterUserLogin);
-                    form.Hide();
+                    form.Show();
                     client.Close();
                     this.Close();
                 }
@@ -49,13 +49,21 @@ namespace WorklistAssistant
                 {
                     client.Close();
                     psbPassword.Password = null; 
-                    MessageBox.Show("Password Wrong");
+                    MessageBox.Show("Password Wrong!");
                 }
             }
             catch (Exception ex)
             {
-                client.Close();
                 logger.Trace(ex + "\r\n");
+                if (client.State!= System.ServiceModel.CommunicationState.Faulted)
+                {
+                  client.Close();   
+                }
+                else
+                {
+                    MessageBox.Show("Login or Password for Server Wrong! Programm will close!");
+                    this.Close();
+                }
             }
         }
 
@@ -101,7 +109,9 @@ namespace WorklistAssistant
 
         private async void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var client = new WAService.WAServiceClient("BasicHttpBinding_IWAService");
+            var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
+            client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password;
             FrameworkElement frm = new FrameworkElement();
             var parentSender = ((FrameworkElement)sender).Parent;
             var textWithTxtBlock = ((TextBlock)((FrameworkElement)parentSender).FindName("txtBlockLogin")).Text;
@@ -114,21 +124,5 @@ namespace WorklistAssistant
             client.Close();
            Refresh();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

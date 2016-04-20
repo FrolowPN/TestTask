@@ -4,6 +4,8 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.IdentityModel.Selectors;
+using System.Security;
 
 
 namespace WAServiceHost
@@ -17,6 +19,7 @@ namespace WAServiceHost
                 host.Open();
                 Console.WriteLine("Host open...");
                 Console.ReadKey();
+               
             }
             //WABaseContext ctx = new WABaseContext();
             //Clinic clinic = new Clinic();

@@ -30,7 +30,9 @@ namespace WorklistAssistant
 
         private async void Button_Save_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            var client = new WAServiceClient("BasicHttpBinding_IWAService");
+            var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
+            client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password;
             if (await client.VerifyingPasswordAsync(UserLog, psbOldPassword.Password))
             {
                 if (psbNewPassword.Password == psbConfirmNewPassword.Password)

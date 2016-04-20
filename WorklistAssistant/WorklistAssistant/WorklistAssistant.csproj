@@ -83,6 +83,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\ClientFileHelper.cs" />
+    <Compile Include="Helpers\GetUserLogAndPass.cs" />
     <Compile Include="Helpers\WLStatusHelper.cs" />
     <Compile Include="MyCommands\LocalCommands.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -198,6 +199,12 @@
     <Content Include="Resources\v_icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Service References\WAService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WAService\configuration.svcinfo" />
+    <None Include="Service References\WAService\configuration91.svcinfo" />
     <None Include="Service References\WAServiceOnIIS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -218,16 +225,6 @@
     <None Include="Service References\WAServiceOnIIS\WorklistAssistant.WAServiceOnIIS.Worklist.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\WAService\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\WAService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\WAService\configuration.svcinfo" />
-    <None Include="Service References\WAService\configuration91.svcinfo" />
-    <None Include="Service References\WAService\item.disco" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -245,13 +242,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\WAService\item.xsd">
+    <None Include="Service References\WAService\service.wsdl" />
+    <None Include="Service References\WAService\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WAService\item1.xsd">
+    <None Include="Service References\WAService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WAService\WAService.wsdl" />
+    <None Include="Service References\WAService\WAService.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\WAService\WorklistAssistant.WAService.Worklist.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
