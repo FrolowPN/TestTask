@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("WorklistAssistant")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Васильев В.С. Иваново-2012")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("WorklistAssistant")]
-[assembly: AssemblyCopyright("Copyright © Васильев В.С. Иваново-2012 2015")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

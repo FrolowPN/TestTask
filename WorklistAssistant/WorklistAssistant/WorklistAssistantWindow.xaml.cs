@@ -156,9 +156,6 @@ namespace WorklistAssistant
             this.Close();
             ni.Dispose();
         }
-        private void ContextMenuMouseLeave(object sender, RoutedEventArgs e)
-        {
-            TrayMenu.IsOpen = false;
-        }
+        
     }
 }

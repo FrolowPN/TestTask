@@ -1,6 +1,7 @@
 ﻿using NLog;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Diagnostics;
 
 
 namespace WorklistAssistant
@@ -24,18 +26,46 @@ namespace WorklistAssistant
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        //private static bool IsOne()
+        //{
+        //    string procName = Process.GetCurrentProcess().ProcessName;
+        //    int c = 0;
+        //    Process[] processes = Process.GetProcesses();
+        //    foreach (Process process in processes)
+        //    {
+        //        if (process.ProcessName == procName)
+        //        {
+        //            c++;
+        //            if (c > 1)
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    return true;
+        //}
+
         public MainWindow()
         {
-            InitializeComponent();
+            //if (IsOne())
+            //{
+                InitializeComponent();
             cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
             this.Topmost = true;
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Another copy is working!");
+            //    this.Close();
+            //}
+            
         }
 
         private async void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
         {
             var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
             client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
-            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password; 
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password;
             var c = cmbUser.SelectedValue;
             try
             {
@@ -49,16 +79,16 @@ namespace WorklistAssistant
                 else
                 {
                     client.Close();
-                    psbPassword.Password = null; 
+                    psbPassword.Password = null;
                     MessageBox.Show("Password Wrong!");
                 }
             }
             catch (Exception ex)
             {
                 logger.Trace(ex + "\r\n");
-                if (client.State!= System.ServiceModel.CommunicationState.Faulted)
+                if (client.State != System.ServiceModel.CommunicationState.Faulted)
                 {
-                  client.Close();   
+                    client.Close();
                 }
                 else
                 {
@@ -90,12 +120,12 @@ namespace WorklistAssistant
 
         private void Window_Activated(object sender, EventArgs e)
         {
-           Refresh();
+            Refresh();
         }
 
         private void Refresh()
         {
-            cmbUser.ItemsSource =  ClientFileHelper.GetAllLogins();
+            cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
         }
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -123,7 +153,7 @@ namespace WorklistAssistant
                 //client.DeleteAllWorklistForUser(textWithTxtBlock);
             }
             client.Close();
-           Refresh();
+            Refresh();
         }
     }
 }
