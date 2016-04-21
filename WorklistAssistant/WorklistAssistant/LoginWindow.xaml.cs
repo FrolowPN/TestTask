@@ -26,39 +26,13 @@ namespace WorklistAssistant
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        //private static bool IsOne()
-        //{
-        //    string procName = Process.GetCurrentProcess().ProcessName;
-        //    int c = 0;
-        //    Process[] processes = Process.GetProcesses();
-        //    foreach (Process process in processes)
-        //    {
-        //        if (process.ProcessName == procName)
-        //        {
-        //            c++;
-        //            if (c > 1)
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //    }
-        //    return true;
-        //}
-
+      
         public MainWindow()
         {
-            //if (IsOne())
-            //{
                 InitializeComponent();
             cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
-            this.Topmost = true;
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Another copy is working!");
-            //    this.Close();
-            //}
-            
+            //this.Topmost = true;
+         
         }
 
         private async void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)

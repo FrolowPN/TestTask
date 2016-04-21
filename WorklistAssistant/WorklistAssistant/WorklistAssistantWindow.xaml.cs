@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +25,9 @@ namespace WorklistAssistant
     {
        DispatcherTimer Timer = new DispatcherTimer();
         public int m = 0;
-
+         SingleInstanceManager mn = new SingleInstanceManager();
+        
+        
         public string LoginUser { get; set; }
         public IList<Worklist> Users { get; set; }
         System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
