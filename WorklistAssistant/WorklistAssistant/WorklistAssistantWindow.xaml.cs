@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using WorklistAssistant.WAService;
 using System.Windows.Threading;
 using WorklistAssistant.Helpers;
+using System.Reflection;
 
 namespace WorklistAssistant
 {
@@ -25,9 +26,7 @@ namespace WorklistAssistant
     {
        DispatcherTimer Timer = new DispatcherTimer();
         public int m = 0;
-         SingleInstanceManager mn = new SingleInstanceManager();
-        
-        
+     
         public string LoginUser { get; set; }
         public IList<Worklist> Users { get; set; }
         System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
@@ -51,7 +50,8 @@ namespace WorklistAssistant
             Left = primaryMonitorArea.Right - ActualWidth;
             Top = primaryMonitorArea.Bottom - this.ActualHeight;
             lblUserName.Content = LoginUser;
-            ni.Icon = new System.Drawing.Icon("Resources/v_icon.ico");
+            //ni.Icon = new System.Drawing.Icon("Resources/v_icon.ico");
+            ni.Icon = new System.Drawing.Icon(new Uri(Assembly.GetExecutingAssembly().Location.Replace("WorklistAssistant.exe", "Resources/v_icon.ico"), UriKind.RelativeOrAbsolute).LocalPath);
             ni.Text = "Worklist Assistant";
             TrayMenu = (ContextMenu)FindResource("TrayMenu");
             ni.Visible = true;

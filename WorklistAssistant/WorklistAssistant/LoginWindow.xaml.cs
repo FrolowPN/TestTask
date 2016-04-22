@@ -28,13 +28,61 @@ namespace WorklistAssistant
 
       
         public MainWindow()
-        {
-                InitializeComponent();
-            cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
-            //this.Topmost = true;
-         
+        {  
+            InitializeComponent();
+           cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
+            this.Topmost = true;
         }
-
+        public MainWindow(string param)
+        {
+            if (param.Length == 0)
+            {
+              InitializeComponent();
+            cmbUser.ItemsSource = ClientFileHelper.GetAllLogins();
+              this.Topmost = true;
+            }
+            else
+            {
+                Button_Login_Click(param, "1");
+            }
+           
+        }
+        private void Button_Login_Click(string login, string pass)
+        {
+            var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
+            client.ClientCredentials.UserName.UserName = Helpers.GetUserLogAndPass.Login;
+            client.ClientCredentials.UserName.Password = Helpers.GetUserLogAndPass.Password;
+           try
+            {
+                if (client.VerifyingPassword(login, pass))
+                {
+                    WorklistAssistantWindow form = new WorklistAssistantWindow(login);
+                    form.Show();
+                    this.Close();
+                    client.Close();
+                }
+                else
+                {
+                    client.Close();
+                    MainWindow wind = new MainWindow();
+                    wind.Show();
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                if (client.State != System.ServiceModel.CommunicationState.Faulted)
+                {
+                    client.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Login or Password for Server Wrong! Programm will close!");
+                    this.Close();
+                }
+            }
+        }
         private async void Button_Login_Click(object sender, ExecutedRoutedEventArgs e)
         {
             var client = new WAService.WAServiceClient("NetTcpBinding_IWAService");
@@ -45,6 +93,7 @@ namespace WorklistAssistant
             {
                 if (await client.VerifyingPasswordAsync(((Login)cmbUser.SelectedValue).MasterUserLogin, psbPassword.Password))
                 {
+                    ClientFileHelper.ChangeLastUser(((Login) cmbUser.SelectedValue).MasterUserLogin);
                     WorklistAssistantWindow form = new WorklistAssistantWindow(((Login)cmbUser.SelectedValue).MasterUserLogin);
                     form.Show();
                     client.Close();

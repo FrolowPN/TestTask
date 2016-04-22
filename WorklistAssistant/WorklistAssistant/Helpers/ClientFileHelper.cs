@@ -3,21 +3,35 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ConfigUtility.CustomConfigUtility;
+using NLog.Internal;
+using ConfigurationManager = System.Configuration.ConfigurationManager;
+using ConfigUtility.ConfigurationHelper;
+using ConfigUtility.PatchConfigUtility;
+
 
 namespace WorklistAssistant
 {
     public static class ClientFileHelper
     {
-       static Logger logger = LogManager.GetCurrentClassLogger();
+        static Logger logger = LogManager.GetCurrentClassLogger();
         private static string Path
         {
-            get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/MasterUserLogins.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+            //get { return new Uri(Directory.GetCurrentDirectory() + "/Resources/MasterUserLogins.txt", UriKind.RelativeOrAbsolute).LocalPath; }
+            get { return new Uri(Assembly.GetExecutingAssembly().Location.Replace("WorklistAssistant.exe", "Resources/MasterUserLogins.txt"), UriKind.RelativeOrAbsolute).LocalPath; }
         }
 
         public static IList<Login> GetAllLogins()
         {
+            
+            var cer1 = System.Windows.Forms.Application.ExecutablePath;
+          
+            var cer3 = System.Windows.Forms.Application.StartupPath;
+            var cer4 = Assembly.GetExecutingAssembly().Location;
+
             try
             {
                 using (StreamReader file = new StreamReader(Path))
@@ -30,8 +44,8 @@ namespace WorklistAssistant
                         logins.Add(new Login(tempString));
                         tempString = file.ReadLine();
                     }
-                    string imageLogo = new Uri(Directory.GetCurrentDirectory() + "/Resources/add.png", UriKind.RelativeOrAbsolute).LocalPath;
-                    string imageDel = new Uri(Directory.GetCurrentDirectory() + "/Resources/adds.png", UriKind.RelativeOrAbsolute).LocalPath;
+                    string imageLogo = new Uri(Assembly.GetExecutingAssembly().Location.Replace("WorklistAssistant.exe", "Resources/add.png"), UriKind.RelativeOrAbsolute).LocalPath;
+                    string imageDel = new Uri(Assembly.GetExecutingAssembly().Location.Replace("WorklistAssistant.exe", "Resources/adds.png"), UriKind.RelativeOrAbsolute).LocalPath;
                     logins.Add(new Login(imageLogo, "Add new user"));
                     return logins;
                 }
@@ -72,12 +86,12 @@ namespace WorklistAssistant
                     {
                         if (item.MasterUserLogin != masterUserLogin)
                         {
-                            if (item.MasterUserLogin!= "Add new user")
+                            if (item.MasterUserLogin != "Add new user")
                             {
                                 file.WriteLine(item.MasterUserLogin);
                             }
-                            
-                        }   
+
+                        }
                     }
                 }
             }
@@ -115,9 +129,32 @@ namespace WorklistAssistant
                 logger.Trace(ex + "\r\n");
             }
         }
+
+        public static bool ChangeLastUser(string masterUserLogin)
+        {
+            IConfigHelper configHelper = new ConfigManagerHelper();
+            //var c = configHelper.GetConfigurationSections()["appSettings"]["UserCfgPath"];
+      
+            string lastUserPath =
+                Common.PathExpand(configHelper.GetConfigurationSections()["WLAssistant"]["UserCfgPath"]);
+            try
+            {
+                using (StreamWriter file = new StreamWriter(lastUserPath, false))
+                {
+                    file.Write(masterUserLogin);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Trace(ex + "\r\n");
+                return false;
+            }
+            return true;
+        }
+
     }
 
-   public class Login
+    public class Login
     {
         public string MasterUserLogin { get; set; }
         public string ImageLogo { get; set; }
@@ -125,14 +162,14 @@ namespace WorklistAssistant
         public Login(string login)
         {
             MasterUserLogin = login;
-            ImageLogo = new Uri(Directory.GetCurrentDirectory() + "/Resources/userface.png", UriKind.RelativeOrAbsolute).LocalPath;
-            ImageDel = new Uri(Directory.GetCurrentDirectory() + "/Resources/busket.png", UriKind.RelativeOrAbsolute).LocalPath;
+            ImageLogo = new Uri(Assembly.GetExecutingAssembly().Location.Replace("WorklistAssistant.exe", "Resources/userface.png"), UriKind.RelativeOrAbsolute).LocalPath;
+            ImageDel = new Uri(Assembly.GetExecutingAssembly().Location.Replace("WorklistAssistant.exe", "Resources/busket.png"), UriKind.RelativeOrAbsolute).LocalPath;
         }
-        
+
         public Login()
         {
-            ImageLogo = new Uri(Directory.GetCurrentDirectory() + "/Resources/userface.png", UriKind.RelativeOrAbsolute).LocalPath;
-            ImageDel = new Uri(Directory.GetCurrentDirectory() + "/Resources/busket.png", UriKind.RelativeOrAbsolute).LocalPath;
+            ImageLogo = new Uri(Assembly.GetExecutingAssembly().Location.Replace("WorklistAssistant.exe", "Resources/userface.png"), UriKind.RelativeOrAbsolute).LocalPath;
+            ImageDel = new Uri(Assembly.GetExecutingAssembly().Location.Replace("WorklistAssistant.exe", "Resources/busket.png"), UriKind.RelativeOrAbsolute).LocalPath;
         }
         public Login(string pathImageAdd, string login)
         {
@@ -141,4 +178,6 @@ namespace WorklistAssistant
         }
 
     }
+
+
 }
